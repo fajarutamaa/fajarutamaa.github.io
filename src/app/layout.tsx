@@ -7,11 +7,11 @@ import { Provider } from "./provider";
 import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
-  title: "Fahrezi Adha - Software Engineer",
+  title: "Fajar Dwi Utomo - Software Engineer",
   description: "Software Engineer",
   openGraph: {
     type: "website",
-    description: "Frontend Engineer",
+    description: "Junior Software Engineer",
     title: "Fajar Dwi Utomo",
     siteName: "Fajar Dwi Utomo",
     locale: "en_US",
@@ -39,7 +39,7 @@ export default function RootLayout({
       <body
         className={`bg-background font-sans text-foreground antialiased ${GeistSans.variable} ${GeistMono.variable}`}
       >
-        <Toaster position="top-center"/>
+        <Toaster position="top-center" />
         <Provider>{children}</Provider>
       </body>
     </html>

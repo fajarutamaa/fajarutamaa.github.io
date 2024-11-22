@@ -7,10 +7,17 @@ export default function Home() {
       <Link href="/" className="font-medium">
         Fajar Dwi Utomo
       </Link>
-      <p className="opacity-70 font-medium">Junior Software Engineer</p>
+      <p className="opacity-70 font-medium">Junior Software Engineer 👋</p>
       <p className="mt-6 text-foreground/70">
-      Software engineer passionate about building things people love. Currently learning and working on {" "}
-        <Link href="https://gps.id" className="hover:text-[#1da1f2]" target="_blank">GPS.id</Link>
+        I'am a Software engineer passionate about building things people love.
+        Currently learning and working on{" "}
+        <Link
+          href="https://gps.id"
+          className="hover:text-[#1da1f2]"
+          target="_blank"
+        >
+          GPS.id
+        </Link>
       </p>
     </main>
   );
