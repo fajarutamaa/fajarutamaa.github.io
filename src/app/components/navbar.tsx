@@ -12,20 +12,7 @@ export const Navbar = () => {
 
   return (
     <div className="container max-w-[680px] mt-6 lg:mt-10 flex flex-row items-center gap-4 justify-between">
-      <div className="flex flex-row items-center tracking-tight gap-4 md:gap-6">
-        <a href="/" className="hover:opacity-70">
-          home
-        </a>
-        <a href="/work" className="hover:opacity-70">
-          work
-        </a>
-        <a href="/blog" className="hover:opacity-70">
-          blog
-        </a>
-        <a href="/contact" className="hover:opacity-70">
-          contact
-        </a>
-      </div>
+      <div className="flex flex-row items-center tracking-tight gap-4 md:gap-6"></div>
       <div className="flex flex-row items-center gap-4 md:gap-6">
         {isClient ? (
           <button
@@ -35,7 +22,7 @@ export const Navbar = () => {
             }}
             className="transition-all hover:opacity-70"
           >
-            {theme === "dark" ? <SunIcon size={16}/> : <MoonIcon size={16}/>}
+            {theme === "dark" ? <SunIcon size={16} /> : <MoonIcon size={16} />}
           </button>
         ) : null}
       </div>
