@@ -7,8 +7,17 @@ const readers = [
     description: "Style guides for Google-originated open-source projects",
     website: "https://google.github.io/styleguide/",
     logo: "/google.png",
-    stack: ["google", "Open-source"],
+    stack: ["google", "open-source"],
     thumbnail: "/img/thumbnail-google.png",
+    year: "2024",
+  },
+  {
+    name: "The Node.js best practices",
+    description: "The Node.js best practices list (July 2024)",
+    website: "https://github.com/goldbergyoni/nodebestpractices",
+    logo: "/google.png",
+    stack: ["best-practices", "node-js", "javascript"],
+    thumbnail: "/img/thumbnail-nodejs.webp",
     year: "2024",
   },
 ];
