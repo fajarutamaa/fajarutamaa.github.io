@@ -44,7 +44,7 @@ export default function Home() {
         .
       </p>
 
-      <p className="font-medium mt-20">Bookmark</p>
+      <p className="font-medium mt-10">Bookmarks</p>
       <div className="mt-10 grid md:grid-cols-2 gap-8">
         {readers.map((reader, index) => (
           <Link
