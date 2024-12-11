@@ -46,18 +46,22 @@ export default function Home() {
 
       <p className="font-medium mt-20">Bookmark</p>
       <div className="mt-10 grid md:grid-cols-2 gap-8">
-        {readers.map((reader) => (
+        {readers.map((reader, index) => (
           <Link
             href={reader.website}
             key={reader.name}
-            className="relative hover:bg-foreground/5 hover:border-foreground/10 border border-foreground/0 rounded-lg -m-3 p-3 transition-colors duration-100"
+            className={`relative hover:bg-foreground/5 hover:border-foreground/10 border border-foreground/0 rounded-lg -m-3 p-3 transition-colors duration-200 animate-fadeIn`}
+            style={{
+              animationDelay: `${index * 100}ms`,
+              animationFillMode: "both",
+            }}
           >
             <Image
               src={reader.thumbnail}
               alt={reader.name}
               width={400}
               height={300}
-              className="aspect-[16/9] object-cover rounded-lg border border-foreground/5 shadow-sm w-full min-h-[200px] min-w-full"
+              className="aspect-[16/9] object-cover rounded-lg border border-foreground/5 shadow-sm w-full min-h-[200px] min-w-full transition-transform duration-300 hover:scale-105"
             />
             <div className="mt-4 flex flex-row items-start justify-between w-full">
               <p>{reader.name}</p>
