@@ -1,3 +1,4 @@
+import { Github, Instagram, Linkedin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -77,6 +78,32 @@ export default function Home() {
             </h2>
           </Link>
         ))}
+      </div>
+      <div className="flex flex-col items-center mt-20">
+        <h2 className="font-medium text-sm">Connect with me</h2>
+        <div className="flex gap-6 mt-4">
+          <Link
+            href="https://github.com/fajarutamaa"
+            target="_blank"
+            className="transition-transform transform hover:scale-110"
+          >
+            <Github size={20} />
+          </Link>
+          <Link
+            href="https://www.linkedin.com/in/fajardwiutomo/"
+            target="_blank"
+            className="transition-transform transform hover:scale-110"
+          >
+            <Linkedin size={20} />
+          </Link>
+          <Link
+            href="https://www.instagram.com/fajar.utamaa/"
+            target="_blank"
+            className="transition-transform transform hover:scale-110"
+          >
+            <Instagram size={20} />
+          </Link>
+        </div>
       </div>
     </main>
   );
