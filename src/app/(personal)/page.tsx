@@ -32,7 +32,7 @@ export default function Home() {
       </Link>
       <p className="opacity-70 font-medium">Junior Software Engineer 👋</p>
       <p className="mt-6 text-foreground/70">
-        I'am a junior software engineer passionate about building things people
+        I'm a junior software engineer passionate about building things people
         love. Currently learning and working on{" "}
         <Link
           href="https://gps.id"
