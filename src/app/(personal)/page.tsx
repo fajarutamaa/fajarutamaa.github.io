@@ -3,8 +3,6 @@ import Image from "next/image";
 import { promises as fs } from "fs";
 import Link from "next/link";
 
-export const dynamic = "force-dynamic";
-
 type Reader = {
   name: string;
   description: string;
