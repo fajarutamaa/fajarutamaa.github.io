@@ -1,31 +1,27 @@
 import { Github, Instagram, Linkedin } from "lucide-react";
 import Image from "next/image";
+import { promises as fs } from "fs";
 import Link from "next/link";
 
-const readers = [
-  {
-    name: "Google Style Guides",
-    description: "Style guides for Google-originated open-source projects",
-    website: "https://google.github.io/styleguide/",
-    logo: "/google.png",
-    stack: ["google", "open-source"],
-    thumbnail: "/img/thumbnail-google.png",
-    year: "2024",
-  },
-  {
-    name: "The Node.js best practices",
-    description: "The Node.js best practices list (July 2024)",
-    website: "https://github.com/goldbergyoni/nodebestpractices",
-    logo: "/google.png",
-    stack: ["best-practices", "node-js", "javascript"],
-    thumbnail: "/img/thumbnail-nodejs.webp",
-    year: "2024",
-  },
-];
+export const dynamic = "force-dynamic";
 
-export const dynamic = "force-static";
+type Reader = {
+  name: string;
+  description: string;
+  website: string;
+  logo: string;
+  stack?: string[];
+  thumbnail: string;
+  year: string;
+};
 
-export default function Home() {
+export default async function Home() {
+  const file = await fs.readFile(
+    process.cwd() + "/data/bookmarks.json",
+    "utf-8"
+  );
+  const readers: Reader[] = JSON.parse(file);
+
   return (
     <main className="container max-w-[680px] leading-relaxed antialiased pb-20">
       <Link href="/" className="font-medium">
@@ -33,8 +29,8 @@ export default function Home() {
       </Link>
       <p className="opacity-70 font-medium">Junior Software Engineer 👋</p>
       <p className="mt-6 text-foreground/70">
-        I'm a junior software engineer passionate about building things people
-        love. Currently learning and working on{" "}
+        I am a junior software engineer passionate about creating products that
+        people love. Currently, I am learning and contributing to projects at{" "}
         <Link
           href="https://gps.id"
           className="hover:text-[#1da1f2]"
@@ -47,7 +43,7 @@ export default function Home() {
 
       <p className="font-medium mt-10">Bookmarks</p>
       <div className="mt-10 grid md:grid-cols-2 gap-8">
-        {readers.map((reader, index) => (
+        {readers.map((reader: Reader, index: number) => (
           <Link
             href={reader.website}
             key={reader.name}
@@ -80,7 +76,7 @@ export default function Home() {
         ))}
       </div>
       <div className="flex flex-col items-center mt-20">
-        <h2 className="font-medium text-sm">Connect with me</h2>
+        <h2 className="font-medium text-sm">connect with me</h2>
         <div className="flex gap-6 mt-4">
           <Link
             href="https://github.com/fajarutamaa"

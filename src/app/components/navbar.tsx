@@ -31,12 +31,12 @@ export const Navbar = () => {
           >
             {theme === "dark" ? (
               <SunIcon
-                size={16}
+                size={18}
                 className="transition-transform duration-300 rotate-0 hover:rotate-90"
               />
             ) : (
               <MoonIcon
-                size={16}
+                size={18}
                 className="transition-transform duration-300 rotate-0 hover:rotate-90"
               />
             )}
