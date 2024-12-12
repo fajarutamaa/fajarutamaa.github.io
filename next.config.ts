@@ -1,7 +1,9 @@
-const nextConfig = {
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
   basePath: "/",
-  output: "export", 
+  output: "standalone",
   reactStrictMode: true,
 };
 
-module.exports = nextConfig;
+export default nextConfig;

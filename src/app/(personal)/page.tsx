@@ -18,7 +18,7 @@ type Reader = {
 export default async function Home() {
   const file = await fs.readFile(
     process.cwd() + "/data/bookmarks.json",
-    "utf-8"
+     "utf-8"
   );
   const readers: Reader[] = JSON.parse(file);
 
@@ -29,8 +29,8 @@ export default async function Home() {
       </Link>
       <p className="opacity-70 font-medium">Junior Software Engineer 👋</p>
       <p className="mt-6 text-foreground/70">
-        I am a junior software engineer passionate about creating products that
-        people love. Currently, I am learning and contributing to projects at{" "}
+        I'm a junior software engineer passionate about building things people
+        love. Currently learning and working on{" "}
         <Link
           href="https://gps.id"
           className="hover:text-[#1da1f2]"
@@ -76,7 +76,7 @@ export default async function Home() {
         ))}
       </div>
       <div className="flex flex-col items-center mt-20">
-        <h2 className="font-medium text-sm">connect with me</h2>
+        <h2 className="font-medium text-sm">Connect with me</h2>
         <div className="flex gap-6 mt-4">
           <Link
             href="https://github.com/fajarutamaa"
