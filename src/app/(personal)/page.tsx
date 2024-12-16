@@ -22,13 +22,22 @@ export default async function Home() {
 
   return (
     <main className="container max-w-[680px] leading-relaxed antialiased pb-20">
-      <Link href="/" className="font-medium">
-        Fajar Dwi Utomo
-      </Link>
-      <p className="opacity-80 font-medium">Junior Software Engineer 👋</p>
-      <p className="mt-6">
-        I am a junior software engineer passionate about building things that
-        people love. Currently, I am learning and working at{" "}
+      <div className="flex items-center space-x-4">
+        <img
+          src="/img/avatar.webp"
+          alt="Avatar"
+          className="w-12 h-12 rounded-full"
+        />
+        <div>
+          <Link href="/" className="font-medium">
+            Fajar Dwi Utomo
+          </Link>
+          <p className="opacity-70 font-medium">Junior Software Engineer 👋</p>
+        </div>
+      </div>
+      <p className="mt-6 text-foreground/70">
+        I'm a junior software engineer passionate about building things people
+        love. Currently learning and working on{" "}
         <Link
           href="https://gps.id"
           className="hover:text-[#1da1f2]"
