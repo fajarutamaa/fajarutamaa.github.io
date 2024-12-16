@@ -1,5 +1,6 @@
 import { Facebook, Github, Instagram, Linkedin, Rss } from "lucide-react";
 import Image from "next/image";
+import { Tooltip } from "@nextui-org/tooltip";
 import { promises as fs } from "fs";
 import Link from "next/link";
 
@@ -85,34 +86,94 @@ export default async function Home() {
       <div className="flex flex-col items-center mt-20">
         <h2 className="font-medium text-sm">connect with me</h2>
         <div className="flex gap-6 mt-4">
-          <Link
-            href="https://github.com/fajarutamaa"
-            target="_blank"
-            className="transition-transform transform hover:scale-110"
+          <Tooltip
+            classNames={{
+              base: ["before:bg-neutral-400 dark:before:bg-white"],
+              content: [
+                "py-2 px-4 shadow-sm",
+                "font-medium text-sm",
+                "rounded-lg",
+                "text-black bg-gradient-to-br from-white to-neutral-400",
+              ],
+            }}
+            content="github"
+            showArrow={true}
+            placement={"bottom"}
           >
-            <Github size={20} />
-          </Link>
-          <Link
-            href="https://www.linkedin.com/in/fajardwiutomo/"
-            target="_blank"
-            className="transition-transform transform hover:scale-110"
+            <Link
+              href="https://github.com/fajarutamaa"
+              target="_blank"
+              className="transition-transform transform hover:scale-110"
+            >
+              <Github size={20} />
+            </Link>
+          </Tooltip>
+          <Tooltip
+            classNames={{
+              base: ["before:bg-neutral-400 dark:before:bg-white"],
+              content: [
+                "py-2 px-4 shadow-sm",
+                "font-medium text-sm",
+                "rounded-lg",
+                "text-black bg-gradient-to-br from-white to-neutral-400",
+              ],
+            }}
+            content="linkedin"
+            showArrow={true}
+            placement={"bottom"}
           >
-            <Linkedin size={20} />
-          </Link>
-          <Link
-            href="https://www.instagram.com/fajar.utamaa/"
-            target="_blank"
-            className="transition-transform transform hover:scale-110"
+            <Link
+              href="https://www.linkedin.com/in/fajardwiutomo/"
+              target="_blank"
+              className="transition-transform transform hover:scale-110"
+            >
+              <Linkedin size={20} />
+            </Link>
+          </Tooltip>
+          <Tooltip
+            classNames={{
+              base: ["before:bg-neutral-400 dark:before:bg-white"],
+              content: [
+                "py-2 px-4 shadow-sm",
+                "font-medium text-sm",
+                "rounded-lg",
+                "text-black bg-gradient-to-br from-white to-neutral-400",
+              ],
+            }}
+            content="instagram"
+            showArrow={true}
+            placement={"bottom"}
           >
-            <Instagram size={20} />
-          </Link>
-          <Link
-            href="https://medium.com/@fajardwiutomo"
-            target="_blank"
-            className="transition-transform transform hover:scale-110"
+            <Link
+              href="https://www.instagram.com/fajar.utamaa/"
+              target="_blank"
+              className="transition-transform transform hover:scale-110"
+            >
+              <Instagram size={20} />
+            </Link>
+          </Tooltip>
+          <Tooltip
+            classNames={{
+              base: ["before:bg-neutral-400 dark:before:bg-white"],
+              content: [
+                "py-2 px-4 shadow-sm",
+                "font-medium text-sm",
+                "rounded-lg",
+                "text-black bg-gradient-to-br from-white to-neutral-400",
+              ],
+            }}
+            content="medium"
+            showArrow={true}
+            placement={"bottom"}
           >
-            <Rss size={20} />
-          </Link>
+            <Link
+              href="https://medium.com/@fajardwiutomo"
+              target="_blank"
+              className="transition-transform transform hover:scale-110"
+            >
+              <Rss size={20} />
+            </Link>
+          </Tooltip>
         </div>
       </div>
     </main>
