@@ -1,4 +1,4 @@
-import { Github, Instagram, Linkedin } from "lucide-react";
+import { Facebook, Github, Instagram, Linkedin, Rss } from "lucide-react";
 import Image from "next/image";
 import { promises as fs } from "fs";
 import Link from "next/link";
@@ -105,6 +105,13 @@ export default async function Home() {
             className="transition-transform transform hover:scale-110"
           >
             <Instagram size={20} />
+          </Link>
+          <Link
+            href="https://medium.com/@fajardwiutomo"
+            target="_blank"
+            className="transition-transform transform hover:scale-110"
+          >
+            <Rss size={20} />
           </Link>
         </div>
       </div>
