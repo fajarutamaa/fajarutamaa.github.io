@@ -16,5 +16,14 @@
     "stack": ["best-practices", "node-js", "javascript"],
     "thumbnail": "/img/thumbnail-nodejs.webp",
     "year": "2024"
+  },
+  {
+    "name": "Devops Exercises",
+    "description": "This repo contains technical questions and exercises, focusing on DevOps and SRE topics",
+    "website": "https://github.com/bregman-arie/devops-exercises",
+    "logo": "/google.png",
+    "stack": ["devops", "sre", "network", "infrastructure"],
+    "thumbnail": "/img/thumbnail-devops.webp",
+    "year": "2022"
   }
 ]
