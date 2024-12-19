@@ -25,5 +25,14 @@
     "stack": ["devops", "sre", "network", "infrastructure"],
     "thumbnail": "/img/thumbnail-devops.webp",
     "year": "2022"
+  },
+  {
+    "name": "Learning the basics of the Go programming language",
+    "description": "Learning the fundamentals of Golang is the first step to building efficient and modern applications",
+    "website": "https://dasarpemrogramangolang.novalagung.com/1-berkenalan-dengan-golang.html",
+    "logo": "/google.png",
+    "stack": ["basic", "golang"],
+    "thumbnail": "/img/thumbnail-golang.webp",
+    "year": "2024"
   }
 ]
