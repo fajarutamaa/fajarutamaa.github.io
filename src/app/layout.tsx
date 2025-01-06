@@ -43,6 +43,7 @@ export default function RootLayout({
           src="https://cloud.umami.is/script.js"
           data-website-id="3f30a149-5d18-433c-98a2-b940af1b5282"
         ></script>
+        <meta name="google-site-verification" content="Pczx3WHw0VnNdssn6ulbWnQI91YIb0EgbwkHuggcgPE" />
       </head>
       <body
         className={`bg-background font-sans text-foreground antialiased ${GeistSans.variable} ${GeistMono.variable}`}
