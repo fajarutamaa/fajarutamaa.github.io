@@ -28,10 +28,10 @@ export default function ContactPage() {
                                 <div>
                                     <h3 className="font-medium mb-1">Email</h3>
                                     <a
-                                        href="mailto:fajardwiutomo@gmail.com"
+                                        href="mailto:fajardwiutomo75@gmail.com"
                                         className="text-sm text-muted-foreground hover:text-primary transition-colors"
                                     >
-                                        fajardwiutomo@gmail.com
+                                        fajardwiutomo75@gmail.com
                                     </a>
                                 </div>
                             </div>
