@@ -1,181 +1,58 @@
-import { Facebook, Github, Instagram, Linkedin, Rss } from "lucide-react";
-import Image from "next/image";
-import { Tooltip } from "@nextui-org/tooltip";
-import { promises as fs } from "fs";
-import Link from "next/link";
+import { Suspense } from 'react';
+import { getBookmarks } from '@/lib/notion/queries';
+import { Hero } from '@/components/ui/Hero';
+import { BookmarkCard } from '@/components/ui/BookmarkCard';
+import { LoadingState } from '@/components/ui/LoadingState';
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 
-type Reader = {
-  name: string;
-  description: string;
-  website: string;
-  logo: string;
-  stack?: string[];
-  thumbnail: string;
-  year: string;
-};
+// Enable ISR (Incremental Static Regeneration) - revalidate every hour
+export const revalidate = 3600;
 
-export default async function Home() {
-  const file = await fs.readFile(
-    process.cwd() + "/data/bookmarks.json",
-    "utf-8"
-  );
-  const readers: Reader[] = JSON.parse(file);
+async function BookmarksSection() {
+  const bookmarks = await getBookmarks();
+
+  if (!bookmarks || bookmarks.length === 0) {
+    return (
+      <div className="text-center py-20">
+        <p className="text-muted-foreground">No bookmarks found.</p>
+      </div>
+    );
+  }
 
   return (
-    <main className="container max-w-[680px] leading-relaxed antialiased pb-20">
-      <div className="flex items-center space-x-4">
-        <img
-          src="/img/avatar.webp"
-          alt="Avatar"
-          className="w-12 h-12 rounded-full"
-        />
-        <div>
-          <Link href="/" className="font-medium">
-            Fajar Dwi Utomo
-          </Link>
-          <p className="opacity-70 font-medium">Junior Software Engineer 👋</p>
-        </div>
-      </div>
-      <p className="mt-6 text-foreground/70">
-        I'm a junior software engineer passionate about building things people
-        love. Currently learning and working on{" "}
-        <Link
-          href="https://gps.id"
-          className="hover:text-[#1da1f2]"
-          target="_blank"
-        >
-          GPS.id
-        </Link>
-        .
+    <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
+      {bookmarks.map((bookmark, index) => (
+        <BookmarkCard key={bookmark.id} bookmark={bookmark} index={index} />
+      ))}
+    </div>
+  );
+}
+
+export default async function Home() {
+  return (
+    <main className="container max-w-[680px] lg:max-w-[900px] leading-relaxed antialiased py-12 pb-20">
+      {/* Hero Section */}
+      <Hero />
+
+      {/* Introduction */}
+      <p className="mt-6 text-foreground/80 leading-relaxed animate-fadeIn" style={{ animationDelay: '100ms' }}>
+        I&apos;m a junior software engineer with a strong passion for creating meaningful and user-focused digital products. I enjoy turning ideas into reliable, well-crafted solutions that people genuinely love to use. Currently, I&apos;m learning and contributing to development at GPS.id, where I continue to sharpen my skills and explore new challenges in software engineering.
       </p>
 
-      <p className="font-medium mt-10">Bookmarks</p>
-      <div className="mt-10 grid md:grid-cols-2 gap-8">
-        {readers.map((reader: Reader, index: number) => (
-          <Link
-            href={reader.website}
-            key={reader.name}
-            className={`relative hover:bg-foreground/5 hover:border-foreground/10 border border-foreground/0 rounded-lg -m-3 p-3 transition-colors duration-200 animate-fadeIn`}
-            style={{
-              animationDelay: `${index * 100}ms`,
-              animationFillMode: "both",
-            }}
-          >
-            <Image
-              src={reader.thumbnail}
-              alt={reader.name}
-              width={400}
-              height={300}
-              className="aspect-[16/9] object-cover rounded-lg border border-foreground/5 shadow-sm w-full min-h-[200px] min-w-full transition-transform duration-300 hover:scale-105"
-            />
-            <div className="mt-4 flex flex-row items-start justify-between w-full">
-              <p>{reader.name}</p>
-              <p className="text-xs opacity-50">{reader.year}</p>
-            </div>
-            <h2 className="opacity-70">{reader.description}</h2>
-            <h2 className="opacity-70 flex flex-row flex-wrap gap-1.5 text-xs mt-2 font-medium">
-              {reader.stack?.map((e) => (
-                <span key={e} className="px-2 py-1 rounded-lg bg-foreground/5">
-                  {e}
-                </span>
-              ))}
-            </h2>
-          </Link>
-        ))}
-      </div>
-      <div className="flex flex-col items-center mt-20">
-        <h2 className="font-medium text-sm">connect with me</h2>
-        <div className="flex gap-6 mt-4">
-          <Tooltip
-            classNames={{
-              base: ["before:bg-neutral-400 dark:before:bg-white"],
-              content: [
-                "py-2 px-4 shadow-sm",
-                "font-medium text-sm",
-                "rounded-lg",
-                "text-black bg-gradient-to-br from-white to-neutral-400",
-              ],
-            }}
-            content="github"
-            showArrow={true}
-            placement={"bottom"}
-          >
-            <Link
-              href="https://github.com/fajarutamaa"
-              target="_blank"
-              className="transition-transform transform hover:scale-110"
-            >
-              <Github size={20} />
-            </Link>
-          </Tooltip>
-          <Tooltip
-            classNames={{
-              base: ["before:bg-neutral-400 dark:before:bg-white"],
-              content: [
-                "py-2 px-4 shadow-sm",
-                "font-medium text-sm",
-                "rounded-lg",
-                "text-black bg-gradient-to-br from-white to-neutral-400",
-              ],
-            }}
-            content="linkedin"
-            showArrow={true}
-            placement={"bottom"}
-          >
-            <Link
-              href="https://www.linkedin.com/in/fajardwiutomo/"
-              target="_blank"
-              className="transition-transform transform hover:scale-110"
-            >
-              <Linkedin size={20} />
-            </Link>
-          </Tooltip>
-          <Tooltip
-            classNames={{
-              base: ["before:bg-neutral-400 dark:before:bg-white"],
-              content: [
-                "py-2 px-4 shadow-sm",
-                "font-medium text-sm",
-                "rounded-lg",
-                "text-black bg-gradient-to-br from-white to-neutral-400",
-              ],
-            }}
-            content="instagram"
-            showArrow={true}
-            placement={"bottom"}
-          >
-            <Link
-              href="https://www.instagram.com/fajar.utamaa/"
-              target="_blank"
-              className="transition-transform transform hover:scale-110"
-            >
-              <Instagram size={20} />
-            </Link>
-          </Tooltip>
-          <Tooltip
-            classNames={{
-              base: ["before:bg-neutral-400 dark:before:bg-white"],
-              content: [
-                "py-2 px-4 shadow-sm",
-                "font-medium text-sm",
-                "rounded-lg",
-                "text-black bg-gradient-to-br from-white to-neutral-400",
-              ],
-            }}
-            content="medium"
-            showArrow={true}
-            placement={"bottom"}
-          >
-            <Link
-              href="https://medium.com/@fajardwiutomo"
-              target="_blank"
-              className="transition-transform transform hover:scale-110"
-            >
-              <Rss size={20} />
-            </Link>
-          </Tooltip>
+      {/* Bookmarks Section */}
+      <section className="mt-16">
+        <div className="flex items-center justify-between mb-8 animate-fadeIn" style={{ animationDelay: '200ms' }}>
+          <h2 className="text-xl font-semibold">Bookmarks</h2>
+          <div className="h-px flex-1 ml-4 bg-gradient-to-r from-border to-transparent" />
         </div>
-      </div>
+
+        <ErrorBoundary>
+          <Suspense fallback={<LoadingState />}>
+            <BookmarksSection />
+          </Suspense>
+        </ErrorBoundary>
+      </section>
     </main>
   );
 }
+

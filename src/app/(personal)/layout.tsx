@@ -1,11 +1,13 @@
-import React from "react";
-import { Navbar } from "../components/navbar";
+import React from 'react';
+import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <Navbar />
-      <main className="pt-12 antialiased">{children}</main>
+      <Header />
+      <main className="min-h-screen">{children}</main>
+      <Footer />
     </>
   );
 };

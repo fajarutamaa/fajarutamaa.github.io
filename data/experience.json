@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1",
+    "title": "Junior Software Engineer",
+    "organization": "GPS.id",
+    "location": "Indonesia",
+    "period": "2024 - Present",
+    "description": "Working on building innovative solutions and contributing to various projects using modern web technologies.",
+    "type": "work",
+    "current": true
+  },
+  {
+    "id": "2",
+    "title": "Computer Science",
+    "organization": "University",
+    "location": "Indonesia",
+    "period": "2020 - 2024",
+    "description": "Studied computer science fundamentals, software engineering, and web development.",
+    "type": "education",
+    "current": false
+  }
+]

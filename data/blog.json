@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1",
+    "title": "Getting Started with Next.js 15",
+    "slug": "getting-started-with-nextjs-15",
+    "excerpt": "Learn how to build modern web applications with the latest version of Next.js.",
+    "date": "2024-11-15",
+    "readTime": "5 min read",
+    "category": "Tutorial",
+    "tags": ["Next.js", "React"],
+    "published": true,
+    "coverImage": "/img/placeholder.webp"
+  },
+  {
+    "id": "2",
+    "title": "Building Scalable UI Components",
+    "slug": "building-scalable-ui-components",
+    "excerpt": "Best practices for creating reusable and maintainable React components.",
+    "date": "2024-11-10",
+    "readTime": "8 min read",
+    "category": "Development",
+    "tags": ["React", "UI/UX"],
+    "published": true,
+    "coverImage": "/img/placeholder.webp"
+  },
+  {
+    "id": "3",
+    "title": "Integrating Notion as a CMS",
+    "slug": "integrating-notion-as-a-cms",
+    "excerpt": "How to use Notion as a flexible content management system for your website.",
+    "date": "2024-11-05",
+    "readTime": "10 min read",
+    "category": "Tutorial",
+    "tags": ["Notion", "CMS"],
+    "published": true,
+    "coverImage": "/img/placeholder.webp"
+  }
+]

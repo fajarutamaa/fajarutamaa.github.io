@@ -13,7 +13,7 @@ export const Navbar = () => {
 
   return (
     <div
-      className="container max-w-[680px] mt-6 lg:mt-10 flex flex-row items-center gap-4 justify-between animate-fadeIn"
+      className="container max-w-[680px] lg:max-w-[900px] mt-6 lg:mt-10 flex flex-row items-center gap-4 justify-between animate-fadeIn"
       style={{
         animationDelay: "100ms",
         animationFillMode: "both",
@@ -27,19 +27,23 @@ export const Navbar = () => {
             onClick={() => {
               setTheme(theme === "light" ? "dark" : "light");
             }}
-            className="transition-all transform hover:opacity-70 hover:scale-110 duration-200 ease-out"
+            className="group relative p-2 rounded-lg transition-all duration-300 hover:bg-primary/10"
+            aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
           >
             {theme === "dark" ? (
               <SunIcon
                 size={18}
-                className="transition-transform duration-300 rotate-0 hover:rotate-90"
+                className="transition-all duration-300 group-hover:rotate-90 group-hover:text-primary"
               />
             ) : (
               <MoonIcon
                 size={18}
-                className="transition-transform duration-300 rotate-0 hover:rotate-90"
+                className="transition-all duration-300 group-hover:-rotate-12 group-hover:text-primary"
               />
             )}
+
+            {/* Animated ring on hover */}
+            <span className="absolute inset-0 rounded-lg ring-2 ring-primary/0 group-hover:ring-primary/20 transition-all duration-300" />
           </button>
         ) : null}
       </div>

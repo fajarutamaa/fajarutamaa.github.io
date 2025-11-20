@@ -1,0 +1,15 @@
+[
+  { "id": "1", "name": "React", "category": "Frontend", "level": "Advanced" },
+  { "id": "2", "name": "Next.js", "category": "Frontend", "level": "Advanced" },
+  { "id": "3", "name": "TypeScript", "category": "Frontend", "level": "Intermediate" },
+  { "id": "4", "name": "Tailwind CSS", "category": "Frontend", "level": "Advanced" },
+  { "id": "5", "name": "JavaScript", "category": "Frontend", "level": "Advanced" },
+  { "id": "6", "name": "Node.js", "category": "Backend", "level": "Intermediate" },
+  { "id": "7", "name": "Express", "category": "Backend", "level": "Intermediate" },
+  { "id": "8", "name": "PostgreSQL", "category": "Backend", "level": "Intermediate" },
+  { "id": "9", "name": "MongoDB", "category": "Backend", "level": "Beginner" },
+  { "id": "10", "name": "Git", "category": "Tools & Others", "level": "Advanced" },
+  { "id": "11", "name": "Docker", "category": "Tools & Others", "level": "Beginner" },
+  { "id": "12", "name": "Vercel", "category": "Tools & Others", "level": "Intermediate" },
+  { "id": "13", "name": "Figma", "category": "Tools & Others", "level": "Intermediate" }
+]
