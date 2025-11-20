@@ -25,7 +25,9 @@ export function Header() {
     }, []);
 
     return (
-        <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <header
+            className="fixed top-0 left-0 right-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/70 shadow-sm"
+        >
             <nav className="container max-w-[680px] lg:max-w-[900px] flex h-16 items-center justify-between">
                 {/* Logo */}
                 <Link
@@ -63,21 +65,20 @@ export function Header() {
                         <button
                             type="button"
                             onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-                            className="group relative p-2 rounded-lg transition-all duration-300 hover:bg-primary/10"
+                            className="group relative p-2.5 rounded-lg transition-all duration-300 hover:bg-primary/10 border border-transparent hover:border-primary/20"
                             aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
                         >
                             {theme === 'dark' ? (
                                 <SunIcon
                                     size={18}
-                                    className="transition-all duration-300 group-hover:rotate-90 group-hover:text-primary"
+                                    className="transition-all duration-300 group-hover:rotate-90 group-hover:text-primary text-foreground"
                                 />
                             ) : (
                                 <MoonIcon
                                     size={18}
-                                    className="transition-all duration-300 group-hover:-rotate-12 group-hover:text-primary"
+                                    className="transition-all duration-300 group-hover:-rotate-12 group-hover:text-primary text-foreground"
                                 />
                             )}
-                            <span className="absolute inset-0 rounded-lg ring-2 ring-primary/0 group-hover:ring-primary/20 transition-all duration-300" />
                         </button>
                     )}
 
@@ -95,7 +96,7 @@ export function Header() {
 
             {/* Mobile Menu */}
             {mobileMenuOpen && (
-                <div className="md:hidden border-t border-border/40 bg-background/95 backdrop-blur animate-slideDown">
+                <div className="md:hidden border-t border-border/40 bg-background/80 backdrop-blur-xl animate-slideDown">
                     <div className="container max-w-[680px] py-4 space-y-3">
                         {navigation.map((item) => {
                             const isActive = pathname === item.href ||
@@ -107,8 +108,8 @@ export function Header() {
                                     href={item.href}
                                     onClick={() => setMobileMenuOpen(false)}
                                     className={`block px-4 py-2 rounded-lg text-sm font-medium transition-colors ${isActive
-                                            ? 'bg-primary/10 text-primary'
-                                            : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                                        ? 'bg-primary/10 text-primary'
+                                        : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                                         }`}
                                 >
                                     {item.name}

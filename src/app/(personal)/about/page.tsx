@@ -1,6 +1,8 @@
+import { Suspense } from 'react';
 import Image from 'next/image';
 import { MapPin, Briefcase, GraduationCap, Download } from 'lucide-react';
 import { SkillsGrid, Timeline } from '@/components/about';
+import { SkillsGridSkeleton, TimelineSkeleton } from '@/components/skeletons';
 
 export const metadata = {
     title: 'About - Fajar Dwi Utomo',
@@ -102,13 +104,17 @@ export default function AboutPage() {
             {/* Skills */}
             <section className="space-y-6 animate-fadeIn" style={{ animationDelay: '200ms' }}>
                 <h2 className="text-2xl font-bold">Skills & Technologies</h2>
-                <SkillsGrid />
+                <Suspense fallback={<SkillsGridSkeleton />}>
+                    <SkillsGrid />
+                </Suspense>
             </section>
 
             {/* Experience & Education */}
             <section className="space-y-6 animate-fadeIn" style={{ animationDelay: '300ms' }}>
                 <h2 className="text-2xl font-bold">Experience & Education</h2>
-                <Timeline />
+                <Suspense fallback={<TimelineSkeleton />}>
+                    <Timeline />
+                </Suspense>
             </section>
         </div>
     );

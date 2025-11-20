@@ -2,10 +2,10 @@ import { getSkills } from '@/lib/notion/queries';
 import { Skill } from '@/lib/notion/types';
 
 const levelColors = {
-    Beginner: 'bg-yellow-500/20 text-yellow-700 dark:text-yellow-400',
-    Intermediate: 'bg-blue-500/20 text-blue-700 dark:text-blue-400',
-    Advanced: 'bg-green-500/20 text-green-700 dark:text-green-400',
-    Expert: 'bg-purple-500/20 text-purple-700 dark:text-purple-400',
+    Beginner: 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20',
+    Intermediate: 'bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/20',
+    Advanced: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20',
+    Expert: 'bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-500/20',
 };
 
 export async function SkillsGrid() {
@@ -32,19 +32,19 @@ export async function SkillsGrid() {
                 return (
                     <div
                         key={category}
-                        className="space-y-4 p-6 rounded-xl border border-border bg-card hover-lift"
+                        className="space-y-4 p-6 rounded-xl border border-border bg-card hover-lift transition-all duration-300"
                         style={{
                             animationDelay: `${idx * 100}ms`,
                         }}
                     >
-                        <h3 className="font-semibold text-lg">{category}</h3>
+                        <h3 className="font-semibold text-lg text-foreground">{category}</h3>
                         <div className="space-y-3">
                             {categorySkills.map((skill) => (
                                 <div key={skill.name} className="space-y-1">
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm font-medium">{skill.name}</span>
+                                    <div className="flex items-center justify-between gap-2">
+                                        <span className="text-sm font-medium text-foreground">{skill.name}</span>
                                         <span
-                                            className={`text-xs px-2 py-0.5 rounded-full ${levelColors[skill.level as keyof typeof levelColors]
+                                            className={`text-xs px-2.5 py-1 rounded-full border ${levelColors[skill.level as keyof typeof levelColors]
                                                 }`}
                                         >
                                             {skill.level}
