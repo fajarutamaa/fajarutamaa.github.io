@@ -1,8 +1,7 @@
 import { Suspense } from 'react';
 import { getBookmarks } from '@/lib/notion/queries';
-import { BookmarkCard } from '@/components/ui/BookmarkCard';
-import { LoadingState } from '@/components/ui/LoadingState';
-import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
+import { BookmarkCard, ErrorBoundary } from '@/components/ui';
+import { BookmarkSkeleton } from '@/components/skeletons';
 
 export const metadata = {
     title: 'Projects - Fajar Dwi Utomo',
@@ -46,7 +45,7 @@ export default function ProjectsPage() {
             {/* Projects Grid */}
             <section className="animate-fadeIn" style={{ animationDelay: '100ms' }}>
                 <ErrorBoundary>
-                    <Suspense fallback={<LoadingState />}>
+                    <Suspense fallback={<BookmarkSkeleton />}>
                         <ProjectsGrid />
                     </Suspense>
                 </ErrorBoundary>

@@ -34,5 +34,3 @@ export function Hero() {
         </div>
     );
 }
-
-// Add wave animation to globals.css if not present
