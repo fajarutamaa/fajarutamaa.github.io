@@ -16,16 +16,33 @@ export function ContactForm() {
         e.preventDefault();
         setStatus('loading');
 
-        // Simulate form submission
-        // In production, integrate with a service like Web3Forms, Formspree, or your own API
-        setTimeout(() => {
-            setStatus('success');
-            setFormData({ name: '', email: '', subject: '', message: '' });
+        try {
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                },
+                body: JSON.stringify({
+                    access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
+                    ...formData,
+                }),
+            });
 
-            setTimeout(() => {
-                setStatus('idle');
-            }, 3000);
-        }, 1000);
+            const result = await response.json();
+
+            if (result.success) {
+                setStatus('success');
+                setFormData({ name: '', email: '', subject: '', message: '' });
+                setTimeout(() => setStatus('idle'), 5000);
+            } else {
+                setStatus('error');
+                console.error('Web3Forms Error:', result);
+            }
+        } catch (error) {
+            setStatus('error');
+            console.error('Submission Error:', error);
+        }
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
