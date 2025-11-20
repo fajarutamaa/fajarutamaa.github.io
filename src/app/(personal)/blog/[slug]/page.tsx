@@ -1,10 +1,17 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Calendar, Clock, Tag } from 'lucide-react';
-import { getBlogPostBySlug, getPageBlocks } from '@/lib/notion/queries';
+import { getBlogPostBySlug, getPageBlocks, getBlogPosts } from '@/lib/notion/queries';
 import { NotionBlockRenderer } from '@/components/blog/NotionBlockRenderer';
 
 export const revalidate = 3600;
+
+export async function generateStaticParams() {
+    const posts = await getBlogPosts();
+    return posts.map((post) => ({
+        slug: post.slug,
+    }));
+}
 
 interface BlogPostPageProps {
     params: Promise<{
