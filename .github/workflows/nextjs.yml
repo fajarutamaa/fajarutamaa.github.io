@@ -75,6 +75,12 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
+        env:
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+          NOTION_BLOG_DATABASE_ID: ${{ secrets.NOTION_BLOG_DATABASE_ID }}
+          NOTION_SKILLS_DATABASE_ID: ${{ secrets.NOTION_SKILLS_DATABASE_ID }}
+          NOTION_EXPERIENCE_DATABASE_ID: ${{ secrets.NOTION_EXPERIENCE_DATABASE_ID }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
