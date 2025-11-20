@@ -52,7 +52,6 @@ export default function RootLayout({
         <div className="gradient-bg">
           <div className="gradient-orb gradient-orb-1" />
           <div className="gradient-orb gradient-orb-2" />
-          <div className="gradient-orb gradient-orb-3" />
         </div>
 
         <Toaster position="top-center" />
