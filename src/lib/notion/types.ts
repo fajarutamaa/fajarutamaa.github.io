@@ -53,14 +53,14 @@ export interface NotionPage {
     Title?: { title: Array<{ plain_text: string }> }; // Blog uses Title
     Description?: { rich_text: Array<{ plain_text: string }> };
     Slug?: { rich_text: Array<{ plain_text: string }> };
-    
+
     // Bookmark/Project
     Website?: { url: string };
     Logo?: { url: string };
     Stack?: { multi_select: Array<{ name: string }> };
     Thumbnail?: { files: Array<{ file?: { url: string }; external?: { url: string } }> };
     Year?: { select: { name: string } };
-    
+
     // Blog
     Excerpt?: { rich_text: Array<{ plain_text: string }> };
     Cover?: { files: Array<{ file?: { url: string }; external?: { url: string } }> };
@@ -69,11 +69,11 @@ export interface NotionPage {
     Tags?: { multi_select: Array<{ name: string }> };
     Published?: { checkbox: boolean };
     ReadTime?: { number: number };
-    
+
     // Skill
     Level?: { select: { name: string } };
     Icon?: { rich_text: Array<{ plain_text: string }> };
-    
+
     // Experience
     Organization?: { rich_text: Array<{ plain_text: string }> };
     Location?: { rich_text: Array<{ plain_text: string }> };

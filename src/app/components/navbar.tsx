@@ -1,7 +1,7 @@
-"use client";
-import { MoonIcon, SunIcon } from "lucide-react";
-import { useTheme } from "next-themes";
-import React, { useEffect, useState } from "react";
+'use client';
+import { MoonIcon, SunIcon } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import React, { useEffect, useState } from 'react';
 
 export const Navbar = () => {
   const { theme, setTheme } = useTheme();
@@ -15,8 +15,8 @@ export const Navbar = () => {
     <div
       className="container max-w-[680px] lg:max-w-[900px] mt-6 lg:mt-10 flex flex-row items-center gap-4 justify-between animate-fadeIn"
       style={{
-        animationDelay: "100ms",
-        animationFillMode: "both",
+        animationDelay: '100ms',
+        animationFillMode: 'both',
       }}
     >
       <div className="flex flex-row items-center tracking-tight gap-4 md:gap-6"></div>
@@ -25,12 +25,12 @@ export const Navbar = () => {
           <button
             type="button"
             onClick={() => {
-              setTheme(theme === "light" ? "dark" : "light");
+              setTheme(theme === 'light' ? 'dark' : 'light');
             }}
             className="group relative p-2 rounded-lg transition-all duration-300 hover:bg-primary/10"
-            aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
           >
-            {theme === "dark" ? (
+            {theme === 'dark' ? (
               <SunIcon
                 size={18}
                 className="transition-all duration-300 group-hover:rotate-90 group-hover:text-primary"
