@@ -374,3 +374,26 @@ body::-webkit-scrollbar-thumb:hover {
   outline: 2px solid hsl(var(--primary));
   outline-offset: 2px;
 }
+
+/* Touch target optimization for mobile */
+@media (pointer: coarse) {
+  /* Ensure minimum 44x44px touch targets */
+  button,
+  a,
+  input,
+  select,
+  textarea,
+  [role='button'] {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Larger tap targets for navigation */
+  nav a {
+    min-height: 48px;
+    padding: 12px 16px;
+  }
+}
