@@ -10,7 +10,7 @@ export function parseNotionPage(page: NotionPage): Bookmark {
   const website = properties.Website?.url || '';
   const logo = properties.Logo?.url || '/google.png';
   const stack = properties.Stack?.multi_select?.map((item) => item.name) || [];
-  
+
   let thumbnail = '/img/placeholder.webp';
   if (properties.Thumbnail?.files?.[0]) {
     const file = properties.Thumbnail.files[0];
@@ -18,7 +18,8 @@ export function parseNotionPage(page: NotionPage): Bookmark {
   }
 
   const year = properties.Year?.select?.name || new Date().getFullYear().toString();
-  const slug = properties.Slug?.rich_text?.[0]?.plain_text || name.toLowerCase().replace(/\s+/g, '-');
+  const slug =
+    properties.Slug?.rich_text?.[0]?.plain_text || name.toLowerCase().replace(/\s+/g, '-');
 
   return {
     id: page.id,
@@ -37,14 +38,23 @@ export function parseNotionPage(page: NotionPage): Bookmark {
 
 export function parseNotionBlogPost(page: NotionPage): BlogPost {
   const properties = page.properties;
-  const title = properties.Name?.title?.[0]?.plain_text || properties.Title?.title?.[0]?.plain_text || 'Untitled';
-  const slug = properties.Slug?.rich_text?.[0]?.plain_text || title.toLowerCase().replace(/\s+/g, '-');
-  const excerpt = properties.Excerpt?.rich_text?.[0]?.plain_text || properties.Description?.rich_text?.[0]?.plain_text || '';
+  const title =
+    properties.Name?.title?.[0]?.plain_text ||
+    properties.Title?.title?.[0]?.plain_text ||
+    'Untitled';
+  const slug =
+    properties.Slug?.rich_text?.[0]?.plain_text || title.toLowerCase().replace(/\s+/g, '-');
+  const excerpt =
+    properties.Excerpt?.rich_text?.[0]?.plain_text ||
+    properties.Description?.rich_text?.[0]?.plain_text ||
+    '';
   const date = properties.Date?.date?.start || page.created_time;
   const category = properties.Category?.select?.name || 'Uncategorized';
   const tags = properties.Tags?.multi_select?.map((item) => item.name) || [];
   const published = properties.Published?.checkbox ?? true;
-  const readTime = properties.ReadTime?.number ? `${properties.ReadTime.number} min read` : '5 min read';
+  const readTime = properties.ReadTime?.number
+    ? `${properties.ReadTime.number} min read`
+    : '5 min read';
 
   let coverImage = '/img/placeholder.webp';
   if (properties.Cover?.files?.[0]) {

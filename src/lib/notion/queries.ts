@@ -1,17 +1,17 @@
-import { 
-  notion, 
-  NOTION_DATABASE_ID, 
+import {
+  notion,
+  NOTION_DATABASE_ID,
   NOTION_BLOG_DATABASE_ID,
   NOTION_SKILLS_DATABASE_ID,
   NOTION_EXPERIENCE_DATABASE_ID,
-  REVALIDATE_TIME 
+  REVALIDATE_TIME,
 } from './client';
-import { 
-  parseNotionPages, 
-  parseNotionPage, 
-  parseNotionBlogPost, 
-  parseNotionSkill, 
-  parseNotionExperience 
+import {
+  parseNotionPages,
+  parseNotionPage,
+  parseNotionBlogPost,
+  parseNotionSkill,
+  parseNotionExperience,
 } from './parser';
 import { Bookmark, NotionPage, BlogPost, Skill, Experience } from './types';
 import { promises as fs } from 'fs';
