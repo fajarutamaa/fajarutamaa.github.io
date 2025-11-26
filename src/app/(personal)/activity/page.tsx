@@ -17,22 +17,22 @@ export default function ActivityPage() {
     <div className="container max-w-[900px] py-12 space-y-12">
       {/* Header */}
       <section className="space-y-6 text-center animate-fadeIn">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-2">
-          <Activity size={32} className="text-primary" />
+        <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-primary/20 to-purple-500/20 ring-4 ring-primary/10 mb-4 backdrop-blur-sm">
+          <Activity size={36} className="text-primary animate-float" />
         </div>
 
-        <div className="space-y-3">
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent">
+        <div className="space-y-4">
+          <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent leading-tight">
             Activity Timeline
           </h1>
-          <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-            A real-time feed of my development journey - from code commits and pull requests to blog
+          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+            A real-time feed of my development journey — from code commits and pull requests to blog
             posts and project releases
           </p>
         </div>
 
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">
-          <TrendingUp size={16} />
+        <div className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary/10 to-purple-500/10 border border-primary/20 text-primary text-sm font-semibold backdrop-blur-sm">
+          <TrendingUp size={18} className="animate-pulse" />
           <span>Live updates from GitHub & Blog</span>
         </div>
       </section>
