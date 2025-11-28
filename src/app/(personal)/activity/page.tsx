@@ -16,7 +16,7 @@ export default function ActivityPage() {
   return (
     <div className="container max-w-[900px] py-12 space-y-12">
       {/* Header */}
-      <section className="space-y-6 text-center animate-fadeIn">
+      <section className="space-y-6 text-center">
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-primary/20 to-purple-500/20 ring-4 ring-primary/10 mb-4 backdrop-blur-sm">
           <Activity size={36} className="text-primary animate-float" />
         </div>
@@ -38,7 +38,7 @@ export default function ActivityPage() {
       </section>
 
       {/* Timeline */}
-      <section className="animate-fadeIn" style={{ animationDelay: '100ms' }}>
+      <section>
         <Suspense fallback={<TimelineSkeleton />}>
           <ActivityTimeline />
         </Suspense>

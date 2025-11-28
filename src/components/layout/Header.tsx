@@ -18,11 +18,11 @@ const navigation = [
 export function Header() {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
-  const [isClient, setIsClient] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
+    setMounted(true);
   }, []);
 
   return (
@@ -64,26 +64,28 @@ export function Header() {
         {/* Right Section */}
         <div className="flex items-center gap-4">
           {/* Theme Toggle */}
-          {isClient && (
-            <button
-              type="button"
-              onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-              className="group relative p-2.5 rounded-lg transition-all duration-300 hover:bg-primary/10 border border-transparent hover:border-primary/20"
-              aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-            >
-              {theme === 'dark' ? (
-                <SunIcon
-                  size={18}
-                  className="transition-all duration-300 group-hover:rotate-90 group-hover:text-primary text-foreground"
-                />
-              ) : (
-                <MoonIcon
-                  size={18}
-                  className="transition-all duration-300 group-hover:-rotate-12 group-hover:text-primary text-foreground"
-                />
-              )}
-            </button>
-          )}
+          <div suppressHydrationWarning>
+            {mounted && (
+              <button
+                type="button"
+                onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+                className="group relative p-2.5 rounded-lg transition-all duration-300 hover:bg-primary/10 border border-transparent hover:border-primary/20"
+                aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+              >
+                {theme === 'dark' ? (
+                  <SunIcon
+                    size={18}
+                    className="transition-all duration-300 group-hover:rotate-90 group-hover:text-primary text-foreground"
+                  />
+                ) : (
+                  <MoonIcon
+                    size={18}
+                    className="transition-all duration-300 group-hover:-rotate-12 group-hover:text-primary text-foreground"
+                  />
+                )}
+              </button>
+            )}
+          </div>
 
           {/* Mobile Menu Button */}
           <button

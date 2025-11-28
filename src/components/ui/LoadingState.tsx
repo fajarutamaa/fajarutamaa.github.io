@@ -4,14 +4,7 @@ export function LoadingState() {
   return (
     <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
       {[1, 2, 3, 4].map((i) => (
-        <div
-          key={i}
-          className="rounded-xl overflow-hidden border border-border bg-card animate-fadeIn"
-          style={{
-            animationDelay: `${i * 100}ms`,
-            animationFillMode: 'both',
-          }}
-        >
+        <div key={i} className="rounded-xl overflow-hidden border border-border bg-card">
           {/* Thumbnail skeleton */}
           <div className="aspect-[16/9] bg-muted animate-shimmer" />
 

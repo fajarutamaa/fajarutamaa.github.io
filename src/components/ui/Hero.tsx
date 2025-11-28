@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export function Hero() {
   return (
-    <div className="flex items-start gap-4 animate-fadeIn">
+    <div className="flex items-start gap-4">
       {/* Avatar with floating animation */}
       <div className="relative shrink-0">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20 rounded-full blur-xl animate-pulse" />

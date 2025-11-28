@@ -17,11 +17,10 @@ async function BlogPostsList() {
   return (
     <section className="space-y-8">
       {blogPosts.length > 0 ? (
-        blogPosts.map((post, idx) => (
+        blogPosts.map((post) => (
           <article
             key={post.id}
-            className="group p-6 rounded-xl border border-border hover:border-primary/50 bg-card transition-all duration-300 hover-lift animate-fadeIn"
-            style={{ animationDelay: `${idx * 100}ms` }}
+            className="group p-6 rounded-xl border border-border hover:border-primary/50 bg-card transition-all duration-300 hover-lift"
           >
             <div className="space-y-3">
               {/* Category & Date */}
@@ -67,7 +66,7 @@ export default function BlogPage() {
   return (
     <div className="container max-w-[680px] lg:max-w-[900px] py-12 space-y-12">
       {/* Header */}
-      <section className="space-y-4 animate-fadeIn">
+      <section className="space-y-4">
         <h1 className="text-4xl font-bold">Blog</h1>
         <p className="text-lg text-muted-foreground leading-relaxed">
           Thoughts, tutorials, and insights on software development and technology.

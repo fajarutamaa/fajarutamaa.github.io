@@ -14,7 +14,7 @@ export default function AboutPage() {
   return (
     <div className="container max-w-[680px] lg:max-w-[900px] py-12 space-y-16">
       {/* Hero Section */}
-      <section className="space-y-8 animate-fadeIn">
+      <section className="space-y-8">
         <div className="flex flex-col md:flex-row gap-8 items-start">
           {/* Profile Image */}
           <div className="relative shrink-0">
@@ -65,7 +65,7 @@ export default function AboutPage() {
       </section>
 
       {/* About Me */}
-      <section className="space-y-6 animate-fadeIn" style={{ animationDelay: '100ms' }}>
+      <section>
         <h2 className="text-2xl font-bold">About Me</h2>
         <div className="prose prose-neutral dark:prose-invert max-w-none space-y-4 text-muted-foreground leading-relaxed">
           <p>
@@ -104,7 +104,7 @@ export default function AboutPage() {
       </section>
 
       {/* Skills */}
-      <section className="space-y-6 animate-fadeIn" style={{ animationDelay: '200ms' }}>
+      <section>
         <h2 className="text-2xl font-bold">Skills & Technologies</h2>
         <Suspense fallback={<SkillsGridSkeleton />}>
           <SkillsGrid />
@@ -112,7 +112,7 @@ export default function AboutPage() {
       </section>
 
       {/* Experience & Education */}
-      <section className="space-y-6 animate-fadeIn" style={{ animationDelay: '300ms' }}>
+      <section>
         <h2 className="text-2xl font-bold">Experience & Education</h2>
         <Suspense fallback={<TimelineSkeleton />}>
           <Timeline />
