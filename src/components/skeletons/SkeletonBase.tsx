@@ -2,19 +2,13 @@ import React from 'react';
 
 interface SkeletonProps {
   className?: string;
-  delay?: number;
 }
 
 /**
  * Base skeleton component with shimmer animation
  */
-export function Skeleton({ className = '', delay = 0 }: SkeletonProps) {
-  return (
-    <div
-      className={`bg-muted animate-shimmer rounded ${className}`}
-      style={{ animationDelay: `${delay}ms` }}
-    />
-  );
+export function Skeleton({ className = '' }: SkeletonProps) {
+  return <div className={`bg-muted animate-shimmer rounded ${className}`} />;
 }
 
 /**
@@ -35,7 +29,6 @@ export function SkeletonText({
         <Skeleton
           key={i}
           className="h-4"
-          delay={i * 50}
           {...(i === lines - 1 && lines > 1 ? { style: { width: lastLineWidth } } : {})}
         />
       ))}
@@ -82,18 +75,11 @@ export function SkeletonBadge({
 export function SkeletonCard({
   children,
   className = '',
-  delay = 0,
 }: {
   children: React.ReactNode;
   className?: string;
-  delay?: number;
 }) {
   return (
-    <div
-      className={`p-6 rounded-xl border border-border bg-card animate-fadeIn ${className}`}
-      style={{ animationDelay: `${delay}ms` }}
-    >
-      {children}
-    </div>
+    <div className={`p-6 rounded-xl border border-border bg-card ${className}`}>{children}</div>
   );
 }

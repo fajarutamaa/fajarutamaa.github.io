@@ -7,11 +7,7 @@ export function TimelineSkeleton({ count = 5 }: { count?: number }) {
   return (
     <div className="space-y-10">
       {Array.from({ length: count }).map((_, i) => (
-        <div
-          key={i}
-          className="relative pl-10 pb-10 animate-fadeIn"
-          style={{ animationDelay: `${i * 100}ms` }}
-        >
+        <div key={i} className="relative pl-10 pb-10">
           {/* Timeline line */}
           <div className="absolute left-[15px] top-8 bottom-0 w-[2px] bg-gradient-to-b from-border to-transparent" />
 

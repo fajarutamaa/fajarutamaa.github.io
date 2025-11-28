@@ -8,7 +8,7 @@ export function BlogPostSkeleton({ count = 3 }: { count?: number }) {
   return (
     <div className="space-y-8">
       {Array.from({ length: count }).map((_, i) => (
-        <SkeletonCard key={i} delay={i * 100}>
+        <SkeletonCard key={i}>
           <div className="space-y-3">
             {/* Category & Date */}
             <div className="flex items-center gap-3">

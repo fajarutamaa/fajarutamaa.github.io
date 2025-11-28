@@ -74,15 +74,12 @@ const typeLabels = {
   release: 'Release',
 };
 
-export function TimelineItem({ activity, index }: TimelineItemProps) {
+export function TimelineItem({ activity }: TimelineItemProps) {
   const Icon = iconMap[activity.type];
   const colors = colorConfig[activity.type];
 
   return (
-    <div
-      className="relative pl-10 pb-10 last:pb-0 animate-fadeIn"
-      style={{ animationDelay: `${index * 50}ms` }}
-    >
+    <div className="relative pl-10 pb-10 last:pb-0">
       {/* Timeline line */}
       <div className="absolute left-[15px] top-8 bottom-0 w-[2px] bg-gradient-to-b from-border to-transparent" />
 
