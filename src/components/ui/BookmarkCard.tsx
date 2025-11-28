@@ -8,17 +8,13 @@ interface BookmarkCardProps {
   index?: number;
 }
 
-export function BookmarkCard({ bookmark, index = 0 }: BookmarkCardProps) {
+export function BookmarkCard({ bookmark }: BookmarkCardProps) {
   return (
     <Link
       href={bookmark.website}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative block hover-lift rounded-xl overflow-hidden border border-foreground/5 bg-card transition-all duration-300 animate-fadeIn"
-      style={{
-        animationDelay: `${index * 100}ms`,
-        animationFillMode: 'both',
-      }}
+      className="group relative block hover-lift rounded-xl overflow-hidden border border-foreground/5 bg-card transition-all duration-300"
     >
       {/* Thumbnail */}
       <div className="relative aspect-[16/9] overflow-hidden bg-muted">

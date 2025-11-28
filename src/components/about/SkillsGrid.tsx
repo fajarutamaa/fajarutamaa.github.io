@@ -30,7 +30,7 @@ export async function SkillsGrid() {
 
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {categories.map((category, idx) => {
+      {categories.map((category) => {
         const categorySkills = groupedSkills[category];
         if (!categorySkills || categorySkills.length === 0) return null;
 
@@ -38,9 +38,6 @@ export async function SkillsGrid() {
           <div
             key={category}
             className="space-y-4 p-6 rounded-xl border border-border bg-card hover-lift transition-all duration-300"
-            style={{
-              animationDelay: `${idx * 100}ms`,
-            }}
           >
             <h3 className="font-semibold text-lg text-foreground">{category}</h3>
             <div className="space-y-3">
@@ -49,7 +46,6 @@ export async function SkillsGrid() {
                   key={skill.name}
                   content={getSkillDescription(skill.name)}
                   placement="top"
-                  delay={300}
                   closeDelay={0}
                   classNames={{
                     base: 'max-w-xs',

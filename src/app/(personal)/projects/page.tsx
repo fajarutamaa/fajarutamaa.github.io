@@ -35,7 +35,7 @@ export default function ProjectsPage() {
   return (
     <div className="container max-w-[680px] lg:max-w-[900px] py-12 space-y-12">
       {/* Header */}
-      <section className="space-y-4 animate-fadeIn">
+      <section className="space-y-4">
         <h1 className="text-4xl font-bold">Projects & Bookmarks</h1>
         <p className="text-lg text-muted-foreground leading-relaxed">
           A collection of projects I&apos;ve worked on and resources I find valuable.
@@ -43,7 +43,7 @@ export default function ProjectsPage() {
       </section>
 
       {/* Projects Grid */}
-      <section className="animate-fadeIn" style={{ animationDelay: '100ms' }}>
+      <section>
         <ErrorBoundary>
           <Suspense fallback={<BookmarkSkeleton />}>
             <ProjectsGrid />

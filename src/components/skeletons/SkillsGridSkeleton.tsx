@@ -8,7 +8,7 @@ export function SkillsGridSkeleton() {
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
       {[1, 2, 3].map((i) => (
-        <SkeletonCard key={i} delay={i * 100}>
+        <SkeletonCard key={i}>
           {/* Category title */}
           <div className="h-6 bg-muted animate-shimmer rounded w-32 mb-4" />
 

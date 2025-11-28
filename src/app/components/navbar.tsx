@@ -12,13 +12,7 @@ export const Navbar = () => {
   }, []);
 
   return (
-    <div
-      className="container max-w-[680px] lg:max-w-[900px] mt-6 lg:mt-10 flex flex-row items-center gap-4 justify-between animate-fadeIn"
-      style={{
-        animationDelay: '100ms',
-        animationFillMode: 'both',
-      }}
-    >
+    <div className="container max-w-[680px] lg:max-w-[900px] mt-6 lg:mt-10 flex flex-row items-center gap-4 justify-between">
       <div className="flex flex-row items-center tracking-tight gap-4 md:gap-6"></div>
       <div className="flex flex-row items-center gap-4 md:gap-6">
         {isClient ? (

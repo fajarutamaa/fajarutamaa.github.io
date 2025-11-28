@@ -35,10 +35,7 @@ export default async function Home() {
       <Hero />
 
       {/* Introduction */}
-      <p
-        className="mt-6 text-foreground/80 leading-relaxed animate-fadeIn"
-        style={{ animationDelay: '100ms' }}
-      >
+      <p className="mt-6 text-foreground/80 leading-relaxed">
         I&apos;m a junior software engineer with a strong passion for creating meaningful and
         user-focused digital products. I enjoy turning ideas into reliable, well-crafted solutions
         that people genuinely love to use. Currently, I&apos;m learning and contributing to
@@ -48,10 +45,7 @@ export default async function Home() {
 
       {/* Bookmarks Section */}
       <section className="mt-16">
-        <div
-          className="flex items-center justify-between mb-8 animate-fadeIn"
-          style={{ animationDelay: '200ms' }}
-        >
+        <div className="flex items-center justify-between mb-8">
           <h2 className="text-xl font-semibold">Bookmarks</h2>
           <div className="h-px flex-1 ml-4 bg-gradient-to-r from-border to-transparent" />
         </div>

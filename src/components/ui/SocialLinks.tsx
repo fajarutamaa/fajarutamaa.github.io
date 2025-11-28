@@ -47,10 +47,7 @@ interface SocialLinksProps {
 
 export function SocialLinks({ className = '', showLabel = true }: SocialLinksProps) {
   return (
-    <div
-      className={`flex flex-col items-center animate-fadeIn ${className}`}
-      style={{ animationDelay: '400ms' }}
-    >
+    <div className={`flex flex-col items-center ${className}`}>
       {showLabel && (
         <h2 className="font-semibold text-sm text-muted-foreground mb-4">Connect with me</h2>
       )}

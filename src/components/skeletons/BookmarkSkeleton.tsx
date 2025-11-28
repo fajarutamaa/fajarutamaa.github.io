@@ -8,11 +8,7 @@ export function BookmarkSkeleton({ count = 4 }: { count?: number }) {
   return (
     <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
       {Array.from({ length: count }).map((_, i) => (
-        <div
-          key={i}
-          className="rounded-xl overflow-hidden border border-border bg-card animate-fadeIn hover-lift"
-          style={{ animationDelay: `${i * 100}ms` }}
-        >
+        <div key={i} className="rounded-xl overflow-hidden border border-border bg-card hover-lift">
           {/* Thumbnail skeleton */}
           <Skeleton className="aspect-[16/9]" />
 

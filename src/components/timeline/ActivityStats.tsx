@@ -58,13 +58,12 @@ export function ActivityStats({ activities }: ActivityStatsProps) {
 
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-      {statCards.map((stat, index) => {
+      {statCards.map((stat) => {
         const Icon = stat.icon;
         return (
           <div
             key={stat.label}
-            className="group relative overflow-hidden rounded-xl border border-border bg-card/50 backdrop-blur-sm hover:border-primary/50 transition-all duration-500 hover:scale-[1.02] hover:shadow-lg hover:shadow-primary/10 animate-fadeIn"
-            style={{ animationDelay: `${index * 75}ms` }}
+            className="group relative overflow-hidden rounded-xl border border-border bg-card/50 backdrop-blur-sm hover:border-primary/50 transition-all duration-500 hover:scale-[1.02] hover:shadow-lg hover:shadow-primary/10"
           >
             {/* Background gradient overlay */}
             <div

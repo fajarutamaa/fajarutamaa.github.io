@@ -62,7 +62,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </Link>
 
         {/* Header */}
-        <header className="space-y-6 animate-fadeIn">
+        <header className="space-y-6">
           <div className="space-y-4">
             <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary font-medium">
@@ -90,15 +90,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <hr className="border-border" />
 
         {/* Content */}
-        <article
-          className="prose prose-neutral dark:prose-invert max-w-none animate-fadeIn"
-          style={{ animationDelay: '100ms' }}
-        >
+        <article className="prose prose-neutral dark:prose-invert max-w-none">
           <NotionBlockRenderer blocks={blocks} />
         </article>
 
         {/* Share Buttons */}
-        <div className="animate-fadeIn" style={{ animationDelay: '200ms' }}>
+        <div>
           <ShareButtons title={post.title} url={`/blog/${slug}`} />
         </div>
       </div>
