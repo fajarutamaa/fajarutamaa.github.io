@@ -4,8 +4,10 @@ import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { TimelineGroup } from './TimelineGroup';
 import { ActivityStats, ActivityFilter } from './ActivityStats';
+import { ContributionHeatmap } from './ContributionHeatmap';
 import { ActivityItem } from '@/lib/github/types';
 import { isToday, isThisWeek } from 'date-fns';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface ActivityTimelineClientProps {
   githubActivities: ActivityItem[];
@@ -98,51 +100,81 @@ export function ActivityTimelineClient({
   }
 
   return (
-    <div className="max-w-3xl mx-auto">
-      {/* Statistics */}
-      <ActivityStats activities={allActivities} />
+    <div className="max-w-4xl mx-auto space-y-12">
+      {/* Statistics Cards */}
+      <section>
+        <ActivityStats activities={allActivities} />
+      </section>
 
-      {/* Filters */}
-      <ActivityFilter
-        activeFilter={activeFilter}
-        onFilterChange={setActiveFilter}
-        counts={counts}
-      />
-
-      {/* Timeline Groups */}
-      {filteredActivities.length === 0 ? (
-        <div className="text-center py-16 px-4 rounded-2xl border-2 border-dashed border-border bg-card/30 backdrop-blur-sm">
-          <div className="max-w-sm mx-auto">
-            <div className="w-20 h-20 mx-auto mb-4 rounded-xl bg-muted/50 flex items-center justify-center">
-              <div className="text-4xl">🔍</div>
-            </div>
-            <h3 className="text-lg font-bold mb-2">No {activeFilter} Activities Found</h3>
-            <p className="text-sm text-muted-foreground mb-4">
-              Try selecting a different filter to see more activities
-            </p>
-            <button
-              onClick={() => setActiveFilter('all')}
-              className="px-4 py-2 rounded-lg bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 font-medium"
-            >
-              Show All Activities
-            </button>
-          </div>
+      {/* Contribution Heatmap */}
+      <section className="rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm p-6">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-lg font-semibold">Activity Intensity</h3>
+          <span className="text-xs text-muted-foreground">Last 60 Days</span>
         </div>
-      ) : (
-        <>
-          <TimelineGroup title="Today" activities={groupedActivities.today} startIndex={0} />
-          <TimelineGroup
-            title="This Week"
-            activities={groupedActivities.thisWeek}
-            startIndex={groupedActivities.today.length}
-          />
-          <TimelineGroup
-            title="Older"
-            activities={groupedActivities.older}
-            startIndex={groupedActivities.today.length + groupedActivities.thisWeek.length}
-          />
-        </>
-      )}
+        <ContributionHeatmap activities={allActivities} />
+      </section>
+
+      {/* Timeline Section */}
+      <section>
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-2xl font-bold">Timeline</h2>
+        </div>
+
+        {/* Filters */}
+        <ActivityFilter
+          activeFilter={activeFilter}
+          onFilterChange={setActiveFilter}
+          counts={counts}
+        />
+
+        {/* Timeline Groups */}
+        <AnimatePresence mode="wait">
+          {filteredActivities.length === 0 ? (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="text-center py-16 px-4 rounded-2xl border-2 border-dashed border-border bg-card/30 backdrop-blur-sm"
+            >
+              <div className="max-w-sm mx-auto">
+                <div className="w-20 h-20 mx-auto mb-4 rounded-xl bg-muted/50 flex items-center justify-center">
+                  <div className="text-4xl">🔍</div>
+                </div>
+                <h3 className="text-lg font-bold mb-2">No {activeFilter} Activities Found</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Try selecting a different filter to see more activities
+                </p>
+                <button
+                  onClick={() => setActiveFilter('all')}
+                  className="px-4 py-2 rounded-lg bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 font-medium"
+                >
+                  Show All Activities
+                </button>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <TimelineGroup title="Today" activities={groupedActivities.today} startIndex={0} />
+              <TimelineGroup
+                title="This Week"
+                activities={groupedActivities.thisWeek}
+                startIndex={groupedActivities.today.length}
+              />
+              <TimelineGroup
+                title="Older"
+                activities={groupedActivities.older}
+                startIndex={groupedActivities.today.length + groupedActivities.thisWeek.length}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </section>
     </div>
   );
 }
