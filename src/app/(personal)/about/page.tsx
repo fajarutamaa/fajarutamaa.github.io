@@ -12,62 +12,57 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="container max-w-[680px] lg:max-w-[900px] py-12 space-y-16">
-      {/* Hero Section */}
-      <section className="space-y-8">
+    <div className="container max-w-[680px] lg:max-w-[900px] py-12 space-y-16 animate-pageEnter">
+      <section>
         <div className="flex flex-col md:flex-row gap-8 items-start">
-          {/* Profile Image */}
           <div className="relative shrink-0">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-secondary/30 to-accent/30 rounded-2xl blur-2xl" />
             <Image
               src="/img/avatar.webp"
               alt="Fajar Dwi Utomo"
-              width={200}
-              height={200}
-              className="relative rounded-2xl ring-4 ring-primary/20"
+              width={160}
+              height={160}
+              quality={80}
+              className="rounded-xl ring-1 ring-border"
               priority
             />
           </div>
 
-          {/* Info */}
           <div className="flex-1 space-y-4">
             <div>
-              <h1 className="text-4xl font-bold mb-2">Fajar Dwi Utomo</h1>
-              <p className="text-xl text-muted-foreground">Junior Software Engineer</p>
+              <h1 className="text-3xl font-semibold tracking-tight mb-1">Fajar Dwi Utomo</h1>
+              <p className="text-base text-muted-foreground">Junior Software Engineer</p>
             </div>
 
             <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <MapPin size={16} className="text-primary" />
-                <span>Indonesia</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Briefcase size={16} className="text-primary" />
-                <span>Available for opportunities</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <GraduationCap size={16} className="text-primary" />
-                <span>Computer Science</span>
-              </div>
+              <span className="flex items-center gap-1.5">
+                <MapPin size={14} />
+                Indonesia
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Briefcase size={14} />
+                Available for opportunities
+              </span>
+              <span className="flex items-center gap-1.5">
+                <GraduationCap size={14} />
+                Computer Science
+              </span>
             </div>
 
-            {/* Download CV Button */}
             <a
               href="/cv.pdf"
               download
-              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition-opacity"
             >
-              <Download size={18} />
+              <Download size={14} />
               Download CV
             </a>
           </div>
         </div>
       </section>
 
-      {/* About Me */}
-      <section>
-        <h2 className="text-2xl font-bold">About Me</h2>
-        <div className="prose prose-neutral dark:prose-invert max-w-none space-y-4 text-muted-foreground leading-relaxed">
+      <section className="space-y-4">
+        <h2 className="text-lg font-semibold tracking-tight">About Me</h2>
+        <div className="prose prose-neutral dark:prose-invert max-w-none text-muted-foreground leading-relaxed text-[15px] space-y-4">
           <p>
             Hi! I&apos;m Fajar Dwi Utomo, a passionate Junior Software Engineer with a love for
             creating beautiful, functional, and user-friendly applications. I specialize in web
@@ -103,17 +98,15 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Skills */}
-      <section>
-        <h2 className="text-2xl font-bold">Skills & Technologies</h2>
+      <section className="space-y-4">
+        <h2 className="text-lg font-semibold tracking-tight">Skills & Technologies</h2>
         <Suspense fallback={<SkillsGridSkeleton />}>
           <SkillsGrid />
         </Suspense>
       </section>
 
-      {/* Experience & Education */}
-      <section>
-        <h2 className="text-2xl font-bold">Experience & Education</h2>
+      <section className="space-y-4">
+        <h2 className="text-lg font-semibold tracking-tight">Experience & Education</h2>
         <Suspense fallback={<TimelineSkeleton />}>
           <Timeline />
         </Suspense>

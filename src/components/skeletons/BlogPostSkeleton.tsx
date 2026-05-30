@@ -1,32 +1,19 @@
-import React from 'react';
-import { SkeletonCard, SkeletonText, SkeletonBadge } from './SkeletonBase';
-
-/**
- * Skeleton loader for blog post cards
- */
 export function BlogPostSkeleton({ count = 3 }: { count?: number }) {
   return (
-    <div className="space-y-8">
+    <div className="space-y-5">
       {Array.from({ length: count }).map((_, i) => (
-        <SkeletonCard key={i}>
-          <div className="space-y-3">
-            {/* Category & Date */}
+        <div key={i} className="p-5 rounded-xl border border-border/50 bg-card">
+          <div className="space-y-2.5">
             <div className="flex items-center gap-3">
-              <SkeletonBadge width="w-20" />
-              <SkeletonBadge width="w-24" />
-              <SkeletonBadge width="w-16" />
+              <div className="h-5 bg-muted rounded-full animate-shimmer w-16" />
+              <div className="h-3 bg-muted rounded animate-shimmer w-20" />
+              <div className="h-3 bg-muted rounded animate-shimmer w-12" />
             </div>
-
-            {/* Title */}
-            <div className="h-7 bg-muted animate-shimmer rounded w-3/4" />
-
-            {/* Excerpt */}
-            <SkeletonText lines={2} />
-
-            {/* Read more link */}
-            <div className="h-5 bg-muted animate-shimmer rounded w-24" />
+            <div className="h-5 bg-muted rounded animate-shimmer w-3/4" />
+            <div className="h-3 bg-muted rounded animate-shimmer w-full" />
+            <div className="h-3 bg-muted rounded animate-shimmer w-5/6" />
           </div>
-        </SkeletonCard>
+        </div>
       ))}
     </div>
   );

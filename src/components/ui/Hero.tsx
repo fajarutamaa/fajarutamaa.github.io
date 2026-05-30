@@ -1,35 +1,29 @@
-import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export function Hero() {
   return (
-    <div className="flex items-start gap-4">
-      {/* Avatar with floating animation */}
+    <div className="flex items-center gap-4 animate-fadeIn">
       <div className="relative shrink-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20 rounded-full blur-xl animate-pulse" />
         <Image
           src="/img/avatar.webp"
           alt="Fajar Dwi Utomo"
-          width={48}
-          height={48}
-          className="relative w-12 h-12 rounded-full ring-2 ring-primary/20 transition-transform duration-300 hover:scale-110 hover:ring-primary/40"
+          width={44}
+          height={44}
+          quality={80}
+          className="relative w-11 h-11 rounded-full ring-1 ring-border transition-opacity duration-500 hover:opacity-80"
           priority
         />
       </div>
 
-      {/* Info */}
       <div className="flex-1 min-w-0">
         <Link
           href="/"
-          className="font-semibold text-lg hover:text-primary transition-colors duration-200 inline-block"
+          className="font-semibold text-base hover:opacity-70 transition-opacity duration-300 inline-block"
         >
           Fajar Dwi Utomo
         </Link>
-        <p className="text-muted-foreground font-medium flex items-center gap-1.5">
-          Junior Software Engineer
-          <span className="inline-block animate-wave">👋</span>
-        </p>
+        <p className="text-sm text-muted-foreground">Junior Software Engineer</p>
       </div>
     </div>
   );

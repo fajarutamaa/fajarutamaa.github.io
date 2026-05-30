@@ -25,9 +25,7 @@ export function ContactForm() {
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
 
@@ -54,100 +52,87 @@ export function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      {/* Name */}
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
       <div>
-        <label htmlFor="name" className="block text-sm font-medium mb-2">
-          Name <span className="text-red-500">*</span>
-        </label>
         <input
           {...register('name')}
           type="text"
           id="name"
-          className={`w-full px-4 py-3 rounded-lg border ${
-            errors.name ? 'border-red-500 focus:ring-red-500' : 'border-border focus:ring-primary'
-          } bg-background focus:ring-2 focus:border-transparent transition-all outline-none`}
           placeholder="Your name"
+          className={`w-full px-4 py-2.5 text-sm rounded-lg border bg-background transition-colors duration-200 outline-none ${
+            errors.name
+              ? 'border-red-400'
+              : 'border-border hover:border-muted-foreground/30 focus:border-foreground/40'
+          }`}
         />
-        {errors.name && <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>}
+        {errors.name && <p className="mt-1 text-xs text-red-400">{errors.name.message}</p>}
       </div>
 
-      {/* Email */}
       <div>
-        <label htmlFor="email" className="block text-sm font-medium mb-2">
-          Email <span className="text-red-500">*</span>
-        </label>
         <input
           {...register('email')}
           type="email"
           id="email"
-          className={`w-full px-4 py-3 rounded-lg border ${
-            errors.email ? 'border-red-500 focus:ring-red-500' : 'border-border focus:ring-primary'
-          } bg-background focus:ring-2 focus:border-transparent transition-all outline-none`}
           placeholder="your.email@example.com"
+          className={`w-full px-4 py-2.5 text-sm rounded-lg border bg-background transition-colors duration-200 outline-none ${
+            errors.email
+              ? 'border-red-400'
+              : 'border-border hover:border-muted-foreground/30 focus:border-foreground/40'
+          }`}
         />
-        {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>}
+        {errors.email && <p className="mt-1 text-xs text-red-400">{errors.email.message}</p>}
       </div>
 
-      {/* Subject */}
       <div>
-        <label htmlFor="subject" className="block text-sm font-medium mb-2">
-          Subject <span className="text-red-500">*</span>
-        </label>
         <input
           {...register('subject')}
           type="text"
           id="subject"
-          className={`w-full px-4 py-3 rounded-lg border ${
-            errors.subject
-              ? 'border-red-500 focus:ring-red-500'
-              : 'border-border focus:ring-primary'
-          } bg-background focus:ring-2 focus:border-transparent transition-all outline-none`}
           placeholder="What's this about?"
+          className={`w-full px-4 py-2.5 text-sm rounded-lg border bg-background transition-colors duration-200 outline-none ${
+            errors.subject
+              ? 'border-red-400'
+              : 'border-border hover:border-muted-foreground/30 focus:border-foreground/40'
+          }`}
         />
-        {errors.subject && <p className="mt-1 text-sm text-red-500">{errors.subject.message}</p>}
+        {errors.subject && <p className="mt-1 text-xs text-red-400">{errors.subject.message}</p>}
       </div>
 
-      {/* Message */}
       <div>
-        <label htmlFor="message" className="block text-sm font-medium mb-2">
-          Message <span className="text-red-500">*</span>
-        </label>
         <textarea
           {...register('message')}
           id="message"
-          rows={6}
-          className={`w-full px-4 py-3 rounded-lg border ${
-            errors.message
-              ? 'border-red-500 focus:ring-red-500'
-              : 'border-border focus:ring-primary'
-          } bg-background focus:ring-2 focus:border-transparent transition-all outline-none resize-none`}
+          rows={5}
           placeholder="Your message..."
+          className={`w-full px-4 py-2.5 text-sm rounded-lg border bg-background transition-colors duration-200 outline-none resize-none ${
+            errors.message
+              ? 'border-red-400'
+              : 'border-border hover:border-muted-foreground/30 focus:border-foreground/40'
+          }`}
         />
-        {errors.message && <p className="mt-1 text-sm text-red-500">{errors.message.message}</p>}
+        {errors.message && <p className="mt-1 text-xs text-red-400">{errors.message.message}</p>}
       </div>
 
-      {/* Submit Button */}
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 min-h-[44px]"
+        className="w-full px-5 py-2.5 bg-foreground text-background text-sm font-medium rounded-lg hover:opacity-80 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
       >
         {isSubmitting ? (
           <>
-            <Loader2 size={18} className="animate-spin" />
-            Sending...
+            <Loader2 size={14} className="animate-spin" />
+            Sending
           </>
         ) : (
           <>
-            <Send size={18} />
+            <Send size={14} />
             Send Message
           </>
         )}
       </button>
 
-      <p className="text-xs text-muted-foreground text-center">
-        Your information will be kept private and only used to respond to your message.
+      <p className="text-xs text-muted-foreground/60 text-center">
+        Your information will be kept private.
       </p>
     </form>
   );

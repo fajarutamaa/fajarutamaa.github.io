@@ -26,55 +26,15 @@ const iconMap = {
   release: Tag,
 };
 
-const colorConfig = {
-  commit: {
-    icon: 'text-emerald-500',
-    bg: 'bg-emerald-500/10',
-    border: 'border-emerald-500/20',
-    ring: 'ring-emerald-500/30',
-    gradient: 'from-emerald-500 to-teal-500',
-    glow: 'group-hover:shadow-emerald-500/20',
-    line: 'from-emerald-500/50',
-  },
-  pr: {
-    icon: 'text-purple-500',
-    bg: 'bg-purple-500/10',
-    border: 'border-purple-500/20',
-    ring: 'ring-purple-500/30',
-    gradient: 'from-purple-500 to-pink-500',
-    glow: 'group-hover:shadow-purple-500/20',
-    line: 'from-purple-500/50',
-  },
-  issue: {
-    icon: 'text-blue-500',
-    bg: 'bg-blue-500/10',
-    border: 'border-blue-500/20',
-    ring: 'ring-blue-500/30',
-    gradient: 'from-blue-500 to-cyan-500',
-    glow: 'group-hover:shadow-blue-500/20',
-    line: 'from-blue-500/50',
-  },
-  blog: {
-    icon: 'text-orange-500',
-    bg: 'bg-orange-500/10',
-    border: 'border-orange-500/20',
-    ring: 'ring-orange-500/30',
-    gradient: 'from-orange-500 to-amber-500',
-    glow: 'group-hover:shadow-orange-500/20',
-    line: 'from-orange-500/50',
-  },
-  release: {
-    icon: 'text-pink-500',
-    bg: 'bg-pink-500/10',
-    border: 'border-pink-500/20',
-    ring: 'ring-pink-500/30',
-    gradient: 'from-pink-500 to-rose-500',
-    glow: 'group-hover:shadow-pink-500/20',
-    line: 'from-pink-500/50',
-  },
+const colorMap: Record<string, string> = {
+  commit: 'text-emerald-600 dark:text-emerald-400',
+  pr: 'text-purple-600 dark:text-purple-400',
+  issue: 'text-blue-600 dark:text-blue-400',
+  blog: 'text-orange-600 dark:text-orange-400',
+  release: 'text-pink-600 dark:text-pink-400',
 };
 
-const typeLabels = {
+const typeLabels: Record<string, string> = {
   commit: 'Commit',
   pr: 'Pull Request',
   issue: 'Issue',
@@ -82,82 +42,62 @@ const typeLabels = {
   release: 'Release',
 };
 
+const itemVariants = {
+  hidden: { opacity: 0, y: 12 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.04, duration: 0.4, ease: [0.45, 0, 0.1, 1] as const },
+  }),
+};
+
 export function TimelineItem({ activity, index }: TimelineItemProps) {
   const Icon = iconMap[activity.type];
-  const colors = colorConfig[activity.type];
+  const color = colorMap[activity.type];
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ delay: index * 0.05, duration: 0.3 }}
-      className="relative pl-8 pb-12 last:pb-0 group"
+      custom={index}
+      variants={itemVariants}
+      initial="hidden"
+      animate="visible"
+      className="relative pl-8 pb-8 last:pb-0"
     >
-      {/* Timeline line */}
-      <div
-        className={`absolute left-[11px] top-8 bottom-0 w-[2px] bg-gradient-to-b ${colors.line} to-transparent opacity-30 group-hover:opacity-100 transition-opacity duration-500`}
-      />
+      <div className="absolute left-[11px] top-6 bottom-0 w-px bg-border" />
 
-      {/* Icon circle */}
-      <div
-        className={`absolute left-0 top-0 p-2.5 rounded-full ${colors.bg} ${colors.border} border ring-4 ring-background ${colors.ring} backdrop-blur-sm group-hover:scale-110 transition-all duration-300 shadow-lg z-10`}
-      >
-        <Icon className={`w-4 h-4 ${colors.icon}`} />
+      <div className="absolute left-0 top-1 p-1.5 rounded-full bg-background border border-border">
+        <Icon size={12} className={color} />
       </div>
 
-      {/* Content card */}
       <a
         href={activity.url}
         target="_blank"
         rel="noopener noreferrer"
-        className={`block ml-4 p-5 rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm hover:border-primary/50 transition-all duration-300 hover:scale-[1.01] hover:shadow-xl ${colors.glow} relative overflow-hidden group/card`}
+        className="block ml-4 p-4 rounded-lg border border-border/50 bg-card hover:border-border transition-all duration-300"
       >
-        {/* Gradient overlay on hover */}
-        <div
-          className={`absolute inset-0 bg-gradient-to-r ${colors.gradient} opacity-0 group-hover/card:opacity-5 transition-opacity duration-300`}
-        />
-
-        <div className="relative">
-          {/* Header with type badge and timestamp */}
-          <div className="flex items-start justify-between gap-4 mb-3">
-            <div className="flex items-center gap-2 flex-wrap">
-              <span
-                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${colors.bg} ${colors.icon} border ${colors.border}`}
-              >
-                {typeLabels[activity.type]}
-              </span>
-            </div>
-
-            <div className="flex items-center gap-1.5 text-xs text-muted-foreground shrink-0 group-hover/card:text-foreground transition-colors">
-              <Clock className="w-3 h-3" />
-              <time>{formatDistanceToNow(new Date(activity.date), { addSuffix: true })}</time>
-            </div>
-          </div>
-
-          {/* Title */}
-          <h3 className="font-semibold text-foreground mb-2 line-clamp-2 group-hover/card:text-primary transition-colors leading-relaxed text-base">
-            {activity.title}
-          </h3>
-
-          {/* Description */}
-          {activity.description && (
-            <p className="text-sm text-muted-foreground line-clamp-2 mb-4 leading-relaxed">
-              {activity.description}
-            </p>
-          )}
-
-          {/* Footer with external link indicator */}
-          <div className="flex items-center justify-end">
-            <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground group-hover/card:text-primary transition-colors">
-              <span>View details</span>
-              <ArrowRight className="w-3.5 h-3.5 group-hover/card:translate-x-1 transition-transform" />
-            </div>
-          </div>
+        <div className="flex items-start justify-between gap-3 mb-2">
+          <span className={`text-[10px] font-medium uppercase tracking-wider ${color}`}>
+            {typeLabels[activity.type]}
+          </span>
+          <span className="flex items-center gap-1 text-xs text-muted-foreground shrink-0">
+            <Clock size={10} />
+            <time>{formatDistanceToNow(new Date(activity.date), { addSuffix: true })}</time>
+          </span>
         </div>
 
-        {/* Shine effect on hover */}
-        <div className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 pointer-events-none">
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12 group-hover/card:translate-x-full transition-transform duration-1000" />
+        <h3 className="text-sm font-medium text-foreground mb-1 line-clamp-2 leading-snug">
+          {activity.title}
+        </h3>
+
+        {activity.description && (
+          <p className="text-xs text-muted-foreground line-clamp-2 mb-2 leading-relaxed">
+            {activity.description}
+          </p>
+        )}
+
+        <div className="flex items-center gap-1 text-[11px] text-muted-foreground/60">
+          <span>View details</span>
+          <ArrowRight size={10} />
         </div>
       </a>
     </motion.div>

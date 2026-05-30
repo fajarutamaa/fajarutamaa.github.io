@@ -27,14 +27,10 @@ export function ShareButtons({ title, url }: ShareButtonsProps) {
       case 'native':
         if (navigator.share) {
           try {
-            await navigator.share({
-              title,
-              url: shareUrl,
-            });
+            await navigator.share({ title, url: shareUrl });
             toast.success('Shared successfully!');
             return;
           } catch {
-            // User cancelled or error - do nothing
             return;
           }
         }
@@ -47,37 +43,30 @@ export function ShareButtons({ title, url }: ShareButtonsProps) {
   };
 
   return (
-    <div className="flex items-center gap-3 p-6 rounded-xl border border-border bg-muted/30">
-      <span className="text-sm font-medium text-muted-foreground">Share:</span>
+    <div className="flex items-center gap-3">
+      <span className="text-xs text-muted-foreground">Share</span>
       <div className="flex gap-2">
-        <button
-          onClick={() => handleShare('twitter')}
-          className="p-2 rounded-lg bg-background hover:bg-primary/10 hover:text-primary transition-all duration-200 group"
-          aria-label="Share on Twitter"
-        >
-          <Twitter size={18} className="transition-transform group-hover:scale-110" />
-        </button>
-        <button
-          onClick={() => handleShare('linkedin')}
-          className="p-2 rounded-lg bg-background hover:bg-primary/10 hover:text-primary transition-all duration-200 group"
-          aria-label="Share on LinkedIn"
-        >
-          <Linkedin size={18} className="transition-transform group-hover:scale-110" />
-        </button>
-        <button
-          onClick={() => handleShare('facebook')}
-          className="p-2 rounded-lg bg-background hover:bg-primary/10 hover:text-primary transition-all duration-200 group"
-          aria-label="Share on Facebook"
-        >
-          <Facebook size={18} className="transition-transform group-hover:scale-110" />
-        </button>
+        {[
+          { platform: 'twitter', icon: Twitter, label: 'Twitter' },
+          { platform: 'linkedin', icon: Linkedin, label: 'LinkedIn' },
+          { platform: 'facebook', icon: Facebook, label: 'Facebook' },
+        ].map(({ platform, icon: Icon, label }) => (
+          <button
+            key={platform}
+            onClick={() => handleShare(platform)}
+            className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+            aria-label={`Share on ${label}`}
+          >
+            <Icon size={14} />
+          </button>
+        ))}
         {typeof navigator !== 'undefined' && 'share' in navigator && (
           <button
             onClick={() => handleShare('native')}
-            className="p-2 rounded-lg bg-background hover:bg-primary/10 hover:text-primary transition-all duration-200 group"
+            className="text-muted-foreground hover:text-foreground transition-colors duration-200"
             aria-label="Share via native dialog"
           >
-            <Share2 size={18} className="transition-transform group-hover:scale-110" />
+            <Share2 size={14} />
           </button>
         )}
       </div>
