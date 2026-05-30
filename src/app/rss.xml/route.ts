@@ -1,5 +1,8 @@
 import { getBlogPosts } from '@/lib/notion/queries';
 
+export const dynamic = 'force-static';
+export const revalidate = 3600;
+
 const BASE_URL = 'https://fajarutamaa.github.io';
 
 export async function GET() {

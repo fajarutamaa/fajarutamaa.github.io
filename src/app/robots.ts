@@ -1,3 +1,5 @@
+export const dynamic = 'force-static';
+
 const BASE_URL = 'https://fajarutamaa.github.io';
 
 export default function robots() {
