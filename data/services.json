@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Web Development",
+    "description": "Building responsive, performant websites and web applications using modern frameworks like Next.js, React, and Node.js.",
+    "icon": "Globe"
+  },
+  {
+    "title": "API Design & Development",
+    "description": "Designing and building RESTful APIs and backend services that are scalable, well-documented, and easy to maintain.",
+    "icon": "Network"
+  },
+  {
+    "title": "UI/UX Implementation",
+    "description": "Translating designs into pixel-perfect, accessible user interfaces with smooth animations and thoughtful interactions.",
+    "icon": "Palette"
+  },
+  {
+    "title": "CMS Integration",
+    "description": "Setting up headless CMS solutions like Notion, Sanity, or Contentful to make content management simple and flexible.",
+    "icon": "Database"
+  }
+]

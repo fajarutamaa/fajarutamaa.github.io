@@ -53,6 +53,15 @@ export function Footer() {
             <Link href="/contact" className="hover:text-foreground transition-colors">
               Contact
             </Link>
+            <Link
+              href="/rss.xml"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 hover:text-foreground transition-colors"
+            >
+              <Rss size={10} />
+              RSS
+            </Link>
           </div>
           <p>Built with Next.js & Notion</p>
         </div>
