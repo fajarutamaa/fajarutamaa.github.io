@@ -1,32 +1,21 @@
-import React from 'react';
-
 export function LoadingState() {
   return (
-    <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
+    <div className="grid md:grid-cols-2 gap-5">
       {[1, 2, 3, 4].map((i) => (
-        <div key={i} className="rounded-xl overflow-hidden border border-border bg-card">
-          {/* Thumbnail skeleton */}
+        <div key={i} className="rounded-xl overflow-hidden border border-border/50 bg-card">
           <div className="aspect-[16/9] bg-muted animate-shimmer" />
-
-          {/* Content skeleton */}
-          <div className="p-5 space-y-3">
-            {/* Title and year */}
+          <div className="p-4 space-y-2">
             <div className="flex items-center justify-between gap-2">
-              <div className="h-5 bg-muted rounded animate-shimmer w-3/4" />
-              <div className="h-6 bg-muted rounded animate-shimmer w-12" />
+              <div className="h-4 bg-muted rounded animate-shimmer w-3/4" />
+              <div className="h-3 bg-muted rounded animate-shimmer w-8" />
             </div>
-
-            {/* Description */}
-            <div className="space-y-2">
-              <div className="h-4 bg-muted rounded animate-shimmer w-full" />
-              <div className="h-4 bg-muted rounded animate-shimmer w-5/6" />
+            <div className="space-y-1.5">
+              <div className="h-3 bg-muted rounded animate-shimmer w-full" />
+              <div className="h-3 bg-muted rounded animate-shimmer w-5/6" />
             </div>
-
-            {/* Tags */}
-            <div className="flex gap-2 pt-1">
-              <div className="h-6 bg-muted rounded animate-shimmer w-16" />
-              <div className="h-6 bg-muted rounded animate-shimmer w-20" />
-              <div className="h-6 bg-muted rounded animate-shimmer w-14" />
+            <div className="flex gap-1.5 pt-1">
+              <div className="h-5 bg-muted rounded-full animate-shimmer w-14" />
+              <div className="h-5 bg-muted rounded-full animate-shimmer w-16" />
             </div>
           </div>
         </div>
@@ -34,5 +23,3 @@ export function LoadingState() {
     </div>
   );
 }
-
-export default LoadingState;

@@ -1,4 +1,3 @@
-import React from 'react';
 import { NotionBlock } from '@/lib/notion/types';
 import Image from 'next/image';
 import { CopyCodeButton } from './CopyCodeButton';
@@ -72,6 +71,7 @@ export function NotionBlockRenderer({ blocks }: NotionBlockRendererProps) {
                     src={imageUrl}
                     alt={caption || 'Blog post image'}
                     fill
+                    sizes="(max-width: 768px) 100vw, 680px"
                     className="object-cover"
                   />
                 </div>

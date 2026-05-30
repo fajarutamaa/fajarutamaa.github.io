@@ -16,16 +16,16 @@ export function ReadingProgressBar() {
     };
 
     window.addEventListener('scroll', updateProgress, { passive: true });
-    updateProgress(); // Initial calculation
+    updateProgress();
 
     return () => window.removeEventListener('scroll', updateProgress);
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-transparent pointer-events-none">
+    <div className="fixed top-0 left-0 right-0 z-50 h-[2px] bg-transparent pointer-events-none">
       <div
-        className="h-full bg-gradient-to-r from-primary via-primary/80 to-primary transition-all duration-150 ease-out"
-        style={{ width: `${progress}%` }}
+        className="h-full bg-foreground/20 transition-all duration-200 ease-out"
+        style={{ width: `${Math.min(progress, 100)}%` }}
         role="progressbar"
         aria-valuenow={Math.round(progress)}
         aria-valuemin={0}

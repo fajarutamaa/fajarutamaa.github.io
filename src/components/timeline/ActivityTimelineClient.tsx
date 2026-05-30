@@ -20,20 +20,17 @@ export function ActivityTimelineClient({
 }: ActivityTimelineClientProps) {
   const [activeFilter, setActiveFilter] = useState('all');
 
-  // Combine all activities
   const allActivities = useMemo(() => {
     return [...githubActivities, ...blogActivities].sort(
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
     );
   }, [githubActivities, blogActivities]);
 
-  // Filter activities
   const filteredActivities = useMemo(() => {
     if (activeFilter === 'all') return allActivities;
     return allActivities.filter((activity) => activity.type === activeFilter);
   }, [allActivities, activeFilter]);
 
-  // Group by time
   const groupedActivities = useMemo(() => {
     const today: ActivityItem[] = [];
     const thisWeek: ActivityItem[] = [];
@@ -53,7 +50,6 @@ export function ActivityTimelineClient({
     return { today, thisWeek, older };
   }, [filteredActivities]);
 
-  // Count by type
   const counts = useMemo(() => {
     return {
       all: allActivities.length,
@@ -67,21 +63,13 @@ export function ActivityTimelineClient({
 
   if (allActivities.length === 0) {
     return (
-      <div className="text-center py-20 px-4">
-        <div className="max-w-md mx-auto">
-          <div className="w-24 h-24 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center">
-            <div className="text-5xl animate-float">📊</div>
-          </div>
-          <h3 className="text-2xl font-bold mb-3 bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
-            No Activity Yet
-          </h3>
-          <p className="text-muted-foreground mb-6 leading-relaxed">
-            Start creating content or contributing to projects to see your activity timeline here!
-          </p>
+      <div className="text-center py-16 px-4">
+        <div className="max-w-sm mx-auto space-y-4">
+          <p className="text-sm text-muted-foreground">No activity yet.</p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Link
               href="/blog"
-              className="px-4 py-2 rounded-lg bg-primary text-primary-foreground hover:shadow-lg hover:shadow-primary/25 transition-all duration-300 font-medium"
+              className="px-4 py-2 text-sm rounded-lg bg-foreground text-background hover:opacity-80 transition-opacity font-medium"
             >
               Write a Blog Post
             </Link>
@@ -89,7 +77,7 @@ export function ActivityTimelineClient({
               href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2 rounded-lg border border-border bg-card hover:border-primary/50 transition-all duration-300 font-medium"
+              className="px-4 py-2 text-sm rounded-lg border border-border hover:border-foreground/30 transition-colors"
             >
               Start Coding
             </a>
@@ -100,65 +88,48 @@ export function ActivityTimelineClient({
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-12">
-      {/* Statistics Cards */}
-      <section>
-        <ActivityStats activities={allActivities} />
-      </section>
+    <div className="space-y-8">
+      <ActivityStats activities={allActivities} />
 
-      {/* Contribution Heatmap */}
-      <section className="rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-lg font-semibold">Activity Intensity</h3>
+      <section className="p-5 rounded-xl border border-border/50 bg-card">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-sm font-medium">Activity Intensity</h3>
           <span className="text-xs text-muted-foreground">Last 60 Days</span>
         </div>
         <ContributionHeatmap activities={allActivities} />
       </section>
 
-      {/* Timeline Section */}
       <section>
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-bold">Timeline</h2>
-        </div>
-
-        {/* Filters */}
         <ActivityFilter
           activeFilter={activeFilter}
           onFilterChange={setActiveFilter}
           counts={counts}
         />
 
-        {/* Timeline Groups */}
         <AnimatePresence mode="wait">
           {filteredActivities.length === 0 ? (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="text-center py-16 px-4 rounded-2xl border-2 border-dashed border-border bg-card/30 backdrop-blur-sm"
-            >
-              <div className="max-w-sm mx-auto">
-                <div className="w-20 h-20 mx-auto mb-4 rounded-xl bg-muted/50 flex items-center justify-center">
-                  <div className="text-4xl">🔍</div>
-                </div>
-                <h3 className="text-lg font-bold mb-2">No {activeFilter} Activities Found</h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Try selecting a different filter to see more activities
-                </p>
-                <button
-                  onClick={() => setActiveFilter('all')}
-                  className="px-4 py-2 rounded-lg bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 font-medium"
-                >
-                  Show All Activities
-                </button>
-              </div>
-            </motion.div>
-          ) : (
-            <motion.div
+              key="empty"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              className="text-center py-12"
+            >
+              <p className="text-sm text-muted-foreground">No {activeFilter} activities found.</p>
+              <button
+                onClick={() => setActiveFilter('all')}
+                className="mt-3 text-sm text-foreground underline underline-offset-4 hover:opacity-70 transition-opacity"
+              >
+                Show all
+              </button>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="results"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
             >
               <TimelineGroup title="Today" activities={groupedActivities.today} startIndex={0} />
               <TimelineGroup
