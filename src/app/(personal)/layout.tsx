@@ -1,6 +1,8 @@
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { BottomNavigation } from '@/components/mobile';
+import { FloatingCTA } from '@/components/ui/FloatingCTA';
+import { CookieConsent } from '@/components/ui/CookieConsent';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -9,6 +11,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <main className="min-h-screen pt-14 pb-20 md:pb-0">{children}</main>
       <Footer />
       <BottomNavigation />
+      <FloatingCTA />
+      <CookieConsent />
     </div>
   );
 };
