@@ -2,6 +2,13 @@ import { NotionBlock } from '@/lib/notion/types';
 import Image from 'next/image';
 import { CopyCodeButton } from './CopyCodeButton';
 
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
+
 interface NotionBlockRendererProps {
   blocks: NotionBlock[];
 }
@@ -16,6 +23,13 @@ export function NotionBlockRenderer({ blocks }: NotionBlockRendererProps) {
       {blocks.map((block) => {
         const { type, id } = block;
         const value = block[type];
+        const headingText = type.startsWith('heading_')
+          ? value.rich_text
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              .map((t: any) => t.plain_text)
+              .join('')
+          : '';
+        const headingId = headingText ? slugify(headingText) : '';
 
         switch (type) {
           case 'paragraph':
@@ -26,19 +40,19 @@ export function NotionBlockRenderer({ blocks }: NotionBlockRendererProps) {
             );
           case 'heading_1':
             return (
-              <h1 key={id} className="text-3xl font-bold mt-8 mb-4">
+              <h1 key={id} id={headingId} className="text-3xl font-bold mt-8 mb-4">
                 <Text text={value.rich_text} />
               </h1>
             );
           case 'heading_2':
             return (
-              <h2 key={id} className="text-2xl font-bold mt-8 mb-4">
+              <h2 key={id} id={headingId} className="text-2xl font-bold mt-8 mb-4">
                 <Text text={value.rich_text} />
               </h2>
             );
           case 'heading_3':
             return (
-              <h3 key={id} className="text-xl font-bold mt-6 mb-3">
+              <h3 key={id} id={headingId} className="text-xl font-bold mt-6 mb-3">
                 <Text text={value.rich_text} />
               </h3>
             );

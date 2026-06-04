@@ -6,6 +6,7 @@ import { LoadingState } from '@/components/ui/LoadingState';
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import { Reveal } from '@/components/ui/Reveal';
 import { ServicesSection } from '@/components/ui/ServicesSection';
+import { GitHubStats } from '@/components/ui/GitHubStats';
 
 export const revalidate = 3600;
 
@@ -60,6 +61,10 @@ export default async function Home() {
 
         <Suspense fallback={null}>
           <ServicesSection />
+        </Suspense>
+
+        <Suspense fallback={null}>
+          <GitHubStats />
         </Suspense>
       </section>
     </main>

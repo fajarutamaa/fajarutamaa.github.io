@@ -2,6 +2,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { BottomNavigation } from '@/components/mobile';
 import { FloatingCTA } from '@/components/ui/FloatingCTA';
+import { BackToTop } from '@/components/ui/BackToTop';
 import { CookieConsent } from '@/components/ui/CookieConsent';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -12,6 +13,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <Footer />
       <BottomNavigation />
       <FloatingCTA />
+      <BackToTop />
       <CookieConsent />
     </div>
   );
