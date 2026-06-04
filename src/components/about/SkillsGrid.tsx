@@ -1,11 +1,11 @@
 import { getSkills } from '@/lib/notion/queries';
 import { Skill } from '@/lib/notion/types';
 
-const levelDots: Record<string, string> = {
-  Beginner: 'bg-amber-400',
-  Intermediate: 'bg-blue-400',
-  Advanced: 'bg-emerald-400',
-  Expert: 'bg-purple-400',
+const levelConfig: Record<string, { width: string; color: string; label: string }> = {
+  Beginner: { width: '25%', color: 'bg-amber-400', label: 'Beginner' },
+  Intermediate: { width: '50%', color: 'bg-blue-400', label: 'Intermediate' },
+  Advanced: { width: '75%', color: 'bg-emerald-400', label: 'Advanced' },
+  Expert: { width: '100%', color: 'bg-purple-400', label: 'Expert' },
 };
 
 export async function SkillsGrid() {
@@ -33,15 +33,24 @@ export async function SkillsGrid() {
         return (
           <div key={category} className="p-5 rounded-xl border border-border/50 bg-card">
             <h3 className="font-medium text-sm text-muted-foreground mb-4">{category}</h3>
-            <div className="space-y-3">
-              {categorySkills.map((skill) => (
-                <div key={skill.name} className="flex items-center justify-between gap-2">
-                  <span className="text-sm text-foreground">{skill.name}</span>
-                  <span
-                    className={`w-1.5 h-1.5 rounded-full ${levelDots[skill.level] || 'bg-muted-foreground'}`}
-                  />
-                </div>
-              ))}
+            <div className="space-y-4">
+              {categorySkills.map((skill) => {
+                const level = levelConfig[skill.level] || levelConfig.Intermediate;
+                return (
+                  <div key={skill.name} className="space-y-1.5">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-foreground">{skill.name}</span>
+                      <span className="text-[11px] text-muted-foreground">{level.label}</span>
+                    </div>
+                    <div className="h-1.5 rounded-full bg-muted overflow-hidden">
+                      <div
+                        className={`h-full rounded-full ${level.color} transition-all duration-700`}
+                        style={{ width: level.width }}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         );

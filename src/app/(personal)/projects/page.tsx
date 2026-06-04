@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { getBookmarks } from '@/lib/notion/queries';
-import { BookmarkCard, ErrorBoundary } from '@/components/ui';
+import { ProjectFilter } from '@/components/ui/ProjectFilter';
 import { BookmarkSkeleton } from '@/components/skeletons';
 
 export const metadata = {
@@ -12,22 +12,7 @@ export const revalidate = 3600;
 
 async function ProjectsGrid() {
   const projects = await getBookmarks();
-
-  if (!projects || projects.length === 0) {
-    return (
-      <div className="text-center py-20">
-        <p className="text-muted-foreground">No projects found.</p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="grid md:grid-cols-2 gap-5">
-      {projects.map((project, index) => (
-        <BookmarkCard key={project.id} bookmark={project} index={index} />
-      ))}
-    </div>
-  );
+  return <ProjectFilter projects={projects} />;
 }
 
 export default function ProjectsPage() {
@@ -41,11 +26,9 @@ export default function ProjectsPage() {
       </section>
 
       <section>
-        <ErrorBoundary>
-          <Suspense fallback={<BookmarkSkeleton />}>
-            <ProjectsGrid />
-          </Suspense>
-        </ErrorBoundary>
+        <Suspense fallback={<BookmarkSkeleton />}>
+          <ProjectsGrid />
+        </Suspense>
       </section>
     </div>
   );

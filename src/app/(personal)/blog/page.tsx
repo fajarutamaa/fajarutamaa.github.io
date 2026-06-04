@@ -1,7 +1,6 @@
 import { Suspense } from 'react';
-import Link from 'next/link';
-import { FileText } from 'lucide-react';
 import { getBlogPosts } from '@/lib/notion/queries';
+import { BlogSearch } from '@/components/ui/BlogSearch';
 import { BlogPostSkeleton } from '@/components/skeletons';
 
 export const metadata = {
@@ -13,44 +12,29 @@ export const revalidate = 3600;
 
 async function BlogPostsList() {
   const blogPosts = await getBlogPosts();
+  return <BlogSearch posts={blogPosts} />;
+}
+
+async function BlogStats() {
+  const posts = await getBlogPosts();
+  const categories = new Set(posts.map((p) => p.category));
+  const totalReadTime = posts.reduce((acc, p) => {
+    const min = parseInt(p.readTime);
+    return acc + (isNaN(min) ? 0 : min);
+  }, 0);
 
   return (
-    <section className="space-y-5">
-      {blogPosts.length > 0 ? (
-        blogPosts.map((post) => (
-          <Link key={post.id} href={`/blog/${post.slug}`}>
-            <article className="group p-5 rounded-xl border border-border/50 bg-card transition-all duration-300 hover:border-border hover:shadow-sm">
-              <div className="space-y-2.5">
-                <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                  <span className="px-2 py-0.5 rounded-full bg-muted text-muted-foreground font-medium">
-                    {post.category}
-                  </span>
-                  <span>{post.date}</span>
-                  <span>&middot;</span>
-                  <span>{post.readTime}</span>
-                </div>
-
-                <h2 className="text-lg font-medium group-hover:text-primary transition-colors duration-300">
-                  {post.title}
-                </h2>
-
-                <p className="text-sm text-muted-foreground/80 leading-relaxed">{post.excerpt}</p>
-
-                <span className="inline-flex items-center gap-1 text-sm text-primary font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  Read more
-                  <span>&rarr;</span>
-                </span>
-              </div>
-            </article>
-          </Link>
-        ))
-      ) : (
-        <div className="text-center py-20 space-y-4">
-          <FileText size={40} className="mx-auto text-muted-foreground/50" />
-          <p className="text-muted-foreground">No blog posts yet. Check back soon!</p>
-        </div>
-      )}
-    </section>
+    <div className="flex items-center gap-4 text-xs text-muted-foreground">
+      <span>
+        {posts.length} {posts.length === 1 ? 'post' : 'posts'}
+      </span>
+      <span className="w-1 h-1 rounded-full bg-muted-foreground/30" />
+      <span>
+        {categories.size} {categories.size === 1 ? 'category' : 'categories'}
+      </span>
+      <span className="w-1 h-1 rounded-full bg-muted-foreground/30" />
+      <span>~{totalReadTime} min read</span>
+    </div>
   );
 }
 
@@ -62,6 +46,9 @@ export default function BlogPage() {
         <p className="text-sm text-muted-foreground">
           Thoughts on software development and technology.
         </p>
+        <Suspense fallback={null}>
+          <BlogStats />
+        </Suspense>
       </section>
 
       <Suspense fallback={<BlogPostSkeleton />}>
