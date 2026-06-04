@@ -1,207 +1,109 @@
-# Portfolio Website with Notion CMS
+# Portfolio Website
 
-A modern, scalable portfolio website built with Next.js 15, featuring Notion as a flexible CMS for content management.
+A modern portfolio built with Next.js 15, TypeScript, Tailwind CSS, and Notion as a headless CMS.
 
-## ✨ Features
+## Features
 
-- 🎨 **Modern UI/UX**: Beautiful design with smooth animations and micro-interactions
-- 📝 **Notion CMS**: Manage content easily through Notion database
-- 🌓 **Dark/Light Mode**: Seamless theme switching with persistent preferences
-- ⚡ **Performance Optimized**: ISR (Incremental Static Regeneration) for fast loading
-- 📱 **Fully Responsive**: Works perfectly on all devices
-- ♿ **Accessible**: WCAG compliant with keyboard navigation support
-- 🎭 **Graceful Fallback**: Automatically falls back to JSON if Notion is unavailable
+- **Notion CMS** — 4 databases (bookmarks, blog, skills, experience) with automatic JSON fallback
+- **Dark/Light Mode** — System preference with manual toggle
+- **ISR** — Incremental Static Regeneration for fast loads
+- **SEO** — Dynamic sitemap.xml, robots.txt, RSS feed for blog
+- **Animations** — Scroll reveal, page transitions, floating orbs
+- **Activity Feed** — GitHub contribution timeline with heatmap
+- **Contact Form** — Server-side proxy via Web3Forms with Zod validation
+- **Floating CTA** — "Let's Talk" button appears on scroll
+- **Cookie Consent** — Privacy banner for Umami analytics
+- **Services Section** — Showcase offerings on the home page
+- **Responsive** — Mobile-first with bottom navigation on small screens
+- **Graceful Fallback** — All content works without Notion env vars
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
-- Node.js 18+ installed
-- A Notion account (for CMS features)
+- Node.js 18+
+- Optional: Notion account (site works without it)
 
 ### Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone <your-repo-url>
-   cd fajarutamaa.github.io
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Set up environment variables**
-   
-   Copy the example environment file:
-   ```bash
-   cp .env.example .env.local
-   ```
-   
-   Then edit `.env.local` and add your Notion credentials:
-   ```env
-   NOTION_API_KEY=your_notion_integration_token
-   NOTION_DATABASE_ID=your_notion_database_id
-   REVALIDATE_TIME=3600
-   ```
-
-4. **Run the development server**
-   ```bash
-   npm run dev
-   ```
-
-5. **Open your browser**
-   
-   Navigate to [http://localhost:3000](http://localhost:3000)
-
-## 📚 Notion CMS Setup
-
-To use Notion as your CMS, follow the detailed setup guide:
-
-👉 **[Notion Setup Guide](./docs/NOTION_SETUP.md)**
-
-### Quick Setup Summary
-
-1. Create a Notion integration at [notion.so/my-integrations](https://www.notion.so/my-integrations)
-2. Create a database in Notion with required properties (Name, Description, Website, Thumbnail, Year)
-3. Share the database with your integration
-4. Copy the integration token and database ID to `.env.local`
-5. Add content to your Notion database
-
-## 🏗️ Project Structure
-
-```
-├── src/
-│   ├── app/                    # Next.js app directory
-│   │   ├── (personal)/        # Personal portfolio pages
-│   │   ├── components/        # Shared components (Navbar)
-│   │   └── globals.css        # Global styles and design system
-│   ├── components/
-│   │   └── ui/                # Reusable UI components
-│   │       ├── BookmarkCard.tsx
-│   │       ├── Hero.tsx
-│   │       ├── SocialLinks.tsx
-│   │       ├── LoadingState.tsx
-│   │       └── ErrorBoundary.tsx
-│   └── lib/
-│       └── notion/            # Notion integration
-│           ├── client.ts      # Notion client setup
-│           ├── queries.ts     # Data fetching functions
-│           ├── parser.ts      # Response parsers
-│           └── types.ts       # TypeScript types
-├── data/
-│   └── bookmarks.json         # Fallback data (used if Notion fails)
-├── docs/
-│   └── NOTION_SETUP.md        # Notion setup guide
-└── public/                    # Static assets
+```bash
+git clone <repo-url>
+cd fajarutamaa.github.io
+npm install
+cp .env.example .env.local
+npm run dev
 ```
 
-## 🎨 Design System
+### Environment Variables
 
-The project includes a comprehensive design system with:
+All variables are optional — without them, the site uses JSON fallback data.
 
-- **CSS Variables**: Easily customizable colors and spacing
-- **Animations**: fadeIn, slideUp, scaleIn, shimmer, float, gradient, wave
-- **Utility Classes**: glass, gradient-text, hover-lift
-- **Responsive Design**: Mobile-first approach
-- **Accessibility**: Focus states, ARIA labels, keyboard navigation
+```env
+NOTION_API_KEY=                     # Notion integration token
+NOTION_DATABASE_ID=                 # Bookmarks database
+NOTION_BLOG_DATABASE_ID=            # Blog posts database
+NOTION_SKILLS_DATABASE_ID=          # Skills database
+NOTION_EXPERIENCE_DATABASE_ID=      # Experience database
+NEXT_PUBLIC_WEB3FORMS_KEY=          # Contact form (Web3Forms)
+NEXT_PUBLIC_GITHUB_USERNAME=        # GitHub activity feed
+GITHUB_TOKEN=                       # Higher rate limit for GitHub API
+REVALIDATE_TIME=3600                # ISR revalidation interval
+```
 
-## 🛠️ Tech Stack
-
-- **Framework**: [Next.js 15](https://nextjs.org/) (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **CMS**: Notion API
-- **Icons**: Lucide React
-- **Fonts**: Geist Sans & Geist Mono
-- **UI Components**: NextUI (Tooltip)
-- **Notifications**: Sonner
-
-## 📦 Available Scripts
+## Scripts
 
 ```bash
-# Development
-npm run dev          # Start development server
-
-# Production
-npm run build        # Build for production
-npm run start        # Start production server
-
-# Code Quality
-npm run lint         # Run ESLint
+npm run dev          # dev server at localhost:3000
+npm run build        # production build (static export via CI)
+npm run start        # start production server
+npm run lint         # ESLint
+npm run format       # Prettier write
+npm run format:check # Prettier check
 ```
 
-## 🌐 Deployment
+## Project Structure
 
-### Deploy on Vercel (Recommended)
-
-1. Push your code to GitHub
-2. Import your repository on [Vercel](https://vercel.com)
-3. Add environment variables in Vercel dashboard:
-   - `NOTION_API_KEY`
-   - `NOTION_DATABASE_ID`
-   - `REVALIDATE_TIME`
-4. Deploy!
-
-### Other Platforms
-
-The app can be deployed on any platform that supports Next.js:
-- Netlify
-- Cloudflare Pages
-- AWS Amplify
-- Railway
-- Render
-
-## 🔄 Content Management
-
-### Using Notion (Recommended)
-
-1. Open your Notion database
-2. Add/edit/delete entries
-3. Changes will appear on your site after the revalidation period (default: 1 hour)
-4. For immediate updates, trigger a revalidation or redeploy
-
-### Using JSON (Fallback)
-
-If you prefer not to use Notion, you can edit `data/bookmarks.json` directly:
-
-```json
-[
-  {
-    "name": "Project Name",
-    "description": "Project description",
-    "website": "https://example.com",
-    "thumbnail": "/img/thumbnail.webp",
-    "year": "2024",
-    "stack": ["React", "Node.js"],
-    "logo": "/logo.png"
-  }
-]
+```
+src/
+  app/
+    sitemap.ts              # auto-generated sitemap.xml
+    robots.ts               # robots.txt
+    rss.xml/route.ts        # RSS feed
+    (personal)/             # page routes: /, /about, /blog, /projects, /activity, /contact
+    api/contact/            # contact form POST handler
+    layout.tsx              # root layout + Umami + Google Search Console
+    globals.css             # design tokens, animations, utilities
+  components/
+    ui/                     # Hero, BookmarkCard, ErrorBoundary, Reveal, FloatingCTA, CookieConsent
+    layout/                 # Header, Footer
+    about/                  # SkillsGrid, Timeline
+    blog/                   # NotionBlockRenderer, ShareButtons, ReadingProgressBar
+    contact/                # ContactForm
+    activity/               # ActivityTimeline, ContributionHeatmap, TimelineItem
+    mobile/                 # BottomNavigation
+    skeletons/              # Shimmer loading states
+  hooks/
+    useReveal.ts            # IntersectionObserver scroll reveal hook
+  lib/
+    notion/                 # Notion client, queries, parser, types
+    github/                 # GitHub activity API
+    validations/contact.ts  # Zod schema
+data/                       # JSON fallback files (bookmarks, blog, skills, experience, services)
 ```
 
-## 🤝 Contributing
+## Notion CMS
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Each section (bookmarks, blog, skills, experience) queries a Notion database and falls back to a JSON file in `data/` if env vars are missing.
 
-## 📄 License
+👉 **[Setup Guide](./docs/NOTION_SETUP.md)**
 
-This project is open source and available under the [MIT License](LICENSE).
+## Deployment
 
-## 🙏 Acknowledgments
+**Primary**: GitHub Actions pushes to `main` → static export → GitHub Pages. Also runs on a 5-minute CRON.
 
-- [Next.js](https://nextjs.org/) - The React Framework
-- [Notion](https://www.notion.so/) - All-in-one workspace
-- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
-- [Vercel](https://vercel.com/) - Deployment platform
+**Alternative**: Vercel (connect repo, add env vars, deploy).
 
-## 📞 Contact
+## License
 
-- **GitHub**: [@fajarutamaa](https://github.com/fajarutamaa)
-- **LinkedIn**: [Fajar Dwi Utomo](https://www.linkedin.com/in/fajardwiutomo/)
-- **Medium**: [@fajardwiutomo](https://medium.com/@fajardwiutomo)
-
----
-
-Made with ❤️ by [Fajar Dwi Utomo](https://github.com/fajarutamaa)
+MIT
 
