@@ -4,6 +4,7 @@ export { ErrorBoundary } from './ErrorBoundary';
 export { Reveal } from './Reveal';
 export { FloatingCTA } from './FloatingCTA';
 export { BackToTop } from './BackToTop';
+export { QuickLinks } from './QuickLinks';
 export { ServicesSection } from './ServicesSection';
 export { GitHubStats } from './GitHubStats';
 export { BlogSearch } from './BlogSearch';

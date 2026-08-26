@@ -47,34 +47,34 @@ export function BlogSearch({ posts }: BlogSearchProps) {
   const hasFilters = query || category;
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-4">
       <div className="flex items-center gap-2">
         <div className="relative flex-1">
           <Search
             size={14}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none"
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground/50 pointer-events-none"
           />
           <input
             type="text"
             placeholder="Search posts..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-2.5 text-sm rounded-xl border border-border/50 bg-card text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-border transition-colors"
+            className="w-full pl-9 pr-4 py-2.5 text-sm rounded-xl glass-subtle text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-foreground/20 transition-all duration-200"
           />
         </div>
       </div>
 
       {categories.length > 0 && (
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5">
           {categories.map((cat) => (
             <button
               key={cat}
               type="button"
               onClick={() => setCategory(category === cat ? null : cat)}
-              className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
+              className={`text-[11px] px-2.5 py-1 rounded-full transition-all duration-200 ${
                 category === cat
-                  ? 'bg-primary text-primary-foreground border-primary'
-                  : 'bg-card text-muted-foreground border-border/50 hover:border-border'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'glass-subtle text-muted-foreground hover:text-foreground'
               }`}
             >
               {cat}
@@ -84,24 +84,26 @@ export function BlogSearch({ posts }: BlogSearchProps) {
       )}
 
       {filtered.length > 0 ? (
-        <div className="space-y-5">
+        <div className="space-y-3">
           {filtered.map((post) => (
             <Link key={post.id} href={`/blog/${post.slug}`}>
-              <article className="group p-5 rounded-xl border border-border/50 bg-card transition-all duration-300 hover:border-border hover:shadow-sm">
-                <div className="space-y-2.5">
-                  <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                    <span className="px-2 py-0.5 rounded-full bg-muted text-muted-foreground font-medium">
+              <article className="group glass-card p-4 rounded-2xl">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 text-[11px] text-muted-foreground/60">
+                    <span className="px-2 py-0.5 rounded-full bg-primary/8 text-primary font-medium">
                       {post.category}
                     </span>
                     <span>{post.date}</span>
                     <span>&middot;</span>
                     <span>{post.readTime}</span>
                   </div>
-                  <h2 className="text-lg font-medium group-hover:text-primary transition-colors duration-300">
+                  <h2 className="text-[15px] font-medium group-hover:text-primary transition-colors duration-200">
                     {post.title}
                   </h2>
-                  <p className="text-sm text-muted-foreground/80 leading-relaxed">{post.excerpt}</p>
-                  <span className="inline-flex items-center gap-1 text-sm text-primary font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <p className="text-[13px] text-muted-foreground/70 leading-relaxed line-clamp-2">
+                    {post.excerpt}
+                  </p>
+                  <span className="inline-flex items-center gap-1 text-[13px] text-primary font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                     Read more
                     <span>&rarr;</span>
                   </span>
@@ -111,16 +113,16 @@ export function BlogSearch({ posts }: BlogSearchProps) {
           ))}
         </div>
       ) : (
-        <div className="text-center py-20 space-y-4">
-          <FileText size={40} className="mx-auto text-muted-foreground/50" />
-          <p className="text-muted-foreground">
+        <div className="text-center py-16 space-y-3">
+          <FileText size={36} className="mx-auto text-muted-foreground/30" />
+          <p className="text-sm text-muted-foreground/60">
             {hasFilters ? 'No posts match your filters.' : 'No blog posts yet. Check back soon!'}
           </p>
           {hasFilters && (
             <button
               type="button"
               onClick={clearFilters}
-              className="text-sm text-primary hover:underline"
+              className="text-[13px] text-primary hover:underline"
             >
               Clear filters
             </button>

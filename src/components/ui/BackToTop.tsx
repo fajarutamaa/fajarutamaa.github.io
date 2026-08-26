@@ -18,10 +18,10 @@ export function BackToTop() {
     <button
       type="button"
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      className="fixed bottom-24 left-4 md:bottom-8 md:left-8 z-40 p-2.5 rounded-full bg-card border border-border/50 shadow-md hover:shadow-lg hover:border-border transition-all duration-300 text-muted-foreground hover:text-foreground"
+      className="fixed bottom-24 left-4 md:bottom-6 md:left-6 z-40 p-2.5 rounded-full glass-card text-muted-foreground hover:text-foreground"
       aria-label="Back to top"
     >
-      <ChevronUp size={18} />
+      <ChevronUp size={16} />
     </button>
   );
 }

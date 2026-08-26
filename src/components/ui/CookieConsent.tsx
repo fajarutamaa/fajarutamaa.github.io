@@ -24,26 +24,26 @@ export function CookieConsent() {
   if (!show) return null;
 
   return (
-    <div className="fixed bottom-20 left-4 right-4 md:left-auto md:right-4 md:bottom-24 md:max-w-sm z-50 animate-slideUp">
-      <div className="glass rounded-xl p-4 shadow-lg">
+    <div className="fixed bottom-24 left-4 right-4 md:left-auto md:right-4 md:bottom-24 md:max-w-xs z-50 animate-slideUp">
+      <div className="glass-card rounded-2xl p-4">
         <div className="flex items-start justify-between gap-3">
-          <p className="text-xs text-muted-foreground leading-relaxed">
+          <p className="text-[11px] text-muted-foreground leading-relaxed">
             This site uses Umami analytics to understand how visitors interact with the site. No
-            personal data is collected. By continuing, you agree to this.
+            personal data is collected.
           </p>
           <button
             type="button"
             onClick={accept}
-            className="shrink-0 p-1 rounded-lg hover:bg-muted transition-colors"
+            className="shrink-0 p-1 rounded-full hover:bg-muted/50 transition-colors"
             aria-label="Accept"
           >
-            <X size={14} />
+            <X size={13} />
           </button>
         </div>
         <button
           type="button"
           onClick={accept}
-          className="mt-2.5 text-xs font-medium text-primary hover:underline"
+          className="mt-2 text-[11px] font-medium text-primary hover:underline"
         >
           Got it
         </button>

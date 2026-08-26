@@ -5,6 +5,7 @@ import { BookmarkCard } from '@/components/ui/BookmarkCard';
 import { LoadingState } from '@/components/ui/LoadingState';
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import { Reveal } from '@/components/ui/Reveal';
+import { QuickLinks } from '@/components/ui/QuickLinks';
 import { ServicesSection } from '@/components/ui/ServicesSection';
 import { GitHubStats } from '@/components/ui/GitHubStats';
 
@@ -36,7 +37,7 @@ export default async function Home() {
       <Hero />
 
       <Reveal>
-        <p className="mt-6 text-foreground/70 leading-relaxed text-[15px]">
+        <p className="mt-5 text-foreground/70 leading-relaxed text-[15px]">
           I&apos;m a junior software engineer with a strong passion for creating meaningful and
           user-focused digital products. I enjoy turning ideas into reliable, well-crafted solutions
           that people genuinely love to use. Currently, I&apos;m learning and contributing to
@@ -45,7 +46,8 @@ export default async function Home() {
         </p>
       </Reveal>
 
-      <section className="mt-16 space-y-16">
+      <section className="mt-12 space-y-14">
+        <QuickLinks />
         <Reveal>
           <div className="flex items-center gap-3 mb-6">
             <h2 className="text-base font-medium">Bookmarks</h2>

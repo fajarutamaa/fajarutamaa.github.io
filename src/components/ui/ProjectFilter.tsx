@@ -23,16 +23,16 @@ export function ProjectFilter({ projects }: ProjectFilterProps) {
   }, [active, projects]);
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-4">
       {allStacks.length > 0 && (
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5">
           <button
             type="button"
             onClick={() => setActive(null)}
-            className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
+            className={`text-[11px] px-2.5 py-1 rounded-full transition-all duration-200 ${
               !active
-                ? 'bg-primary text-primary-foreground border-primary'
-                : 'bg-card text-muted-foreground border-border/50 hover:border-border'
+                ? 'bg-primary text-primary-foreground'
+                : 'glass-subtle text-muted-foreground hover:text-foreground'
             }`}
           >
             All
@@ -42,10 +42,10 @@ export function ProjectFilter({ projects }: ProjectFilterProps) {
               key={stack}
               type="button"
               onClick={() => setActive(stack)}
-              className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
+              className={`text-[11px] px-2.5 py-1 rounded-full transition-all duration-200 ${
                 active === stack
-                  ? 'bg-primary text-primary-foreground border-primary'
-                  : 'bg-card text-muted-foreground border-border/50 hover:border-border'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'glass-subtle text-muted-foreground hover:text-foreground'
               }`}
             >
               {stack}
@@ -54,15 +54,15 @@ export function ProjectFilter({ projects }: ProjectFilterProps) {
         </div>
       )}
 
-      <div className="grid md:grid-cols-2 gap-5">
+      <div className="grid md:grid-cols-2 gap-3">
         {filtered.map((project) => (
           <BookmarkCard key={project.id} bookmark={project} />
         ))}
       </div>
 
       {filtered.length === 0 && (
-        <div className="text-center py-20">
-          <p className="text-muted-foreground">No projects match this filter.</p>
+        <div className="text-center py-16">
+          <p className="text-sm text-muted-foreground/60">No projects match this filter.</p>
         </div>
       )}
     </div>

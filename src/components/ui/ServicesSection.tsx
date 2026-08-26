@@ -34,25 +34,25 @@ export async function ServicesSection() {
   return (
     <section>
       <Reveal>
-        <div className="flex items-center gap-3 mb-6">
-          <h2 className="text-base font-medium">What I Do</h2>
-          <div className="flex-1 h-px bg-border/50" />
+        <div className="flex items-center gap-3 mb-4">
+          <h2 className="text-sm font-medium text-muted-foreground">What I Do</h2>
+          <div className="flex-1 h-px bg-border/30" />
         </div>
       </Reveal>
 
-      <div className="grid md:grid-cols-2 gap-4">
+      <div className="grid sm:grid-cols-2 gap-2">
         {services.map((service, index) => {
           const Icon = iconMap[service.icon] || Globe;
           return (
-            <Reveal key={service.title} delay={index * 100}>
-              <div className="group p-4 md:p-5 rounded-xl border border-border/50 bg-card transition-all duration-300 hover:border-border hover:shadow-sm hover-lift">
-                <div className="flex items-start gap-4">
-                  <div className="p-2.5 rounded-lg bg-primary/10 text-primary shrink-0 transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
-                    <Icon size={20} />
+            <Reveal key={service.title} delay={index * 80}>
+              <div className="group glass-card p-4 rounded-2xl">
+                <div className="flex items-start gap-3">
+                  <div className="p-2 rounded-xl bg-primary/8 text-primary shrink-0 transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
+                    <Icon size={16} />
                   </div>
-                  <div className="space-y-1.5">
-                    <h3 className="font-medium text-sm">{service.title}</h3>
-                    <p className="text-sm text-muted-foreground/80 leading-relaxed">
+                  <div className="space-y-1">
+                    <h3 className="font-medium text-[13px]">{service.title}</h3>
+                    <p className="text-[11px] text-muted-foreground/70 leading-relaxed">
                       {service.description}
                     </p>
                   </div>
