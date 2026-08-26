@@ -17,8 +17,8 @@ export function BottomNavigation() {
   const pathname = usePathname();
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-xl border-t border-border/30">
-      <div className="flex justify-around items-center">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 glass safe-area-bottom">
+      <div className="flex justify-around items-center px-1">
         {navigation.map((item) => {
           const isActive =
             pathname === item.href || (item.href !== '/' && pathname?.startsWith(item.href));
@@ -28,13 +28,16 @@ export function BottomNavigation() {
             <Link
               key={item.name}
               href={item.href}
-              className={`flex flex-col items-center justify-center gap-0.5 py-2 px-3 transition-colors duration-200 ${
-                isActive ? 'text-foreground' : 'text-muted-foreground hover:text-foreground/70'
+              className={`relative flex flex-col items-center justify-center gap-0.5 py-2 px-2 min-w-[48px] transition-colors duration-200 ${
+                isActive ? 'text-foreground' : 'text-muted-foreground/60'
               }`}
               aria-label={item.name}
             >
-              <Icon size={18} />
-              <span className="text-[10px] font-medium">{item.name}</span>
+              {isActive && (
+                <span className="absolute top-0 left-1/2 -translate-x-1/2 w-4 h-[2px] bg-foreground rounded-full" />
+              )}
+              <Icon size={17} strokeWidth={isActive ? 2.5 : 1.8} />
+              <span className="text-[9px] font-medium">{item.name}</span>
             </Link>
           );
         })}

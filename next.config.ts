@@ -2,7 +2,11 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   reactStrictMode: false,
+  compress: true,
+  poweredByHeader: false,
   images: {
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 60 * 60 * 24 * 30,
     remotePatterns: [
       {
         protocol: 'https',
@@ -21,6 +25,9 @@ const nextConfig: NextConfig = {
         hostname: 'miro.medium.com',
       },
     ],
+  },
+  experimental: {
+    optimizePackageImports: ['lucide-react', 'sonner'],
   },
 };
 

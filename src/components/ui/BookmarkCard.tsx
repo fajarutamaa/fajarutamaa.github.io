@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { memo } from 'react';
+import { ArrowUpRight } from 'lucide-react';
 import { Bookmark } from '@/lib/notion/types';
 
 interface BookmarkCardProps {
@@ -14,37 +15,41 @@ export const BookmarkCard = memo(function BookmarkCard({ bookmark }: BookmarkCar
       href={bookmark.website}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative block rounded-xl overflow-hidden border border-border/50 bg-card transition-all duration-500 hover:border-border hover:shadow-sm"
+      className="group relative block rounded-2xl overflow-hidden glass-card"
     >
       <div className="relative aspect-[16/9] overflow-hidden bg-muted">
         <Image
           src={bookmark.thumbnail}
           alt={bookmark.name}
           fill
-          className="object-cover transition-all duration-700 group-hover:scale-105"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
           quality={80}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute top-3 right-3 p-1.5 rounded-full glass opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
+          <ArrowUpRight size={13} className="text-foreground" />
+        </div>
       </div>
 
       <div className="p-4 space-y-2">
         <div className="flex items-start justify-between gap-2">
-          <h3 className="font-medium text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-1">
+          <h3 className="font-medium text-[13px] text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-1">
             {bookmark.name}
           </h3>
-          <span className="text-xs text-muted-foreground shrink-0">{bookmark.year}</span>
+          <span className="text-[10px] text-muted-foreground shrink-0">{bookmark.year}</span>
         </div>
 
-        <p className="text-sm text-muted-foreground/80 line-clamp-2 leading-relaxed">
+        <p className="text-[11px] text-muted-foreground/70 line-clamp-2 leading-relaxed">
           {bookmark.description}
         </p>
 
         {bookmark.stack && bookmark.stack.length > 0 && (
-          <div className="flex flex-wrap gap-1.5 pt-1">
+          <div className="flex flex-wrap gap-1 pt-0.5">
             {bookmark.stack.map((tech) => (
               <span
                 key={tech}
-                className="text-[11px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground"
+                className="text-[9px] px-1.5 py-0.5 rounded-full bg-muted/60 text-muted-foreground"
               >
                 {tech}
               </span>

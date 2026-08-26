@@ -52,20 +52,18 @@ export function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div>
         <input
           {...register('name')}
           type="text"
           id="name"
           placeholder="Your name"
-          className={`w-full px-4 py-2.5 text-sm rounded-lg border bg-background transition-colors duration-200 outline-none ${
-            errors.name
-              ? 'border-red-400'
-              : 'border-border hover:border-muted-foreground/30 focus:border-foreground/40'
+          className={`w-full px-4 py-2.5 text-sm rounded-xl glass-subtle transition-all duration-200 outline-none placeholder:text-muted-foreground/40 ${
+            errors.name ? 'border-red-400' : 'focus:border-foreground/30 focus:bg-background/80'
           }`}
         />
-        {errors.name && <p className="mt-1 text-xs text-red-400">{errors.name.message}</p>}
+        {errors.name && <p className="mt-1 text-[11px] text-red-400">{errors.name.message}</p>}
       </div>
 
       <div>
@@ -74,13 +72,11 @@ export function ContactForm() {
           type="email"
           id="email"
           placeholder="your.email@example.com"
-          className={`w-full px-4 py-2.5 text-sm rounded-lg border bg-background transition-colors duration-200 outline-none ${
-            errors.email
-              ? 'border-red-400'
-              : 'border-border hover:border-muted-foreground/30 focus:border-foreground/40'
+          className={`w-full px-4 py-2.5 text-sm rounded-xl glass-subtle transition-all duration-200 outline-none placeholder:text-muted-foreground/40 ${
+            errors.email ? 'border-red-400' : 'focus:border-foreground/30 focus:bg-background/80'
           }`}
         />
-        {errors.email && <p className="mt-1 text-xs text-red-400">{errors.email.message}</p>}
+        {errors.email && <p className="mt-1 text-[11px] text-red-400">{errors.email.message}</p>}
       </div>
 
       <div>
@@ -89,13 +85,13 @@ export function ContactForm() {
           type="text"
           id="subject"
           placeholder="What's this about?"
-          className={`w-full px-4 py-2.5 text-sm rounded-lg border bg-background transition-colors duration-200 outline-none ${
-            errors.subject
-              ? 'border-red-400'
-              : 'border-border hover:border-muted-foreground/30 focus:border-foreground/40'
+          className={`w-full px-4 py-2.5 text-sm rounded-xl glass-subtle transition-all duration-200 outline-none placeholder:text-muted-foreground/40 ${
+            errors.subject ? 'border-red-400' : 'focus:border-foreground/30 focus:bg-background/80'
           }`}
         />
-        {errors.subject && <p className="mt-1 text-xs text-red-400">{errors.subject.message}</p>}
+        {errors.subject && (
+          <p className="mt-1 text-[11px] text-red-400">{errors.subject.message}</p>
+        )}
       </div>
 
       <div>
@@ -104,19 +100,19 @@ export function ContactForm() {
           id="message"
           rows={5}
           placeholder="Your message..."
-          className={`w-full px-4 py-2.5 text-sm rounded-lg border bg-background transition-colors duration-200 outline-none resize-none ${
-            errors.message
-              ? 'border-red-400'
-              : 'border-border hover:border-muted-foreground/30 focus:border-foreground/40'
+          className={`w-full px-4 py-2.5 text-sm rounded-xl glass-subtle transition-all duration-200 outline-none resize-none placeholder:text-muted-foreground/40 ${
+            errors.message ? 'border-red-400' : 'focus:border-foreground/30 focus:bg-background/80'
           }`}
         />
-        {errors.message && <p className="mt-1 text-xs text-red-400">{errors.message.message}</p>}
+        {errors.message && (
+          <p className="mt-1 text-[11px] text-red-400">{errors.message.message}</p>
+        )}
       </div>
 
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full px-5 py-2.5 bg-foreground text-background text-sm font-medium rounded-lg hover:opacity-80 transition-opacity disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+        className="w-full px-5 py-2.5 glass-card rounded-xl text-sm font-medium hover:bg-foreground hover:text-background transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
       >
         {isSubmitting ? (
           <>
@@ -131,7 +127,7 @@ export function ContactForm() {
         )}
       </button>
 
-      <p className="text-xs text-muted-foreground/60 text-center">
+      <p className="text-[11px] text-muted-foreground/50 text-center">
         Your information will be kept private.
       </p>
     </form>

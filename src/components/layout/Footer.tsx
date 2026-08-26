@@ -13,14 +13,14 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border/30 mt-24">
-      <div className="container max-w-[680px] lg:max-w-[900px] py-10">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-10">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+    <footer className="border-t border-border/20 mt-20">
+      <div className="container max-w-[680px] lg:max-w-[900px] py-8">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-5 mb-8">
+          <div className="text-xs text-muted-foreground">
             <span>&copy; {currentYear} Fajar Dwi Utomo</span>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             {socialLinks.map((social) => {
               const Icon = social.icon;
               return (
@@ -29,18 +29,18 @@ export function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-foreground transition-colors duration-300"
+                  className="p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all duration-200"
                   aria-label={social.name}
                 >
-                  <Icon size={16} />
+                  <Icon size={15} />
                 </Link>
               );
             })}
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-center gap-2 text-xs text-muted-foreground/60">
-          <div className="flex items-center gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-2 text-[11px] text-muted-foreground/50">
+          <div className="flex items-center gap-3">
             <Link href="/about" className="hover:text-foreground transition-colors">
               About
             </Link>
@@ -59,7 +59,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 hover:text-foreground transition-colors"
             >
-              <Rss size={10} />
+              <Rss size={9} />
               RSS
             </Link>
           </div>
