@@ -63,7 +63,7 @@ export function ContactForm() {
             errors.name ? 'border-red-400' : 'focus:border-foreground/30 focus:bg-background/80'
           }`}
         />
-        {errors.name && <p className="mt-1 text-[11px] text-red-400">{errors.name.message}</p>}
+        {errors.name && <p className="mt-1 text-xs text-red-400">{errors.name.message}</p>}
       </div>
 
       <div>
@@ -76,7 +76,7 @@ export function ContactForm() {
             errors.email ? 'border-red-400' : 'focus:border-foreground/30 focus:bg-background/80'
           }`}
         />
-        {errors.email && <p className="mt-1 text-[11px] text-red-400">{errors.email.message}</p>}
+        {errors.email && <p className="mt-1 text-xs text-red-400">{errors.email.message}</p>}
       </div>
 
       <div>
@@ -89,9 +89,7 @@ export function ContactForm() {
             errors.subject ? 'border-red-400' : 'focus:border-foreground/30 focus:bg-background/80'
           }`}
         />
-        {errors.subject && (
-          <p className="mt-1 text-[11px] text-red-400">{errors.subject.message}</p>
-        )}
+        {errors.subject && <p className="mt-1 text-xs text-red-400">{errors.subject.message}</p>}
       </div>
 
       <div>
@@ -104,9 +102,7 @@ export function ContactForm() {
             errors.message ? 'border-red-400' : 'focus:border-foreground/30 focus:bg-background/80'
           }`}
         />
-        {errors.message && (
-          <p className="mt-1 text-[11px] text-red-400">{errors.message.message}</p>
-        )}
+        {errors.message && <p className="mt-1 text-xs text-red-400">{errors.message.message}</p>}
       </div>
 
       <button
@@ -127,7 +123,7 @@ export function ContactForm() {
         )}
       </button>
 
-      <p className="text-[11px] text-muted-foreground/50 text-center">
+      <p className="text-xs text-muted-foreground text-center">
         Your information will be kept private.
       </p>
     </form>

@@ -97,7 +97,7 @@ export function BlogSearch({ posts, pageSize = DEFAULT_PAGE_SIZE }: BlogSearchPr
               key={cat}
               type="button"
               onClick={() => handleCategory(category === cat ? null : cat)}
-              className={`text-[11px] px-2.5 py-1 rounded-full transition-all duration-200 ${
+              className={`text-xs px-2.5 py-1 rounded-full transition-all duration-200 ${
                 category === cat
                   ? 'bg-primary text-primary-foreground'
                   : 'glass-subtle text-muted-foreground hover:text-foreground'
@@ -116,7 +116,7 @@ export function BlogSearch({ posts, pageSize = DEFAULT_PAGE_SIZE }: BlogSearchPr
               <Link key={post.id} href={`/blog/${post.slug}`}>
                 <article className="group glass-card p-4 rounded-2xl">
                   <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-[11px] text-muted-foreground/60">
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground/60">
                       <span className="px-2 py-0.5 rounded-full bg-primary/8 text-primary font-medium">
                         {post.category}
                       </span>

@@ -79,7 +79,7 @@ export function ProjectFilter({ projects }: ProjectFilterProps) {
           <button
             type="button"
             onClick={() => setActive(null)}
-            className={`text-[11px] px-2.5 py-1 rounded-full transition-all duration-200 ${
+            className={`text-xs px-2.5 py-1 rounded-full transition-all duration-200 ${
               !active
                 ? 'bg-primary text-primary-foreground'
                 : 'glass-subtle text-muted-foreground hover:text-foreground'
@@ -92,7 +92,7 @@ export function ProjectFilter({ projects }: ProjectFilterProps) {
               key={stack}
               type="button"
               onClick={() => setActive(active === stack ? null : stack)}
-              className={`text-[11px] px-2.5 py-1 rounded-full transition-all duration-200 ${
+              className={`text-xs px-2.5 py-1 rounded-full transition-all duration-200 ${
                 active === stack
                   ? 'bg-primary text-primary-foreground'
                   : 'glass-subtle text-muted-foreground hover:text-foreground'
@@ -106,11 +106,11 @@ export function ProjectFilter({ projects }: ProjectFilterProps) {
 
       {allYears.length > 0 && (
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-[11px] text-muted-foreground">Year:</span>
+          <span className="text-xs text-muted-foreground">Year:</span>
           <button
             type="button"
             onClick={() => setYear(null)}
-            className={`text-[11px] px-2.5 py-1 rounded-full transition-all duration-200 ${
+            className={`text-xs px-2.5 py-1 rounded-full transition-all duration-200 ${
               !year
                 ? 'bg-primary text-primary-foreground'
                 : 'glass-subtle text-muted-foreground hover:text-foreground'
@@ -123,7 +123,7 @@ export function ProjectFilter({ projects }: ProjectFilterProps) {
               key={y}
               type="button"
               onClick={() => setYear(year === y ? null : y)}
-              className={`text-[11px] px-2.5 py-1 rounded-full transition-all duration-200 ${
+              className={`text-xs px-2.5 py-1 rounded-full transition-all duration-200 ${
                 year === y
                   ? 'bg-primary text-primary-foreground'
                   : 'glass-subtle text-muted-foreground hover:text-foreground'
@@ -137,8 +137,8 @@ export function ProjectFilter({ projects }: ProjectFilterProps) {
 
       {filtered.length > 0 ? (
         <div className="grid md:grid-cols-2 gap-3">
-          {filtered.map((project) => (
-            <BookmarkCard key={project.id} bookmark={project} />
+          {filtered.map((project, index) => (
+            <BookmarkCard key={project.id} bookmark={project} index={index} />
           ))}
         </div>
       ) : (

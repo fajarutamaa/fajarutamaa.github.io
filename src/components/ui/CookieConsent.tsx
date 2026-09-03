@@ -27,7 +27,7 @@ export function CookieConsent() {
     <div className="fixed bottom-24 left-4 right-4 md:left-auto md:right-4 md:bottom-24 md:max-w-xs z-50 animate-slideUp">
       <div className="glass-card rounded-2xl p-4">
         <div className="flex items-start justify-between gap-3">
-          <p className="text-[11px] text-muted-foreground leading-relaxed">
+          <p className="text-xs text-muted-foreground leading-relaxed">
             This site uses Umami analytics to understand how visitors interact with the site. No
             personal data is collected.
           </p>
@@ -43,7 +43,7 @@ export function CookieConsent() {
         <button
           type="button"
           onClick={accept}
-          className="mt-2 text-[11px] font-medium text-primary hover:underline"
+          className="mt-2 text-xs font-medium text-primary hover:underline"
         >
           Got it
         </button>

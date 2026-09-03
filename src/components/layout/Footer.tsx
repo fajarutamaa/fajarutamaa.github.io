@@ -39,7 +39,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-center gap-2 text-[11px] text-muted-foreground">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-2 text-xs text-muted-foreground">
           <div className="flex items-center gap-3">
             <Link href="/about" className="hover:text-foreground transition-colors">
               About
