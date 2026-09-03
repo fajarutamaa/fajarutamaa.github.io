@@ -1,26 +1,23 @@
 'use client';
 
-import { useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { useMemo, useState } from 'react';
 import { ActivityItem } from '@/lib/github/types';
 import { subDays, format, isSameDay, eachDayOfInterval, startOfDay, endOfDay } from 'date-fns';
-import { Tooltip } from '@nextui-org/tooltip';
 
 interface ContributionHeatmapProps {
   activities: ActivityItem[];
   days?: number;
 }
 
-const cellVariants = {
-  hidden: { opacity: 0, scale: 0 },
-  visible: (delay: number) => ({
-    opacity: 1,
-    scale: 1,
-    transition: { delay, duration: 0.2 },
-  }),
-};
+interface Cell {
+  date: Date;
+  count: number;
+  level: number;
+}
 
 export function ContributionHeatmap({ activities, days = 60 }: ContributionHeatmapProps) {
+  const [hovered, setHovered] = useState<Cell | null>(null);
+
   const dates = useMemo(() => {
     const end = endOfDay(new Date());
     const start = startOfDay(subDays(end, days - 1));
@@ -79,33 +76,30 @@ export function ContributionHeatmap({ activities, days = 60 }: ContributionHeatm
         <div className="flex gap-1">
           {weeks.map((week, weekIndex) => (
             <div key={weekIndex} className="flex flex-col gap-1">
-              {week.map((day, dayIndex) => (
-                <Tooltip
+              {week.map((day) => (
+                <button
                   key={day.date.toISOString()}
-                  content={
-                    <div className="px-2 py-1">
-                      <div className="text-xs font-medium">{format(day.date, 'MMM d, yyyy')}</div>
-                      <div className="text-xs text-muted-foreground">
-                        {day.count} {day.count === 1 ? 'activity' : 'activities'}
-                      </div>
-                    </div>
-                  }
-                  delay={0}
-                  closeDelay={0}
-                  className="bg-popover text-popover-foreground border border-border shadow-sm rounded-md"
-                >
-                  <motion.div
-                    custom={(weekIndex * 7 + dayIndex) * 0.004}
-                    variants={cellVariants}
-                    initial="hidden"
-                    animate="visible"
-                    className={`w-3 h-3 rounded-sm ${getLevelColor(day.level)} transition-colors duration-300 cursor-help`}
-                  />
-                </Tooltip>
+                  type="button"
+                  className={`w-3 h-3 rounded-sm ${getLevelColor(day.level)} transition-colors duration-300 cursor-help`}
+                  aria-label={`${format(day.date, 'MMM d, yyyy')}: ${day.count} activities`}
+                  onMouseEnter={() => setHovered(day)}
+                  onMouseLeave={() => setHovered(null)}
+                  onFocus={() => setHovered(day)}
+                  onBlur={() => setHovered(null)}
+                />
               ))}
             </div>
           ))}
         </div>
+        {hovered && (
+          <div className="mt-2 text-[10px] text-muted-foreground">
+            <span className="font-medium text-foreground">
+              {format(hovered.date, 'MMM d, yyyy')}
+            </span>
+            {' · '}
+            {hovered.count} {hovered.count === 1 ? 'activity' : 'activities'}
+          </div>
+        )}
         <div className="mt-2 flex items-center justify-end gap-1.5 text-[10px] text-muted-foreground">
           <span>Less</span>
           {[0, 1, 2, 3, 4].map((level) => (

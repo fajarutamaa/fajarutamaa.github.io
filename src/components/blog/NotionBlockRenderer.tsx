@@ -2,6 +2,20 @@ import { NotionBlock } from '@/lib/notion/types';
 import Image from 'next/image';
 import { CopyCodeButton } from './CopyCodeButton';
 
+type RichText = {
+  plain_text?: string;
+  content?: string;
+  link?: { url?: string } | null;
+  annotations?: {
+    bold?: boolean;
+    code?: boolean;
+    italic?: boolean;
+    strikethrough?: boolean;
+    underline?: boolean;
+    color?: string;
+  };
+};
+
 function slugify(text: string): string {
   return text
     .toLowerCase()
@@ -22,12 +36,10 @@ export function NotionBlockRenderer({ blocks }: NotionBlockRendererProps) {
     <div className="space-y-4">
       {blocks.map((block) => {
         const { type, id } = block;
-        const value = block[type];
+        const value = block[type] as { rich_text?: RichText[] } | undefined;
+        const richText = value?.rich_text ?? [];
         const headingText = type.startsWith('heading_')
-          ? value.rich_text
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              .map((t: any) => t.plain_text)
-              .join('')
+          ? richText.map((t) => t.plain_text ?? '').join('')
           : '';
         const headingId = headingText ? slugify(headingText) : '';
 
@@ -35,32 +47,32 @@ export function NotionBlockRenderer({ blocks }: NotionBlockRendererProps) {
           case 'paragraph':
             return (
               <p key={id} className="text-muted-foreground leading-relaxed">
-                <Text text={value.rich_text} />
+                <Text text={richText} />
               </p>
             );
           case 'heading_1':
             return (
               <h1 key={id} id={headingId} className="text-3xl font-bold mt-8 mb-4">
-                <Text text={value.rich_text} />
+                <Text text={richText} />
               </h1>
             );
           case 'heading_2':
             return (
               <h2 key={id} id={headingId} className="text-2xl font-bold mt-8 mb-4">
-                <Text text={value.rich_text} />
+                <Text text={richText} />
               </h2>
             );
           case 'heading_3':
             return (
               <h3 key={id} id={headingId} className="text-xl font-bold mt-6 mb-3">
-                <Text text={value.rich_text} />
+                <Text text={richText} />
               </h3>
             );
           case 'bulleted_list_item':
             return (
               <ul key={id} className="list-disc list-inside ml-4 space-y-2 text-muted-foreground">
                 <li>
-                  <Text text={value.rich_text} />
+                  <Text text={richText} />
                 </li>
               </ul>
             );
@@ -71,22 +83,27 @@ export function NotionBlockRenderer({ blocks }: NotionBlockRendererProps) {
                 className="list-decimal list-inside ml-4 space-y-2 text-muted-foreground"
               >
                 <li>
-                  <Text text={value.rich_text} />
+                  <Text text={richText} />
                 </li>
               </ol>
             );
           case 'image':
-            const imageUrl = value.type === 'external' ? value.external.url : value.file.url;
-            const caption = value.caption ? value.caption[0]?.plain_text : '';
+            const imageUrl =
+              value && 'external' in value
+                ? (value as { external?: { url?: string } }).external?.url
+                : (value as { file?: { url?: string } }).file?.url;
+            const captionValue = value as { caption?: RichText[] };
+            const caption = captionValue.caption?.[0]?.plain_text ?? '';
             return (
               <figure key={id} className="my-8">
                 <div className="relative aspect-video rounded-xl overflow-hidden">
                   <Image
-                    src={imageUrl}
+                    src={imageUrl ?? ''}
                     alt={caption || 'Blog post image'}
                     fill
                     sizes="(max-width: 768px) 100vw, 680px"
                     className="object-cover"
+                    loading="lazy"
                   />
                 </div>
                 {caption && (
@@ -97,13 +114,12 @@ export function NotionBlockRenderer({ blocks }: NotionBlockRendererProps) {
               </figure>
             );
           case 'code':
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const codeText = value.rich_text.map((t: any) => t.plain_text).join('');
+            const codeText = richText.map((t) => t.plain_text ?? '').join('');
             return (
               <div key={id} className="relative group my-6">
                 <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
                   <code className="text-sm font-mono">
-                    <Text text={value.rich_text} />
+                    <Text text={richText} />
                   </code>
                 </pre>
                 <CopyCodeButton code={codeText} />
@@ -115,7 +131,7 @@ export function NotionBlockRenderer({ blocks }: NotionBlockRendererProps) {
                 key={id}
                 className="border-l-4 border-primary pl-4 italic text-muted-foreground my-6"
               >
-                <Text text={value.rich_text} />
+                <Text text={richText} />
               </blockquote>
             );
           default:
@@ -126,18 +142,13 @@ export function NotionBlockRenderer({ blocks }: NotionBlockRendererProps) {
   );
 }
 
-// Helper component to render rich text
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function Text({ text }: { text: any[] }) {
+function Text({ text }: { text: RichText[] | undefined }) {
   if (!text) {
     return null;
   }
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return text.map((value: any, i: number) => {
-    const {
-      annotations: { bold, code, color, italic, strikethrough, underline },
-      text,
-    } = value;
+  return text.map((value, i) => {
+    const annotations = value.annotations ?? {};
+    const { bold, code, color, italic, strikethrough, underline } = annotations;
     return (
       <span
         key={i}
@@ -148,16 +159,18 @@ function Text({ text }: { text: any[] }) {
           strikethrough ? 'line-through' : '',
           underline ? 'underline' : '',
         ].join(' ')}
-        style={color !== 'default' ? { color } : {}}
+        style={color && color !== 'default' ? { color } : {}}
       >
-        {text.link ? (
-          <a href={text.link.url} className="text-primary hover:underline">
-            {text.content}
+        {value.link?.url ? (
+          <a href={value.link.url} className="text-primary hover:underline">
+            {value.content}
           </a>
         ) : (
-          text.content
+          value.content
         )}
       </span>
     );
   });
 }
+
+export default NotionBlockRenderer;

@@ -1,9 +1,13 @@
+import dynamic from 'next/dynamic';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { BottomNavigation } from '@/components/mobile';
-import { FloatingCTA } from '@/components/ui/FloatingCTA';
-import { BackToTop } from '@/components/ui/BackToTop';
-import { CookieConsent } from '@/components/ui/CookieConsent';
+
+const FloatingCTA = dynamic(() => import('@/components/ui/FloatingCTA').then((m) => m.FloatingCTA));
+const BackToTop = dynamic(() => import('@/components/ui/BackToTop').then((m) => m.BackToTop));
+const CookieConsent = dynamic(() =>
+  import('@/components/ui/CookieConsent').then((m) => m.CookieConsent)
+);
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (

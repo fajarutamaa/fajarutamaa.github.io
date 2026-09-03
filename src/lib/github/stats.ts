@@ -1,3 +1,5 @@
+import { getCached, CACHE_TTL } from '@/lib/cache';
+
 const GITHUB_USERNAME = process.env.NEXT_PUBLIC_GITHUB_USERNAME || 'fajarutamaa';
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
@@ -34,59 +36,64 @@ const langColors: Record<string, string> = {
 };
 
 export async function getGitHubStats(): Promise<GitHubStats | null> {
-  const headers: HeadersInit = { Accept: 'application/vnd.github.v3+json' };
-  if (GITHUB_TOKEN) {
-    headers.Authorization = `token ${GITHUB_TOKEN}`;
-  }
-  const base = `https://api.github.com/users/${GITHUB_USERNAME}`;
-
-  try {
-    const [userRes, reposRes] = await Promise.all([
-      fetch(base, { headers, next: { revalidate: 3600 } }),
-      fetch(`${base}/repos?per_page=100&sort=updated`, { headers, next: { revalidate: 3600 } }),
-    ]);
-
-    if (!userRes.ok || !reposRes.ok) {
-      throw new Error('Failed to fetch GitHub stats');
+  return getCached('githubStats', CACHE_TTL.githubStats, async () => {
+    const headers: HeadersInit = { Accept: 'application/vnd.github.v3+json' };
+    if (GITHUB_TOKEN) {
+      headers.Authorization = `token ${GITHUB_TOKEN}`;
     }
+    const base = `https://api.github.com/users/${GITHUB_USERNAME}`;
 
-    const user = await userRes.json();
-    const repos = await reposRes.json();
+    try {
+      const [userRes, reposRes] = await Promise.all([
+        fetch(base, { headers, next: { revalidate: 3600 } }),
+        fetch(`${base}/repos?per_page=100&sort=updated`, {
+          headers,
+          next: { revalidate: 3600 },
+        }),
+      ]);
 
-    const totalStars = repos.reduce(
-      (sum: number, r: { stargazers_count: number }) => sum + r.stargazers_count,
-      0
-    );
-    const totalForks = repos.reduce(
-      (sum: number, r: { forks_count: number }) => sum + r.forks_count,
-      0
-    );
-
-    const langMap = new Map<string, number>();
-    for (const repo of repos) {
-      if (repo.language) {
-        langMap.set(repo.language, (langMap.get(repo.language) || 0) + 1);
+      if (!userRes.ok || !reposRes.ok) {
+        throw new Error('Failed to fetch GitHub stats');
       }
-    }
-    const totalLangs = Array.from(langMap.entries())
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 5);
-    const topLanguages = totalLangs.map(([name, count]) => ({
-      name,
-      count,
-      color: langColors[name] || '#6b7280',
-    }));
 
-    return {
-      publicRepos: user.public_repos,
-      totalStars,
-      totalForks,
-      followers: user.followers,
-      following: user.following,
-      topLanguages,
-    };
-  } catch (error) {
-    console.error('GitHub stats error:', error);
-    return null;
-  }
+      const user = await userRes.json();
+      const repos = await reposRes.json();
+
+      const totalStars = repos.reduce(
+        (sum: number, r: { stargazers_count: number }) => sum + r.stargazers_count,
+        0
+      );
+      const totalForks = repos.reduce(
+        (sum: number, r: { forks_count: number }) => sum + r.forks_count,
+        0
+      );
+
+      const langMap = new Map<string, number>();
+      for (const repo of repos) {
+        if (repo.language) {
+          langMap.set(repo.language, (langMap.get(repo.language) || 0) + 1);
+        }
+      }
+      const totalLangs = Array.from(langMap.entries())
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5);
+      const topLanguages = totalLangs.map(([name, count]) => ({
+        name,
+        count,
+        color: langColors[name] || '#6b7280',
+      }));
+
+      return {
+        publicRepos: user.public_repos,
+        totalStars,
+        totalForks,
+        followers: user.followers,
+        following: user.following,
+        topLanguages,
+      };
+    } catch (error) {
+      console.error('GitHub stats error:', error);
+      return null;
+    }
+  });
 }

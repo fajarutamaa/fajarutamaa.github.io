@@ -4,7 +4,6 @@ import './globals.css';
 import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
 import { Provider } from './provider';
-import { Toaster } from 'sonner';
 
 export const metadata: Metadata = {
   title: 'Fajar Dwi Utomo - Software Engineer',
@@ -58,7 +57,6 @@ export default function RootLayout({
           <div className="gradient-orb gradient-orb-3" />
         </div>
 
-        <Toaster position="top-center" />
         <Provider>{children}</Provider>
       </body>
     </html>

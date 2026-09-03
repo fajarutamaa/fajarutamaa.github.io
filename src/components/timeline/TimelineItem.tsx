@@ -11,7 +11,6 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import { ActivityItem } from '@/lib/github/types';
-import { motion } from 'framer-motion';
 
 interface TimelineItemProps {
   activity: ActivityItem;
@@ -42,26 +41,14 @@ const typeLabels: Record<string, string> = {
   release: 'Release',
 };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 12 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.04, duration: 0.4, ease: [0.45, 0, 0.1, 1] as const },
-  }),
-};
-
 export function TimelineItem({ activity, index }: TimelineItemProps) {
   const Icon = iconMap[activity.type];
   const color = colorMap[activity.type];
 
   return (
-    <motion.div
-      custom={index}
-      variants={itemVariants}
-      initial="hidden"
-      animate="visible"
-      className="relative pl-8 pb-8 last:pb-0"
+    <div
+      className="relative pl-8 pb-8 last:pb-0 animate-fadeIn"
+      style={{ animationDelay: `${Math.min(index * 40, 400)}ms`, animationFillMode: 'backwards' }}
     >
       <div className="absolute left-[11px] top-6 bottom-0 w-px bg-border" />
 
@@ -100,6 +87,6 @@ export function TimelineItem({ activity, index }: TimelineItemProps) {
           <ArrowRight size={10} />
         </div>
       </a>
-    </motion.div>
+    </div>
   );
 }

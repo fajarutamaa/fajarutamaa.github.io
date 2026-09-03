@@ -235,6 +235,7 @@
   z-index: -1;
   overflow: hidden;
   pointer-events: none;
+  contain: layout style size;
   background: radial-gradient(
     ellipse 80% 60% at 50% 0%,
     hsl(var(--primary) / 0.03) 0%,
@@ -282,6 +283,14 @@
     opacity 0.8s var(--ease-smooth),
     filter 0.8s var(--ease-smooth);
   will-change: transform;
+  contain: strict;
+  transform: translateZ(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gradient-orb {
+    animation: none;
+  }
 }
 
 .gradient-orb-1 {

@@ -1,45 +1,48 @@
 import { GitHubEvent, ActivityItem } from './types';
+import { getCached, CACHE_TTL } from '@/lib/cache';
 
 const GITHUB_USERNAME = process.env.NEXT_PUBLIC_GITHUB_USERNAME || 'fajarutamaa';
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN; // Optional, for higher rate limits
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
 export async function getGitHubEvents(limit = 10): Promise<GitHubEvent[]> {
-  try {
-    const headers: HeadersInit = {
-      Accept: 'application/vnd.github.v3+json',
-    };
+  return getCached(`githubEvents:${limit}`, CACHE_TTL.githubEvents, async () => {
+    try {
+      const headers: HeadersInit = {
+        Accept: 'application/vnd.github.v3+json',
+      };
 
-    if (GITHUB_TOKEN) {
-      headers.Authorization = `token ${GITHUB_TOKEN}`;
-    }
-
-    const response = await fetch(
-      `https://api.github.com/users/${GITHUB_USERNAME}/events/public?per_page=${limit}`,
-      {
-        headers,
-        next: { revalidate: 3600 }, // Cache for 1 hour
+      if (GITHUB_TOKEN) {
+        headers.Authorization = `token ${GITHUB_TOKEN}`;
       }
-    );
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch GitHub events');
+      const response = await fetch(
+        `https://api.github.com/users/${GITHUB_USERNAME}/events/public?per_page=${limit}`,
+        {
+          headers,
+          next: { revalidate: 3600 },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch GitHub events');
+      }
+
+      return response.json();
+    } catch (error) {
+      console.error('GitHub API error:', error);
+      return [];
     }
-
-    return response.json();
-  } catch (error) {
-    console.error('GitHub API error:', error);
-    return [];
-  }
+  });
 }
 
 export function parseGitHubEvents(events: GitHubEvent[]): ActivityItem[] {
   const activities: ActivityItem[] = [];
 
-  events.forEach((event) => {
+  for (const event of events) {
     switch (event.type) {
       case 'PushEvent':
         if (event.payload.commits && event.payload.commits.length > 0) {
-          event.payload.commits.slice(0, 3).forEach((commit) => {
+          for (const commit of event.payload.commits.slice(0, 3)) {
             activities.push({
               id: `${event.id}-${commit.sha}`,
               type: 'commit',
@@ -50,7 +53,7 @@ export function parseGitHubEvents(events: GitHubEvent[]): ActivityItem[] {
                 .replace('/commits/', '/commit/'),
               date: event.created_at,
             });
-          });
+          }
         }
         break;
 
@@ -93,7 +96,7 @@ export function parseGitHubEvents(events: GitHubEvent[]): ActivityItem[] {
         }
         break;
     }
-  });
+  }
 
   return activities;
 }

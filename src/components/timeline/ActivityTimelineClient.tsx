@@ -7,7 +7,6 @@ import { ActivityStats, ActivityFilter } from './ActivityStats';
 import { ContributionHeatmap } from './ContributionHeatmap';
 import { ActivityItem } from '@/lib/github/types';
 import { isToday, isThisWeek } from 'date-fns';
-import { motion, AnimatePresence } from 'framer-motion';
 
 interface ActivityTimelineClientProps {
   githubActivities: ActivityItem[];
@@ -106,45 +105,31 @@ export function ActivityTimelineClient({
           counts={counts}
         />
 
-        <AnimatePresence mode="wait">
-          {filteredActivities.length === 0 ? (
-            <motion.div
-              key="empty"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="text-center py-12"
+        {filteredActivities.length === 0 ? (
+          <div key="empty" className="text-center py-12 animate-fadeIn">
+            <p className="text-sm text-muted-foreground">No {activeFilter} activities found.</p>
+            <button
+              onClick={() => setActiveFilter('all')}
+              className="mt-3 text-sm text-foreground underline underline-offset-4 hover:opacity-70 transition-opacity"
             >
-              <p className="text-sm text-muted-foreground">No {activeFilter} activities found.</p>
-              <button
-                onClick={() => setActiveFilter('all')}
-                className="mt-3 text-sm text-foreground underline underline-offset-4 hover:opacity-70 transition-opacity"
-              >
-                Show all
-              </button>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="results"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <TimelineGroup title="Today" activities={groupedActivities.today} startIndex={0} />
-              <TimelineGroup
-                title="This Week"
-                activities={groupedActivities.thisWeek}
-                startIndex={groupedActivities.today.length}
-              />
-              <TimelineGroup
-                title="Older"
-                activities={groupedActivities.older}
-                startIndex={groupedActivities.today.length + groupedActivities.thisWeek.length}
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
+              Show all
+            </button>
+          </div>
+        ) : (
+          <div key="results" className="animate-fadeIn">
+            <TimelineGroup title="Today" activities={groupedActivities.today} startIndex={0} />
+            <TimelineGroup
+              title="This Week"
+              activities={groupedActivities.thisWeek}
+              startIndex={groupedActivities.today.length}
+            />
+            <TimelineGroup
+              title="Older"
+              activities={groupedActivities.older}
+              startIndex={groupedActivities.today.length + groupedActivities.thisWeek.length}
+            />
+          </div>
+        )}
       </section>
     </div>
   );
