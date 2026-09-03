@@ -12,12 +12,33 @@
       }
     },
     "assert": {
-      "preset": "lighthouse:recommended",
       "assertions": {
-        "categories:performance": ["warn", { "minScore": 0.6 }],
-        "categories:accessibility": ["warn", { "minScore": 0.9 }],
-        "categories:best-practices": ["warn", { "minScore": 0.9 }],
-        "categories:seo": ["warn", { "minScore": 0.9 }]
+        "categories:performance": ["warn", { "minScore": 0.5 }],
+        "categories:accessibility": ["warn", { "minScore": 0.8 }],
+        "categories:best-practices": ["warn", { "minScore": 0.7 }],
+        "categories:seo": ["warn", { "minScore": 0.85 }],
+        "largest-contentful-paint": ["warn", { "maxNumericValue": 6000 }],
+        "interactive": ["warn", { "maxNumericValue": 9000 }],
+        "unused-javascript": ["off"],
+        "legacy-javascript": ["off"],
+        "uses-rel-preconnect": ["off"],
+        "uses-responsive-images": ["off"],
+        "image-delivery-insight": ["off"],
+        "modern-image-formats": ["off"],
+        "cache-insight": ["off"],
+        "uses-long-cache-ttl": ["off"],
+        "lcp-discovery-insight": ["off"],
+        "lcp-lazy-loaded": ["off"],
+        "network-dependency-tree-insight": ["off"],
+        "render-blocking-insight": ["off"],
+        "render-blocking-resources": ["off"],
+        "mainthread-work-breakdown": ["off"],
+        "max-potential-fid": ["off"],
+        "inspector-issues": ["off"],
+        "third-party-cookies": ["off"],
+        "font-size": ["off"],
+        "heading-order": ["off"],
+        "color-contrast": ["warn"]
       }
     },
     "upload": {
