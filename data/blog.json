@@ -9,7 +9,7 @@
     "category": "Tutorial",
     "tags": ["Next.js", "React"],
     "published": true,
-    "coverImage": "/img/placeholder.webp"
+    "coverImage": ""
   },
   {
     "id": "2",
@@ -21,7 +21,7 @@
     "category": "Development",
     "tags": ["React", "UI/UX"],
     "published": true,
-    "coverImage": "/img/placeholder.webp"
+    "coverImage": ""
   },
   {
     "id": "3",
@@ -33,6 +33,6 @@
     "category": "Tutorial",
     "tags": ["Notion", "CMS"],
     "published": true,
-    "coverImage": "/img/placeholder.webp"
+    "coverImage": ""
   }
 ]
