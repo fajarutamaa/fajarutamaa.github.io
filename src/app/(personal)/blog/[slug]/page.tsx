@@ -7,6 +7,7 @@ import { NotionBlockRenderer, ReadingProgressBar, ShareButtons } from '@/compone
 import { RelatedPosts } from '@/components/blog/RelatedPosts';
 import { TableOfContents } from '@/components/blog/TableOfContents';
 import type { NotionBlock } from '@/lib/notion/types';
+import type { Metadata } from 'next';
 
 export const revalidate = 3600;
 
@@ -23,7 +24,15 @@ interface BlogPostPageProps {
   }>;
 }
 
-export async function generateMetadata({ params }: BlogPostPageProps) {
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://fajarutamaa.github.io';
+
+function resolveImageUrl(image: string): string | null {
+  if (!image) return null;
+  if (image.startsWith('http://') || image.startsWith('https://')) return image;
+  return `${SITE_URL}${image}`;
+}
+
+export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = await getBlogPostBySlug(slug);
 
@@ -33,9 +42,42 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
     };
   }
 
+  const url = `${SITE_URL}/blog/${slug}`;
+  const image = resolveImageUrl(post.coverImage ?? '');
+
   return {
     title: `${post.title} - Fajar Dwi Utomo`,
     description: post.excerpt,
+    alternates: {
+      canonical: `/blog/${slug}`,
+    },
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      url,
+      type: 'article',
+      siteName: 'Fajar Dwi Utomo',
+      locale: 'en_US',
+      publishedTime: post.date,
+      authors: ['Fajar Dwi Utomo'],
+      tags: post.tags,
+      images: image
+        ? [
+            {
+              url: image,
+              width: 1200,
+              height: 630,
+              alt: post.title,
+            },
+          ]
+        : undefined,
+    },
+    twitter: {
+      card: image ? 'summary_large_image' : 'summary',
+      title: post.title,
+      description: post.excerpt,
+      images: image ? [image] : undefined,
+    },
   };
 }
 
