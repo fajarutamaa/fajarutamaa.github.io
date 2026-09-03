@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
+import { Loader2 } from 'lucide-react';
 import { TimelineGroup } from './TimelineGroup';
 import { ActivityStats, ActivityFilter } from './ActivityStats';
 import { ContributionHeatmap } from './ContributionHeatmap';
@@ -13,11 +14,15 @@ interface ActivityTimelineClientProps {
   blogActivities: ActivityItem[];
 }
 
+const OLDER_PAGE_SIZE = 10;
+
 export function ActivityTimelineClient({
   githubActivities,
   blogActivities,
 }: ActivityTimelineClientProps) {
   const [activeFilter, setActiveFilter] = useState('all');
+  const [olderVisible, setOlderVisible] = useState(OLDER_PAGE_SIZE);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   const allActivities = useMemo(() => {
     return [...githubActivities, ...blogActivities].sort(
@@ -60,6 +65,21 @@ export function ActivityTimelineClient({
     };
   }, [allActivities]);
 
+  const handleFilterChange = (filter: string) => {
+    setActiveFilter(filter);
+    setOlderVisible(OLDER_PAGE_SIZE);
+  };
+
+  const loadMoreOlder = async () => {
+    setIsLoadingMore(true);
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    setOlderVisible((prev) => prev + OLDER_PAGE_SIZE);
+    setIsLoadingMore(false);
+  };
+
+  const visibleOlder = groupedActivities.older.slice(0, olderVisible);
+  const hasMoreOlder = groupedActivities.older.length > olderVisible;
+
   if (allActivities.length === 0) {
     return (
       <div className="text-center py-16 px-4">
@@ -101,7 +121,7 @@ export function ActivityTimelineClient({
       <section>
         <ActivityFilter
           activeFilter={activeFilter}
-          onFilterChange={setActiveFilter}
+          onFilterChange={handleFilterChange}
           counts={counts}
         />
 
@@ -125,9 +145,34 @@ export function ActivityTimelineClient({
             />
             <TimelineGroup
               title="Older"
-              activities={groupedActivities.older}
+              activities={visibleOlder}
               startIndex={groupedActivities.today.length + groupedActivities.thisWeek.length}
             />
+
+            {hasMoreOlder && (
+              <div className="flex justify-center pt-2">
+                <button
+                  type="button"
+                  onClick={loadMoreOlder}
+                  disabled={isLoadingMore}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium glass-card rounded-full transition-all duration-300 hover:bg-foreground hover:text-background disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isLoadingMore ? (
+                    <>
+                      <Loader2 size={14} className="animate-spin" />
+                      Loading
+                    </>
+                  ) : (
+                    <>
+                      Load more
+                      <span className="text-xs text-muted-foreground">
+                        ({groupedActivities.older.length - olderVisible} remaining)
+                      </span>
+                    </>
+                  )}
+                </button>
+              </div>
+            )}
           </div>
         )}
       </section>

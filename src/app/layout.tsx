@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
+import { Toaster } from 'sonner';
 import { Provider } from './provider';
 
 export const metadata: Metadata = {
@@ -57,6 +58,7 @@ export default function RootLayout({
           <div className="gradient-orb gradient-orb-3" />
         </div>
 
+        <Toaster position="top-center" />
         <Provider>{children}</Provider>
       </body>
     </html>

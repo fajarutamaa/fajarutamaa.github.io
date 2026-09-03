@@ -1,6 +1,6 @@
 import { NotionBlock } from '@/lib/notion/types';
 import Image from 'next/image';
-import { CopyCodeButton } from './CopyCodeButton';
+import { CodeBlock } from './CodeBlock';
 
 type RichText = {
   plain_text?: string;
@@ -115,16 +115,8 @@ export function NotionBlockRenderer({ blocks }: NotionBlockRendererProps) {
             );
           case 'code':
             const codeText = richText.map((t) => t.plain_text ?? '').join('');
-            return (
-              <div key={id} className="relative group my-6">
-                <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
-                  <code className="text-sm font-mono">
-                    <Text text={richText} />
-                  </code>
-                </pre>
-                <CopyCodeButton code={codeText} />
-              </div>
-            );
+            const codeLanguage = (value as { language?: string }).language || 'text';
+            return <CodeBlock key={id} code={codeText} language={codeLanguage} />;
           case 'quote':
             return (
               <blockquote

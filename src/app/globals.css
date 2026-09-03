@@ -67,6 +67,7 @@
   html {
     height: 100%;
     overflow-y: scroll;
+    scroll-behavior: smooth;
   }
 
   body {
@@ -501,6 +502,10 @@ body::-webkit-scrollbar-thumb:hover {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
   }
 
   .gradient-orb {
