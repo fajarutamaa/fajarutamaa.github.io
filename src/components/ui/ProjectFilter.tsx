@@ -106,7 +106,7 @@ export function ProjectFilter({ projects }: ProjectFilterProps) {
 
       {allYears.length > 0 && (
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-[11px] text-muted-foreground/60">Year:</span>
+          <span className="text-[11px] text-muted-foreground">Year:</span>
           <button
             type="button"
             onClick={() => setYear(null)}
@@ -143,7 +143,7 @@ export function ProjectFilter({ projects }: ProjectFilterProps) {
         </div>
       ) : (
         <div className="text-center py-16 space-y-3">
-          <p className="text-sm text-muted-foreground/60">No projects match your filters.</p>
+          <p className="text-sm text-muted-foreground">No projects match your filters.</p>
           {hasFilters && (
             <button
               type="button"

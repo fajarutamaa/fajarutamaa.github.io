@@ -11,7 +11,7 @@ export function parseNotionPage(page: NotionPage): Bookmark {
   const logo = properties.Logo?.url || '/google.png';
   const stack = properties.Stack?.multi_select?.map((item) => item.name) || [];
 
-  let thumbnail = '/img/placeholder.webp';
+  let thumbnail = '';
   if (properties.Thumbnail?.files?.[0]) {
     const file = properties.Thumbnail.files[0];
     thumbnail = file.file?.url || file.external?.url || thumbnail;
@@ -56,7 +56,7 @@ export function parseNotionBlogPost(page: NotionPage): BlogPost {
     ? `${properties.ReadTime.number} min read`
     : '5 min read';
 
-  let coverImage = '/img/placeholder.webp';
+  let coverImage = '';
   if (properties.Cover?.files?.[0]) {
     const file = properties.Cover.files[0];
     coverImage = file.file?.url || file.external?.url || coverImage;

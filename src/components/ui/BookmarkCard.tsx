@@ -18,15 +18,21 @@ export const BookmarkCard = memo(function BookmarkCard({ bookmark }: BookmarkCar
       className="group relative block rounded-2xl overflow-hidden glass-card"
     >
       <div className="relative aspect-[16/9] overflow-hidden bg-muted">
-        <Image
-          src={bookmark.thumbnail}
-          alt={bookmark.name}
-          fill
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
-          quality={80}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          loading="lazy"
-        />
+        {bookmark.thumbnail ? (
+          <Image
+            src={bookmark.thumbnail}
+            alt={bookmark.name}
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            quality={80}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            loading="lazy"
+          />
+        ) : (
+          <div className="flex items-center justify-center h-full text-muted-foreground">
+            <ArrowUpRight size={18} />
+          </div>
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         <div className="absolute top-3 right-3 p-1.5 rounded-full glass opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
           <ArrowUpRight size={13} className="text-foreground" />
@@ -41,7 +47,7 @@ export const BookmarkCard = memo(function BookmarkCard({ bookmark }: BookmarkCar
           <span className="text-[10px] text-muted-foreground shrink-0">{bookmark.year}</span>
         </div>
 
-        <p className="text-[11px] text-muted-foreground/70 line-clamp-2 leading-relaxed">
+        <p className="text-[11px] text-muted-foreground line-clamp-2 leading-relaxed">
           {bookmark.description}
         </p>
 

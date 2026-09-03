@@ -54,7 +54,7 @@ export function TableOfContents({ items }: TableOfContentsProps) {
               className={`block text-xs py-1 transition-colors ${level === 2 ? 'pl-3' : 'pl-6'} ${
                 activeId === id
                   ? 'text-primary font-medium border-l border-primary -ml-px'
-                  : 'text-muted-foreground/70 hover:text-foreground'
+                  : 'text-muted-foreground hover:text-foreground'
               }`}
             >
               {text}
