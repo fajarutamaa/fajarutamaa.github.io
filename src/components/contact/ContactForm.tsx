@@ -127,7 +127,7 @@ export function ContactForm() {
         )}
       </button>
 
-      <p className="text-[11px] text-muted-foreground/50 text-center">
+      <p className="text-[11px] text-muted-foreground text-center">
         Your information will be kept private.
       </p>
     </form>
