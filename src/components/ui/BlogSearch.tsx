@@ -138,7 +138,7 @@ export function BlogSearch({ posts, pageSize = DEFAULT_PAGE_SIZE }: BlogSearchPr
                     <h2 className="text-[15px] font-medium group-hover:text-primary transition-colors duration-200">
                       {post.title}
                     </h2>
-                    <p className="text-[13px] text-muted-foreground/70 leading-relaxed line-clamp-2">
+                    <p className="text-[13px] text-muted-foreground leading-relaxed line-clamp-2">
                       {post.excerpt}
                     </p>
                     <span className="inline-flex items-center gap-1 text-[13px] text-primary font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-200">
@@ -179,7 +179,7 @@ export function BlogSearch({ posts, pageSize = DEFAULT_PAGE_SIZE }: BlogSearchPr
       ) : (
         <div className="text-center py-16 space-y-3">
           <FileText size={36} className="mx-auto text-muted-foreground/30" />
-          <p className="text-sm text-muted-foreground/60">
+          <p className="text-sm text-muted-foreground">
             {hasFilters ? 'No posts match your filters.' : 'No blog posts yet. Check back soon!'}
           </p>
           {hasFilters && (

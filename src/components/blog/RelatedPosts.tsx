@@ -30,7 +30,7 @@ export async function RelatedPosts({ currentSlug, category }: RelatedPostsProps)
                 <h4 className="text-sm font-medium group-hover:text-primary transition-colors line-clamp-2">
                   {post.title}
                 </h4>
-                <p className="text-xs text-muted-foreground/70 line-clamp-2">{post.excerpt}</p>
+                <p className="text-xs text-muted-foreground line-clamp-2">{post.excerpt}</p>
               </div>
             </article>
           </Link>

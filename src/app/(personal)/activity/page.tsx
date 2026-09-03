@@ -19,7 +19,7 @@ export default function ActivityPage() {
           <Activity size={16} />
           <span>Activity Timeline</span>
         </div>
-        <p className="text-sm text-muted-foreground/70 max-w-lg">
+        <p className="text-sm text-muted-foreground max-w-lg">
           A feed of my development journey — code commits, pull requests, blog posts, and releases.
         </p>
       </section>

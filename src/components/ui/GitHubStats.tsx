@@ -32,7 +32,7 @@ export async function GitHubStats() {
               <div className="glass-card p-3 rounded-2xl text-center">
                 <Icon size={13} className="mx-auto text-muted-foreground/60 mb-1" />
                 <p className="text-sm md:text-base font-semibold tabular-nums">{item.value}</p>
-                <p className="text-[9px] text-muted-foreground/50 mt-0.5">{item.label}</p>
+                <p className="text-[9px] text-muted-foreground mt-0.5">{item.label}</p>
               </div>
             </Reveal>
           );
@@ -41,7 +41,7 @@ export async function GitHubStats() {
 
       {stats.topLanguages.length > 0 && (
         <Reveal>
-          <div className="flex flex-wrap items-center gap-2 mt-3 text-[10px] text-muted-foreground/60">
+          <div className="flex flex-wrap items-center gap-2 mt-3 text-[10px] text-muted-foreground">
             <Code2 size={11} />
             {stats.topLanguages.map((lang) => (
               <span key={lang.name} className="inline-flex items-center gap-1.5">
