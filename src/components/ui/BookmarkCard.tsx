@@ -9,7 +9,7 @@ interface BookmarkCardProps {
   index?: number;
 }
 
-export const BookmarkCard = memo(function BookmarkCard({ bookmark }: BookmarkCardProps) {
+export const BookmarkCard = memo(function BookmarkCard({ bookmark, index }: BookmarkCardProps) {
   return (
     <Link
       href={bookmark.website}
@@ -26,7 +26,7 @@ export const BookmarkCard = memo(function BookmarkCard({ bookmark }: BookmarkCar
             className="object-cover transition-transform duration-500 group-hover:scale-105"
             quality={80}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            loading="lazy"
+            loading={index === 0 ? 'eager' : 'lazy'}
           />
         ) : (
           <div className="flex items-center justify-center h-full text-muted-foreground">
@@ -47,7 +47,7 @@ export const BookmarkCard = memo(function BookmarkCard({ bookmark }: BookmarkCar
           <span className="text-[10px] text-muted-foreground shrink-0">{bookmark.year}</span>
         </div>
 
-        <p className="text-[11px] text-muted-foreground line-clamp-2 leading-relaxed">
+        <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
           {bookmark.description}
         </p>
 
