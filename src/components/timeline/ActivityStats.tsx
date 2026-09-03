@@ -3,17 +3,6 @@
 import { useMemo } from 'react';
 import { ActivityItem } from '@/lib/github/types';
 import { Activity, GitCommit, GitPullRequest, FileText } from 'lucide-react';
-import { motion } from 'framer-motion';
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.08 } },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 12 },
-  show: { opacity: 1, y: 0 },
-};
 
 interface ActivityStatsProps {
   activities: ActivityItem[];
@@ -38,29 +27,24 @@ export function ActivityStats({ activities }: ActivityStatsProps) {
   ];
 
   return (
-    <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      animate="show"
-      className="grid grid-cols-2 lg:grid-cols-4 gap-3"
-    >
-      {statCards.map((stat) => {
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+      {statCards.map((stat, index) => {
         const Icon = stat.icon;
         return (
-          <motion.div
+          <div
             key={stat.label}
-            variants={itemVariants}
-            className="p-4 rounded-xl border border-border/50 bg-card"
+            className="p-4 rounded-xl border border-border/50 bg-card animate-fadeIn"
+            style={{ animationDelay: `${index * 80}ms`, animationFillMode: 'backwards' }}
           >
             <div className="flex items-center gap-2 mb-3">
               <Icon size={14} className="text-muted-foreground" />
               <span className="text-xs text-muted-foreground">{stat.label}</span>
             </div>
             <div className="text-2xl font-semibold tracking-tight">{stat.value}</div>
-          </motion.div>
+          </div>
         );
       })}
-    </motion.div>
+    </div>
   );
 }
 

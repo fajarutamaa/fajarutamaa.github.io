@@ -1,4 +1,5 @@
 import { Mail, MapPin, Clock } from 'lucide-react';
+import { Toaster } from 'sonner';
 import { ContactForm } from '@/components/contact/ContactForm';
 
 export const metadata = {
@@ -65,6 +66,8 @@ export default function ContactPage() {
           <ContactForm />
         </section>
       </div>
+
+      <Toaster position="top-center" />
     </div>
   );
 }
