@@ -40,7 +40,7 @@ export async function SkillsGrid() {
                   <div key={skill.name} className="space-y-1.5">
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-foreground">{skill.name}</span>
-                      <span className="text-[11px] text-muted-foreground">{level.label}</span>
+                      <span className="text-xs text-muted-foreground">{level.label}</span>
                     </div>
                     <div className="h-1.5 rounded-full bg-muted overflow-hidden">
                       <div

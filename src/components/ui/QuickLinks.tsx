@@ -65,7 +65,7 @@ export function QuickLinks() {
                       className="opacity-0 -translate-x-0.5 translate-y-0.5 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0"
                     />
                   </span>
-                  <span className="text-[11px] text-muted-foreground block mt-0.5">
+                  <span className="text-xs text-muted-foreground block mt-0.5">
                     {link.description}
                   </span>
                 </div>

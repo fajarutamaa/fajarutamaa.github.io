@@ -52,7 +52,7 @@ export async function ServicesSection() {
                   </div>
                   <div className="space-y-1">
                     <h3 className="font-medium text-[13px]">{service.title}</h3>
-                    <p className="text-[11px] text-muted-foreground leading-relaxed">
+                    <p className="text-xs text-muted-foreground leading-relaxed">
                       {service.description}
                     </p>
                   </div>

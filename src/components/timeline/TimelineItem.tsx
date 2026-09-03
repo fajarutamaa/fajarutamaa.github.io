@@ -82,7 +82,7 @@ export function TimelineItem({ activity, index }: TimelineItemProps) {
           </p>
         )}
 
-        <div className="flex items-center gap-1 text-[11px] text-muted-foreground/60">
+        <div className="flex items-center gap-1 text-xs text-muted-foreground/60">
           <span>View details</span>
           <ArrowRight size={10} />
         </div>
