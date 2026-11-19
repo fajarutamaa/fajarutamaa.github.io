@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
-import { Activity } from 'lucide-react';
-import { ActivityTimeline } from '@/components/timeline';
+import { ActivityTimeline } from '@/components/timeline/ActivityTimeline';
 import { TimelineSkeleton } from '@/components/skeletons';
+import { PageIntro } from '@/components/layout/PageIntro';
 
 export const metadata = {
   title: 'Activity - Fajar Dwi Utomo',
@@ -13,16 +13,12 @@ export const revalidate = 3600;
 
 export default function ActivityPage() {
   return (
-    <div className="container max-w-[680px] lg:max-w-[900px] py-12 space-y-10 animate-pageEnter">
-      <section className="space-y-3">
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <Activity size={16} />
-          <span>Activity Timeline</span>
-        </div>
-        <p className="text-sm text-muted-foreground max-w-lg">
-          A feed of my development journey — code commits, pull requests, blog posts, and releases.
-        </p>
-      </section>
+    <div className="site-container space-y-8 py-10 sm:space-y-10 sm:py-14">
+      <PageIntro
+        label="What’s new"
+        title="Activity"
+        description="Recent commits, pull requests, releases, and new articles in one timeline."
+      />
 
       <section>
         <Suspense fallback={<TimelineSkeleton />}>

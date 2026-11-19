@@ -17,27 +17,27 @@ export function BottomNavigation() {
   const pathname = usePathname();
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 glass safe-area-bottom">
-      <div className="flex justify-around items-center px-1">
+    <nav
+      aria-label="Mobile navigation"
+      className="safe-area-bottom fixed inset-x-0 bottom-0 z-40 border-t bg-card md:hidden"
+    >
+      <div className="mx-auto grid max-w-lg grid-cols-6 gap-0.5 px-1 py-1.5">
         {navigation.map((item) => {
-          const isActive =
-            pathname === item.href || (item.href !== '/' && pathname?.startsWith(item.href));
+          const isCurrent = pathname === item.href;
+          const isActive = isCurrent || pathname.startsWith(`${item.href}/`);
           const Icon = item.icon;
 
           return (
             <Link
               key={item.name}
               href={item.href}
-              className={`relative flex flex-col items-center justify-center gap-0.5 py-2 px-2 min-w-[48px] transition-colors duration-200 ${
-                isActive ? 'text-foreground' : 'text-muted-foreground/60'
+              className={`flex min-h-12 min-w-0 flex-col items-center justify-center gap-1 rounded-lg transition-colors ${
+                isActive ? 'bg-accent text-accent-foreground' : 'text-muted-foreground'
               }`}
-              aria-label={item.name}
+              aria-current={isCurrent ? 'page' : isActive ? 'location' : undefined}
             >
-              {isActive && (
-                <span className="absolute top-0 left-1/2 -translate-x-1/2 w-4 h-[2px] bg-foreground rounded-full" />
-              )}
-              <Icon size={17} strokeWidth={isActive ? 2.5 : 1.8} />
-              <span className="text-[9px] font-medium">{item.name}</span>
+              <Icon size={17} strokeWidth={isActive ? 2.25 : 1.75} aria-hidden="true" />
+              <span className="text-[10px] font-medium">{item.name}</span>
             </Link>
           );
         })}

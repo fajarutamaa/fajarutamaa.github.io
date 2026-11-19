@@ -2,7 +2,6 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { Loader2 } from 'lucide-react';
 import { TimelineGroup } from './TimelineGroup';
 import { ActivityStats, ActivityFilter } from './ActivityStats';
 import { ContributionHeatmap } from './ContributionHeatmap';
@@ -22,7 +21,6 @@ export function ActivityTimelineClient({
 }: ActivityTimelineClientProps) {
   const [activeFilter, setActiveFilter] = useState('all');
   const [olderVisible, setOlderVisible] = useState(OLDER_PAGE_SIZE);
-  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   const allActivities = useMemo(() => {
     return [...githubActivities, ...blogActivities].sort(
@@ -68,13 +66,6 @@ export function ActivityTimelineClient({
   const handleFilterChange = (filter: string) => {
     setActiveFilter(filter);
     setOlderVisible(OLDER_PAGE_SIZE);
-  };
-
-  const loadMoreOlder = async () => {
-    setIsLoadingMore(true);
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    setOlderVisible((prev) => prev + OLDER_PAGE_SIZE);
-    setIsLoadingMore(false);
   };
 
   const visibleOlder = groupedActivities.older.slice(0, olderVisible);
@@ -129,7 +120,7 @@ export function ActivityTimelineClient({
           <div key="empty" className="text-center py-12 animate-fadeIn">
             <p className="text-sm text-muted-foreground">No {activeFilter} activities found.</p>
             <button
-              onClick={() => setActiveFilter('all')}
+              onClick={() => handleFilterChange('all')}
               className="mt-3 text-sm text-foreground underline underline-offset-4 hover:opacity-70 transition-opacity"
             >
               Show all
@@ -153,23 +144,13 @@ export function ActivityTimelineClient({
               <div className="flex justify-center pt-2">
                 <button
                   type="button"
-                  onClick={loadMoreOlder}
-                  disabled={isLoadingMore}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium glass-card rounded-full transition-all duration-300 hover:bg-foreground hover:text-background disabled:opacity-50 disabled:cursor-not-allowed"
+                  onClick={() => setOlderVisible((count) => count + OLDER_PAGE_SIZE)}
+                  className="action-link border bg-card hover:bg-muted"
                 >
-                  {isLoadingMore ? (
-                    <>
-                      <Loader2 size={14} className="animate-spin" />
-                      Loading
-                    </>
-                  ) : (
-                    <>
-                      Load more
-                      <span className="text-xs text-muted-foreground">
-                        ({groupedActivities.older.length - olderVisible} remaining)
-                      </span>
-                    </>
-                  )}
+                  Load more
+                  <span className="text-xs text-muted-foreground">
+                    ({groupedActivities.older.length - olderVisible} remaining)
+                  </span>
                 </button>
               </div>
             )}

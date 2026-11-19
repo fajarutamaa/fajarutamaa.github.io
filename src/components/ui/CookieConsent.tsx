@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { X } from 'lucide-react';
 
 const COOKIE_CONSENT_KEY = 'cookie-consent';
 
@@ -24,26 +23,16 @@ export function CookieConsent() {
   if (!show) return null;
 
   return (
-    <div className="fixed bottom-24 left-4 right-4 md:left-auto md:right-4 md:bottom-24 md:max-w-xs z-50 animate-slideUp">
-      <div className="glass-card rounded-2xl p-4">
-        <div className="flex items-start justify-between gap-3">
-          <p className="text-xs text-muted-foreground leading-relaxed">
-            This site uses Umami analytics to understand how visitors interact with the site. No
-            personal data is collected.
-          </p>
-          <button
-            type="button"
-            onClick={accept}
-            className="shrink-0 p-1 rounded-full hover:bg-muted/50 transition-colors"
-            aria-label="Accept"
-          >
-            <X size={13} />
-          </button>
-        </div>
+    <div className="fixed inset-x-4 bottom-[calc(72px+env(safe-area-inset-bottom,0px))] z-50 animate-slideUp md:bottom-5 md:left-auto md:right-5 md:max-w-sm">
+      <div className="flex items-center gap-3 rounded-xl border bg-card p-3 shadow-sm">
+        <p className="text-xs leading-relaxed text-muted-foreground">
+          This site uses Umami analytics to understand how visitors interact with the site. No
+          personal data is collected.
+        </p>
         <button
           type="button"
           onClick={accept}
-          className="mt-2 text-xs font-medium text-primary hover:underline"
+          className="shrink-0 rounded-lg bg-accent px-3 py-3 text-xs font-medium text-accent-foreground"
         >
           Got it
         </button>

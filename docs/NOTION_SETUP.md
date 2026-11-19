@@ -100,7 +100,6 @@ NOTION_DATABASE_ID=...            # Bookmarks
 NOTION_BLOG_DATABASE_ID=...       # Blog
 NOTION_SKILLS_DATABASE_ID=...     # Skills
 NOTION_EXPERIENCE_DATABASE_ID=... # Experience
-REVALIDATE_TIME=3600
 ```
 
 Replace:

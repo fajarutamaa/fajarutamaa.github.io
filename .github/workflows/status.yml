@@ -1,0 +1,48 @@
+name: Monitor website status
+
+on:
+  schedule:
+    - cron: '2-59/5 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: website-status
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    if: github.ref_name == github.event.repository.default_branch
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Collect and publish the public snapshot
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          ref=refs/heads/status-data
+          snapshot="$RUNNER_TEMP/website-status.json"
+          parent=()
+          if git ls-remote --exit-code origin "$ref" > /dev/null; then
+            git fetch --no-tags --depth=1 origin "$ref"
+            parent=(-p "$(git rev-parse FETCH_HEAD)")
+            git show "FETCH_HEAD:status.json" > "$snapshot"
+          elif [ "$?" -ne 2 ]; then
+            exit 1
+          fi
+
+          node scripts/collect-status.mjs "$snapshot"
+          blob=$(git hash-object -w "$snapshot")
+          tree=$(printf '100644 blob %s\tstatus.json\n' "$blob" | git mktree)
+          commit=$(git -c user.name='github-actions[bot]' \
+            -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+            commit-tree "$tree" "${parent[@]}" -m 'chore(status): record website check')
+          git push origin "$commit:$ref"

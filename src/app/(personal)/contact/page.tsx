@@ -1,5 +1,6 @@
 import { Mail, MapPin, Clock } from 'lucide-react';
 import { ContactForm } from '@/components/contact/ContactForm';
+import { PageIntro } from '@/components/layout/PageIntro';
 
 export const metadata = {
   title: 'Contact - Fajar Dwi Utomo',
@@ -19,17 +20,16 @@ const contactInfo = [
 
 export default function ContactPage() {
   return (
-    <div className="container max-w-[680px] lg:max-w-[900px] py-12 space-y-10 animate-pageEnter">
-      <section className="max-w-lg">
-        <h1 className="text-2xl font-semibold tracking-tight mb-2">Get In Touch</h1>
-        <p className="text-sm text-muted-foreground">
-          I&apos;m always open to discussing new projects, creative ideas, or opportunities.
-        </p>
-      </section>
+    <div className="site-container space-y-8 py-10 sm:space-y-10 sm:py-14">
+      <PageIntro
+        label="Contact"
+        title="Get in touch"
+        description="Have a project in mind, a question, or just want to say hello? I’d love to hear from you."
+      />
 
       <div className="grid md:grid-cols-2 gap-10">
         <section className="space-y-4">
-          <h2 className="text-sm font-medium text-muted-foreground">Contact Information</h2>
+          <h2 className="section-title">Contact information</h2>
           <div className="space-y-3">
             {contactInfo.map((item) => {
               const Icon = item.icon;
@@ -38,17 +38,17 @@ export default function ContactPage() {
                   <a
                     key={item.label}
                     href={item.href}
-                    className="flex items-center gap-3 p-3 rounded-lg border border-border/50 hover:border-border transition-colors text-sm"
+                    className="interactive-card flex min-h-12 items-center gap-3 rounded-lg border bg-card px-3 text-sm"
                   >
                     <Icon size={14} className="text-muted-foreground shrink-0" />
-                    <span className="text-foreground">{item.value}</span>
+                    <span className="break-all text-foreground">{item.value}</span>
                   </a>
                 );
               }
               return (
                 <div
                   key={item.label}
-                  className="flex items-center gap-3 p-3 rounded-lg border border-border/50 text-sm"
+                  className="flex min-h-12 items-center gap-3 rounded-lg border bg-card px-3 text-sm"
                 >
                   <Icon size={14} className="text-muted-foreground shrink-0" />
                   <span className="text-muted-foreground">
@@ -61,7 +61,7 @@ export default function ContactPage() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-sm font-medium text-muted-foreground">Send a Message</h2>
+          <h2 className="section-title">Send a message</h2>
           <ContactForm />
         </section>
       </div>

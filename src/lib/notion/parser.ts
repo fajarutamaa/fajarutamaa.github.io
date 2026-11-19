@@ -116,7 +116,3 @@ export function parseNotionExperience(page: NotionPage): Experience {
     current,
   };
 }
-
-export function parseNotionPages(pages: NotionPage[]): Bookmark[] {
-  return pages.map(parseNotionPage);
-}

@@ -1,18 +1,18 @@
+import { isFullBlock } from '@notionhq/client';
 import {
   notion,
   NOTION_DATABASE_ID,
   NOTION_BLOG_DATABASE_ID,
   NOTION_SKILLS_DATABASE_ID,
   NOTION_EXPERIENCE_DATABASE_ID,
-  REVALIDATE_TIME,
 } from './client';
 import {
-  parseNotionPages,
+  parseNotionPage,
   parseNotionBlogPost,
   parseNotionSkill,
   parseNotionExperience,
 } from './parser';
-import { Bookmark, NotionPage, BlogPost, Skill, Experience } from './types';
+import type { Bookmark, NotionPage, BlogPost, Skill, Experience } from './types';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { getCached, CACHE_TTL } from '@/lib/cache';
@@ -28,96 +28,86 @@ async function readJsonFile<T>(filename: string): Promise<T[]> {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type NotionDb = { query: (args: any) => Promise<{ results: NotionPage[] }> };
+type NotionQuery = Parameters<typeof notion.databases.query>[0];
 
-export async function getBookmarks(): Promise<Bookmark[]> {
-  return getCached('bookmarks', CACHE_TTL.bookmarks, async () => {
-    try {
-      if (!process.env.NOTION_API_KEY || !NOTION_DATABASE_ID) {
-        return getBookmarksFromJSON();
+function queryNotion<T>(
+  key: 'bookmarks' | 'blogPosts' | 'skills' | 'experience',
+  query: NotionQuery,
+  parse: (page: NotionPage) => T,
+  fallback: () => Promise<T[]>
+): Promise<T[]> {
+  return getCached(key, CACHE_TTL[key], async () => {
+    if (process.env.NOTION_API_KEY && query.database_id) {
+      try {
+        const { results } = await notion.databases.query(query);
+        return results.map((page) => parse(page as NotionPage));
+      } catch (error) {
+        console.error(`Error fetching ${key} from Notion:`, error);
       }
-
-      const response = await (notion.databases as unknown as NotionDb).query({
-        database_id: NOTION_DATABASE_ID,
-        sorts: [{ property: 'Year', direction: 'descending' }],
-      });
-
-      return parseNotionPages(response.results);
-    } catch (error) {
-      console.error('Error fetching bookmarks from Notion:', error);
-      return getBookmarksFromJSON();
     }
+
+    return fallback();
   });
 }
 
-export async function getBlogPosts(): Promise<BlogPost[]> {
-  return getCached('blogPosts', CACHE_TTL.blogPosts, async () => {
-    try {
-      if (!process.env.NOTION_API_KEY || !NOTION_BLOG_DATABASE_ID) {
-        return readJsonFile<BlogPost>('blog.json');
+export function getBookmarks(): Promise<Bookmark[]> {
+  return queryNotion(
+    'bookmarks',
+    {
+      database_id: NOTION_DATABASE_ID,
+      sorts: [{ property: 'Year', direction: 'descending' }],
+    },
+    parseNotionPage,
+    async () => {
+      try {
+        const bookmarks = await readJsonFile<Omit<Bookmark, 'id'>>('bookmarks.json');
+        return bookmarks.map((bookmark) => {
+          const id = bookmark.name.toLowerCase().replace(/\s+/g, '-');
+          return { ...bookmark, id, slug: bookmark.slug || id };
+        });
+      } catch (error) {
+        console.error('Error reading bookmarks.json:', error);
+        return [];
       }
-
-      const response = await (notion.databases as unknown as NotionDb).query({
-        database_id: NOTION_BLOG_DATABASE_ID,
-        filter: {
-          property: 'Published',
-          checkbox: { equals: true },
-        },
-        sorts: [{ property: 'Date', direction: 'descending' }],
-      });
-
-      return response.results.map(parseNotionBlogPost);
-    } catch (error) {
-      console.error('Error fetching blog posts from Notion:', error);
-      return readJsonFile<BlogPost>('blog.json');
     }
-  });
+  );
 }
 
-export async function getSkills(): Promise<Skill[]> {
-  return getCached('skills', CACHE_TTL.skills, async () => {
-    try {
-      if (!process.env.NOTION_API_KEY || !NOTION_SKILLS_DATABASE_ID) {
-        return readJsonFile<Skill>('skills.json');
-      }
-
-      const response = await (notion.databases as unknown as NotionDb).query({
-        database_id: NOTION_SKILLS_DATABASE_ID,
-        sorts: [{ property: 'Name', direction: 'ascending' }],
-      });
-
-      return response.results.map(parseNotionSkill);
-    } catch (error) {
-      console.error('Error fetching skills from Notion:', error);
-      return readJsonFile<Skill>('skills.json');
-    }
-  });
+export function getBlogPosts(): Promise<BlogPost[]> {
+  return queryNotion(
+    'blogPosts',
+    {
+      database_id: NOTION_BLOG_DATABASE_ID,
+      filter: { property: 'Published', checkbox: { equals: true } },
+      sorts: [{ property: 'Date', direction: 'descending' }],
+    },
+    parseNotionBlogPost,
+    () => readJsonFile('blog.json')
+  );
 }
 
-export async function getExperience(): Promise<Experience[]> {
-  return getCached('experience', CACHE_TTL.experience, async () => {
-    try {
-      if (!process.env.NOTION_API_KEY || !NOTION_EXPERIENCE_DATABASE_ID) {
-        return readJsonFile<Experience>('experience.json');
-      }
-
-      const response = await (notion.databases as unknown as NotionDb).query({
-        database_id: NOTION_EXPERIENCE_DATABASE_ID,
-        sorts: [{ property: 'Period', direction: 'descending' }],
-      });
-
-      return response.results.map(parseNotionExperience);
-    } catch (error) {
-      console.error('Error fetching experience from Notion:', error);
-      return readJsonFile<Experience>('experience.json');
-    }
-  });
+export function getSkills(): Promise<Skill[]> {
+  return queryNotion(
+    'skills',
+    {
+      database_id: NOTION_SKILLS_DATABASE_ID,
+      sorts: [{ property: 'Name', direction: 'ascending' }],
+    },
+    parseNotionSkill,
+    () => readJsonFile('skills.json')
+  );
 }
 
-export async function getBookmarkBySlug(slug: string): Promise<Bookmark | null> {
-  const bookmarks = await getBookmarks();
-  return bookmarks.find((b) => b.slug === slug) || null;
+export function getExperience(): Promise<Experience[]> {
+  return queryNotion(
+    'experience',
+    {
+      database_id: NOTION_EXPERIENCE_DATABASE_ID,
+      sorts: [{ property: 'Period', direction: 'descending' }],
+    },
+    parseNotionExperience,
+    () => readJsonFile('experience.json')
+  );
 }
 
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
@@ -132,31 +122,14 @@ export async function getPageBlocks(pageId: string) {
         return [];
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const response = await (notion.blocks.children as any).list({
+      const response = await notion.blocks.children.list({
         block_id: pageId,
       });
 
-      return response.results;
+      return response.results.filter(isFullBlock);
     } catch (error) {
       console.error('Error fetching page blocks:', error);
       return [];
     }
   });
 }
-
-async function getBookmarksFromJSON(): Promise<Bookmark[]> {
-  try {
-    const bookmarks = await readJsonFile<Bookmark>('bookmarks.json');
-    return bookmarks.map((bookmark) => ({
-      ...bookmark,
-      id: bookmark.name.toLowerCase().replace(/\s+/g, '-'),
-      slug: bookmark.slug || bookmark.name.toLowerCase().replace(/\s+/g, '-'),
-    }));
-  } catch (error) {
-    console.error('Error reading bookmarks.json:', error);
-    return [];
-  }
-}
-
-export { REVALIDATE_TIME };

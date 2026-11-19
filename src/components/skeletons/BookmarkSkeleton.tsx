@@ -1,10 +1,10 @@
 export function BookmarkSkeleton({ count = 4 }: { count?: number }) {
   return (
-    <div className="grid md:grid-cols-2 gap-5">
+    <div className="grid gap-4 sm:grid-cols-2" aria-hidden="true">
       {Array.from({ length: count }).map((_, i) => (
-        <div key={i} className="rounded-xl overflow-hidden border border-border/50 bg-card">
-          <div className="aspect-[16/9] bg-muted animate-shimmer" />
-          <div className="p-4 space-y-2">
+        <div key={i} className="overflow-hidden rounded-2xl border bg-card">
+          <div className="aspect-[2/1] animate-shimmer bg-muted" />
+          <div className="space-y-3 p-4 sm:p-5">
             <div className="flex items-center justify-between gap-2">
               <div className="h-4 bg-muted rounded animate-shimmer w-3/4" />
               <div className="h-3 bg-muted rounded animate-shimmer w-8" />

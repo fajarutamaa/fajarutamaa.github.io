@@ -15,17 +15,17 @@ export const BookmarkCard = memo(function BookmarkCard({ bookmark, index }: Book
       href={bookmark.website}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative block rounded-2xl overflow-hidden glass-card"
+      className="interactive-card group block overflow-hidden rounded-2xl border bg-card"
     >
-      <div className="relative aspect-[16/9] overflow-hidden bg-muted">
+      <div className="relative aspect-[2/1] overflow-hidden border-b bg-muted">
         {bookmark.thumbnail ? (
           <Image
             src={bookmark.thumbnail}
-            alt={bookmark.name}
+            alt=""
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-transform duration-300 motion-safe:group-hover:scale-[1.025]"
             quality={80}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            sizes="(max-width: 639px) 100vw, (max-width: 960px) 50vw, 440px"
             loading={index === 0 ? 'eager' : 'lazy'}
           />
         ) : (
@@ -33,36 +33,36 @@ export const BookmarkCard = memo(function BookmarkCard({ bookmark, index }: Book
             <ArrowUpRight size={18} />
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        <div className="absolute top-3 right-3 p-1.5 rounded-full glass opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
-          <ArrowUpRight size={13} className="text-foreground" />
-        </div>
       </div>
 
-      <div className="p-4 space-y-2">
-        <div className="flex items-start justify-between gap-2">
-          <h3 className="font-medium text-[13px] text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-1">
+      <div className="space-y-2.5 p-4 sm:p-5">
+        <div className="flex items-start justify-between gap-3">
+          <h3 className="pt-1 text-base font-semibold tracking-tight transition-colors group-hover:text-primary">
             {bookmark.name}
           </h3>
-          <span className="text-[10px] text-muted-foreground shrink-0">{bookmark.year}</span>
+          <span
+            aria-hidden="true"
+            className="grid size-8 shrink-0 place-items-center rounded-lg bg-accent text-accent-foreground transition-colors group-hover:bg-primary group-hover:text-primary-foreground group-focus-visible:bg-primary group-focus-visible:text-primary-foreground"
+          >
+            <ArrowUpRight size={16} />
+          </span>
         </div>
 
-        <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+        <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">
           {bookmark.description}
         </p>
 
-        {bookmark.stack && bookmark.stack.length > 0 && (
-          <div className="flex flex-wrap gap-1 pt-0.5">
-            {bookmark.stack.map((tech) => (
-              <span
-                key={tech}
-                className="text-[9px] px-1.5 py-0.5 rounded-full bg-muted/60 text-muted-foreground"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        )}
+        <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
+          <span className="mr-1 font-mono text-xs text-muted-foreground">{bookmark.year}</span>
+          {bookmark.stack?.map((tech) => (
+            <span
+              key={tech}
+              className="rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
       </div>
     </Link>
   );

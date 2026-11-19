@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import { getBlogPosts } from '@/lib/notion/queries';
 import { BlogSearch } from '@/components/ui/BlogSearch';
 import { BlogPostSkeleton } from '@/components/skeletons';
+import { PageIntro } from '@/components/layout/PageIntro';
 
 export const metadata = {
   title: 'Blog - Fajar Dwi Utomo',
@@ -24,7 +25,7 @@ async function BlogStats() {
   }, 0);
 
   return (
-    <div className="flex items-center gap-4 text-xs text-muted-foreground">
+    <div className="flex flex-wrap items-center gap-2.5 text-xs text-muted-foreground">
       <span>
         {posts.length} {posts.length === 1 ? 'post' : 'posts'}
       </span>
@@ -40,16 +41,16 @@ async function BlogStats() {
 
 export default function BlogPage() {
   return (
-    <div className="container max-w-[680px] lg:max-w-[900px] py-12 space-y-10 animate-pageEnter">
-      <section className="space-y-2">
-        <h1 className="text-2xl font-semibold tracking-tight">Blog</h1>
-        <p className="text-sm text-muted-foreground">
-          Thoughts on software development and technology.
-        </p>
+    <div className="site-container space-y-8 py-10 sm:space-y-10 sm:py-14">
+      <PageIntro
+        label="Writing"
+        title="Blog"
+        description="Notes on software development, web technology, and what I learn while building."
+      >
         <Suspense fallback={null}>
           <BlogStats />
         </Suspense>
-      </section>
+      </PageIntro>
 
       <Suspense fallback={<BlogPostSkeleton />}>
         <BlogPostsList />

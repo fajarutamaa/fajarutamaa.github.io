@@ -39,7 +39,10 @@ export function TableOfContents({ items }: TableOfContentsProps) {
   if (items.length === 0) return null;
 
   return (
-    <nav className="hidden lg:block sticky top-24 w-56 shrink-0 max-h-[calc(100vh-8rem)] overflow-y-auto">
+    <nav
+      aria-label="On this page"
+      className="sticky top-24 hidden max-h-[calc(100vh-8rem)] w-48 shrink-0 self-start overflow-y-auto lg:block"
+    >
       <div className="space-y-3">
         <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
           <ListOrdered size={12} />
@@ -51,6 +54,7 @@ export function TableOfContents({ items }: TableOfContentsProps) {
             <a
               key={id}
               href={`#${id}`}
+              aria-current={activeId === id ? 'location' : undefined}
               className={`block text-xs py-1 transition-colors ${level === 2 ? 'pl-3' : 'pl-6'} ${
                 activeId === id
                   ? 'text-primary font-medium border-l border-primary -ml-px'
