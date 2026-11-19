@@ -12,8 +12,8 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="container max-w-[680px] lg:max-w-[900px] py-12 space-y-16 animate-pageEnter">
-      <section>
+    <div className="site-container space-y-10 py-10 sm:space-y-14 sm:py-14">
+      <section className="border-b pb-8">
         <div className="flex flex-col md:flex-row gap-8 items-start">
           <div className="relative shrink-0">
             <Image
@@ -29,7 +29,8 @@ export default function AboutPage() {
 
           <div className="flex-1 space-y-4">
             <div>
-              <h1 className="text-3xl font-semibold tracking-tight mb-1">Fajar Dwi Utomo</h1>
+              <p className="eyebrow mb-2">About</p>
+              <h1 className="page-title mb-2">Fajar Dwi Utomo</h1>
               <p className="text-base text-muted-foreground">Junior Software Engineer</p>
             </div>
 
@@ -61,7 +62,7 @@ export default function AboutPage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-lg font-semibold tracking-tight">About Me</h2>
+        <h2 className="section-title">About me</h2>
         <div className="prose prose-neutral dark:prose-invert max-w-none text-muted-foreground leading-relaxed text-[15px] space-y-4">
           <p>
             Hi! I&apos;m Fajar Dwi Utomo, a passionate Junior Software Engineer with a love for
@@ -99,14 +100,14 @@ export default function AboutPage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-lg font-semibold tracking-tight">Skills & Technologies</h2>
+        <h2 className="section-title">Skills & technologies</h2>
         <Suspense fallback={<SkillsGridSkeleton />}>
           <SkillsGrid />
         </Suspense>
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-lg font-semibold tracking-tight">Experience & Education</h2>
+        <h2 className="section-title">Experience & education</h2>
         <Suspense fallback={<TimelineSkeleton />}>
           <Timeline />
         </Suspense>

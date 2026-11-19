@@ -16,7 +16,7 @@ Pre-commit runs `lint-staged` (Prettier + ESLint on staged `*.{js,jsx,ts,tsx}`).
 
 - **Next.js 15** App Router, TypeScript, Tailwind CSS (`class` dark mode), `@/*` → `./src/*`
 - **Notion CMS** with 4 databases (bookmarks, blog, skills, experience). Each query function falls back to a local JSON file in `data/` if Notion env vars are missing or the API call fails.
-- **ISR** everywhere: `export const revalidate = 3600`
+- **ISR** on content routes: `export const revalidate = 3600`
 - **Static export** via CI (GitHub Actions → GitHub Pages). The workflow at `.github/workflows/nextjs.yml` uses `actions/configure-pages` which auto-injects `basePath` and disables image optimization — do NOT add `output: 'export'` manually to `next.config.ts`.
 - **`reactStrictMode: false`** in `next.config.ts`
 - **Contact form** uses Web3Forms (server-side proxy at `src/app/api/contact/route.ts`). In dev mode without `NEXT_PUBLIC_WEB3FORMS_KEY`, messages are logged but not sent.
@@ -31,7 +31,6 @@ NOTION_SKILLS_DATABASE_ID=... # skills
 NOTION_EXPERIENCE_DATABASE_ID=...
 NEXT_PUBLIC_WEB3FORMS_KEY=... # contact form
 NEXT_PUBLIC_GITHUB_USERNAME=  # activity page (public API; optional GITHUB_TOKEN for higher rate limits)
-REVALIDATE_TIME=3600
 ```
 
 All env vars are optional — without them, the site uses JSON fallback data from `data/`.
@@ -42,8 +41,8 @@ All env vars are optional — without them, the site uses JSON fallback data fro
 src/
   app/(personal)/        # page routes: home(/), about, blog/[slug], projects, contact, activity
   app/api/contact/       # contact form handler (POST)
-  app/provider.tsx       # ThemeProvider + QueryClientProvider
-  components/            # ui/, layout/, about/, blog/, contact/, activity/, home/, projects/, mobile/, skeletons/, timeline/
+  app/provider.tsx       # ThemeProvider
+  components/            # ui/, layout/, about/, blog/, contact/, mobile/, skeletons/, timeline/
   lib/
     notion/              # client.ts, queries.ts, parser.ts, types.ts
     github/              # api.ts, types.ts (GitHub activity feed)

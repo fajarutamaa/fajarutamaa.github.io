@@ -1,7 +1,6 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import { Globe, Network, Palette, Database, type LucideIcon } from 'lucide-react';
-import { Reveal } from './Reveal';
 
 interface Service {
   title: string;
@@ -32,33 +31,28 @@ export async function ServicesSection() {
   if (services.length === 0) return null;
 
   return (
-    <section>
-      <Reveal>
-        <div className="flex items-center gap-3 mb-4">
-          <h2 className="text-sm font-medium text-muted-foreground">What I Do</h2>
-          <div className="flex-1 h-px bg-border/30" />
-        </div>
-      </Reveal>
-
-      <div className="grid sm:grid-cols-2 gap-2">
-        {services.map((service, index) => {
+    <section aria-labelledby="services-heading" className="space-y-5 border-t pt-10 sm:pt-12">
+      <div>
+        <p className="eyebrow accent-kicker">Capabilities</p>
+        <h2 id="services-heading" className="section-title mt-1">
+          What I do
+        </h2>
+      </div>
+      <div className="grid gap-px overflow-hidden rounded-2xl border bg-border sm:grid-cols-2">
+        {services.map((service) => {
           const Icon = iconMap[service.icon] || Globe;
           return (
-            <Reveal key={service.title} delay={index * 80}>
-              <div className="group glass-card p-4 rounded-2xl">
-                <div className="flex items-start gap-3">
-                  <div className="p-2 rounded-xl bg-primary/8 text-primary shrink-0 transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
-                    <Icon size={16} />
-                  </div>
-                  <div className="space-y-1">
-                    <h3 className="font-medium text-[13px]">{service.title}</h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
-                      {service.description}
-                    </p>
-                  </div>
-                </div>
+            <div key={service.title} className="flex items-start gap-3 bg-card p-4 sm:p-5">
+              <div className="shrink-0 rounded-xl border border-primary/10 bg-accent p-2.5 text-accent-foreground">
+                <Icon size={17} aria-hidden="true" />
               </div>
-            </Reveal>
+              <div className="space-y-1">
+                <h3 className="text-sm font-semibold">{service.title}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  {service.description}
+                </p>
+              </div>
+            </div>
           );
         })}
       </div>

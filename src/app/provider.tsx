@@ -8,7 +8,7 @@ export const Provider = ({ children }: { children: React.ReactNode }) => {
       attribute="class"
       defaultTheme="system"
       enableSystem
-      disableTransitionOnChange={false}
+      disableTransitionOnChange
       storageKey="portfolio-theme"
     >
       {children}

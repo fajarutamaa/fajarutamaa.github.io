@@ -3,9 +3,14 @@ import { Suspense } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Calendar, Clock, Tag, ChevronLeft, ChevronRight } from 'lucide-react';
 import { getBlogPostBySlug, getPageBlocks, getBlogPosts } from '@/lib/notion/queries';
-import { NotionBlockRenderer, ReadingProgressBar, ShareButtons } from '@/components/blog';
-import { RelatedPosts } from '@/components/blog/RelatedPosts';
-import { TableOfContents } from '@/components/blog/TableOfContents';
+import {
+  NotionBlockRenderer,
+  ReadingProgressBar,
+  RelatedPosts,
+  ShareButtons,
+  TableOfContents,
+} from '@/components/blog';
+import { SavePostButton } from '@/components/blog/SavePostButton';
 import type { NotionBlock } from '@/lib/notion/types';
 import type { Metadata } from 'next';
 
@@ -130,13 +135,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     <>
       <ReadingProgressBar />
 
-      <div className="container max-w-[680px] lg:max-w-[900px] py-12 animate-pageEnter">
+      <div className="site-container py-10 sm:py-14">
         <Link
           href="/blog"
           className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
         >
           <ArrowLeft size={14} />
-          Back
+          Back to blog
         </Link>
 
         <div className="flex gap-10 mt-6">
@@ -157,13 +162,21 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </span>
               </div>
 
-              <h1 className="text-3xl md:text-4xl font-semibold tracking-tight leading-tight">
-                {post.title}
-              </h1>
+              <h1 className="page-title">{post.title}</h1>
 
               <p className="text-[15px] text-muted-foreground leading-relaxed border-l-2 border-border pl-4">
                 {post.excerpt}
               </p>
+
+              <div className="flex flex-wrap items-center gap-3">
+                <SavePostButton slug={post.slug} title={post.title} />
+                <Link
+                  href="/blog?view=saved"
+                  className="rounded text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                >
+                  Reading list
+                </Link>
+              </div>
             </header>
 
             <hr className="border-border/50" />

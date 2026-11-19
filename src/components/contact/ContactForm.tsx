@@ -59,7 +59,7 @@ export function ContactForm() {
           type="text"
           id="name"
           placeholder="Your name"
-          className={`w-full px-4 py-2.5 text-sm rounded-xl glass-subtle transition-all duration-200 outline-none placeholder:text-muted-foreground/40 ${
+          className={`control-surface min-h-11 w-full rounded-xl px-4 py-2.5 text-sm transition-colors placeholder:text-muted-foreground ${
             errors.name ? 'border-red-400' : 'focus:border-foreground/30 focus:bg-background/80'
           }`}
         />
@@ -72,7 +72,7 @@ export function ContactForm() {
           type="email"
           id="email"
           placeholder="your.email@example.com"
-          className={`w-full px-4 py-2.5 text-sm rounded-xl glass-subtle transition-all duration-200 outline-none placeholder:text-muted-foreground/40 ${
+          className={`control-surface min-h-11 w-full rounded-xl px-4 py-2.5 text-sm transition-colors placeholder:text-muted-foreground ${
             errors.email ? 'border-red-400' : 'focus:border-foreground/30 focus:bg-background/80'
           }`}
         />
@@ -85,7 +85,7 @@ export function ContactForm() {
           type="text"
           id="subject"
           placeholder="What's this about?"
-          className={`w-full px-4 py-2.5 text-sm rounded-xl glass-subtle transition-all duration-200 outline-none placeholder:text-muted-foreground/40 ${
+          className={`control-surface min-h-11 w-full rounded-xl px-4 py-2.5 text-sm transition-colors placeholder:text-muted-foreground ${
             errors.subject ? 'border-red-400' : 'focus:border-foreground/30 focus:bg-background/80'
           }`}
         />
@@ -98,7 +98,7 @@ export function ContactForm() {
           id="message"
           rows={5}
           placeholder="Your message..."
-          className={`w-full px-4 py-2.5 text-sm rounded-xl glass-subtle transition-all duration-200 outline-none resize-none placeholder:text-muted-foreground/40 ${
+          className={`control-surface w-full resize-y rounded-xl px-4 py-2.5 text-sm transition-colors placeholder:text-muted-foreground ${
             errors.message ? 'border-red-400' : 'focus:border-foreground/30 focus:bg-background/80'
           }`}
         />
@@ -108,7 +108,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full px-5 py-2.5 glass-card rounded-xl text-sm font-medium hover:bg-foreground hover:text-background transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+        className="action-link w-full bg-primary text-primary-foreground hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-40"
       >
         {isSubmitting ? (
           <>

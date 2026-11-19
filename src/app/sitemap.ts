@@ -12,6 +12,8 @@ const staticRoutes = [
   { url: '/projects', priority: 0.8 },
   { url: '/activity', priority: 0.7 },
   { url: '/contact', priority: 0.8 },
+  { url: '/playground', priority: 0.7 },
+  { url: '/status', priority: 0.5 },
 ];
 
 export default async function sitemap() {

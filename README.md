@@ -8,10 +8,12 @@ A modern portfolio built with Next.js 15, TypeScript, Tailwind CSS, and Notion a
 - **Dark/Light Mode** — System preference with manual toggle
 - **ISR** — Incremental Static Regeneration for fast loads
 - **SEO** — Dynamic sitemap.xml, robots.txt, RSS feed for blog
-- **Animations** — Scroll reveal, page transitions, floating orbs
+- **Reading List** — Save blog posts for later in your browser, without an account
+- **Search Playground** — Experiment with filters and see how keywords affect ranking
+- **Website Status** — Sampled availability, response times, and GitHub Pages deploy history
+- **Accessible UI** — Keyboard navigation, clear focus states, and reduced-motion support
 - **Activity Feed** — GitHub contribution timeline with heatmap
 - **Contact Form** — Server-side proxy via Web3Forms with Zod validation
-- **Floating CTA** — "Let's Talk" button appears on scroll
 - **Cookie Consent** — Privacy banner for Umami analytics
 - **Services Section** — Showcase offerings on the home page
 - **Responsive** — Mobile-first with bottom navigation on small screens
@@ -21,7 +23,7 @@ A modern portfolio built with Next.js 15, TypeScript, Tailwind CSS, and Notion a
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 22+ (matches CI and supports the built-in TypeScript test runner)
 - Optional: Notion account (site works without it)
 
 ### Installation
@@ -47,7 +49,6 @@ NOTION_EXPERIENCE_DATABASE_ID=      # Experience database
 NEXT_PUBLIC_WEB3FORMS_KEY=          # Contact form (Web3Forms)
 NEXT_PUBLIC_GITHUB_USERNAME=        # GitHub activity feed
 GITHUB_TOKEN=                       # Higher rate limit for GitHub API
-REVALIDATE_TIME=3600                # ISR revalidation interval
 ```
 
 ## Scripts
@@ -57,6 +58,7 @@ npm run dev          # dev server at localhost:3000
 npm run build        # production build (static export via CI)
 npm run start        # start production server
 npm run lint         # ESLint
+npm test             # unit tests
 npm run format       # Prettier write
 npm run format:check # Prettier check
 ```
@@ -69,21 +71,22 @@ src/
     sitemap.ts              # auto-generated sitemap.xml
     robots.ts               # robots.txt
     rss.xml/route.ts        # RSS feed
-    (personal)/             # page routes: /, /about, /blog, /projects, /activity, /contact
+    (personal)/             # page routes: /, /about, /blog, /projects, /activity, /contact, /playground
     api/contact/            # contact form POST handler
     layout.tsx              # root layout + Umami + Google Search Console
     globals.css             # design tokens, animations, utilities
   components/
-    ui/                     # Hero, BookmarkCard, ErrorBoundary, Reveal, FloatingCTA, CookieConsent
+    ui/                     # Hero, BookmarkCard, ErrorBoundary, CookieConsent
     layout/                 # Header, Footer
     about/                  # SkillsGrid, Timeline
     blog/                   # NotionBlockRenderer, ShareButtons, ReadingProgressBar
     contact/                # ContactForm
-    activity/               # ActivityTimeline, ContributionHeatmap, TimelineItem
+    playground/             # Interactive search demo
+    timeline/               # ActivityTimeline, ContributionHeatmap, TimelineItem
     mobile/                 # BottomNavigation
     skeletons/              # Shimmer loading states
   hooks/
-    useReveal.ts            # IntersectionObserver scroll reveal hook
+    useUrlFilters.ts        # Shareable search and filter state
   lib/
     notion/                 # Notion client, queries, parser, types
     github/                 # GitHub activity API
@@ -103,7 +106,21 @@ Each section (bookmarks, blog, skills, experience) queries a Notion database and
 
 **Alternative**: Vercel (connect repo, add env vars, deploy).
 
+### Status monitoring
+
+The **Monitor website status** GitHub Actions workflow checks the production homepage and
+queries the Pages deployment workflow on the default branch. After merging to `main`, wait for
+the next scheduled run or run it once manually from the Actions tab. The first successful run
+creates the `status-data` branch and publishes a public `status.json` with seven days of checks
+and the latest deployment summary. No additional secrets are needed; the workflow uses the
+repository token and requires permission to push to `status-data`.
+
+The static `/status` page reads that public snapshot and refreshes about once a minute while
+visible. Actions aims to run every five minutes, but runs and raw-file updates can be delayed.
+Availability describes successful samples (HTTP 2xx), not continuous uptime. The dashboard
+flags the last measurement as stale after 20 minutes. A fork needs to update the production
+URL in `scripts/collect-status.mjs` and the repository in `src/lib/status/snapshot.ts`.
+
 ## License
 
 MIT
-

@@ -16,14 +16,6 @@ export function getCached<T>(key: string, ttlMs: number, fetcher: () => Promise<
   });
 }
 
-export function invalidateCache(prefix: string): void {
-  for (const key of memoryCache.keys()) {
-    if (key.startsWith(prefix)) {
-      memoryCache.delete(key);
-    }
-  }
-}
-
 export const CACHE_TTL = {
   bookmarks: 60_000,
   blogPosts: 60_000,

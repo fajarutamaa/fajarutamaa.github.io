@@ -1,6 +1,5 @@
 import { Star, GitFork, BookOpen, Users, UserPlus, Code2 } from 'lucide-react';
 import { getGitHubStats } from '@/lib/github/stats';
-import { Reveal } from './Reveal';
 
 export async function GitHubStats() {
   const stats = await getGitHubStats();
@@ -16,44 +15,35 @@ export async function GitHubStats() {
   ];
 
   return (
-    <section>
-      <Reveal>
-        <div className="flex items-center gap-3 mb-4">
-          <h2 className="text-sm font-medium text-muted-foreground">GitHub Stats</h2>
-          <div className="flex-1 h-px bg-border/30" />
-        </div>
-      </Reveal>
-
-      <div className="grid grid-cols-5 gap-2">
-        {items.map((item, index) => {
-          const Icon = item.icon;
-          return (
-            <Reveal key={item.label} delay={index * 50}>
-              <div className="glass-card p-3 rounded-2xl text-center">
-                <Icon size={13} className="mx-auto text-muted-foreground/60 mb-1" />
-                <p className="text-sm md:text-base font-semibold tabular-nums">{item.value}</p>
-                <p className="text-[9px] text-muted-foreground mt-0.5">{item.label}</p>
-              </div>
-            </Reveal>
-          );
-        })}
-      </div>
+    <section aria-labelledby="github-heading" className="space-y-4 border-t pt-10 sm:pt-12">
+      <h2 id="github-heading" className="section-title">
+        GitHub stats
+      </h2>
+      <dl className="flex flex-wrap gap-2">
+        {items.map(({ label, value, icon: Icon }) => (
+          <div
+            key={label}
+            className="min-w-[5.75rem] flex-1 space-y-1 rounded-xl border bg-card p-3 sm:p-4"
+          >
+            <dt className="flex items-center gap-1.5 text-xs text-muted-foreground">
+              <Icon size={13} aria-hidden="true" />
+              {label}
+            </dt>
+            <dd className="text-xl font-semibold tabular-nums">{value}</dd>
+          </div>
+        ))}
+      </dl>
 
       {stats.topLanguages.length > 0 && (
-        <Reveal>
-          <div className="flex flex-wrap items-center gap-2 mt-3 text-[10px] text-muted-foreground">
-            <Code2 size={11} />
-            {stats.topLanguages.map((lang) => (
-              <span key={lang.name} className="inline-flex items-center gap-1.5">
-                <span
-                  className="w-1.5 h-1.5 rounded-full"
-                  style={{ backgroundColor: lang.color }}
-                />
-                {lang.name}
-              </span>
-            ))}
-          </div>
-        </Reveal>
+        <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
+          <Code2 size={11} />
+          {stats.topLanguages.map((lang) => (
+            <span key={lang.name} className="inline-flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: lang.color }} />
+              {lang.name}
+            </span>
+          ))}
+        </div>
       )}
     </section>
   );

@@ -9,7 +9,7 @@ export default function NotFound() {
       <div className="text-center space-y-5 max-w-sm animate-fadeIn">
         <div className="space-y-1">
           <p className="text-6xl sm:text-7xl font-bold tracking-tight">
-            <span className="gradient-text">404</span>
+            <span className="text-primary">404</span>
           </p>
           <p className="text-muted-foreground text-sm">Page not found</p>
         </div>
@@ -21,7 +21,7 @@ export default function NotFound() {
         <div className="flex items-center justify-center gap-2 pt-2">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-4 py-2 text-sm glass-card rounded-full font-medium"
+            className="action-link bg-primary text-primary-foreground hover:bg-primary/90"
           >
             <Home size={14} />
             Home
@@ -29,7 +29,7 @@ export default function NotFound() {
           <button
             type="button"
             onClick={() => window.history.back()}
-            className="inline-flex items-center gap-2 px-4 py-2 text-sm glass-card rounded-full font-medium text-muted-foreground hover:text-foreground"
+            className="action-link border bg-card hover:bg-muted"
           >
             <ArrowLeft size={14} />
             Back

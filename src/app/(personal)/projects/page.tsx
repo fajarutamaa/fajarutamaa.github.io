@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import { getBookmarks } from '@/lib/notion/queries';
 import { ProjectFilter } from '@/components/ui/ProjectFilter';
 import { BookmarkSkeleton } from '@/components/skeletons';
+import { PageIntro } from '@/components/layout/PageIntro';
 
 export const metadata = {
   title: 'Projects - Fajar Dwi Utomo',
@@ -17,13 +18,12 @@ async function ProjectsGrid() {
 
 export default function ProjectsPage() {
   return (
-    <div className="container max-w-[680px] lg:max-w-[900px] py-12 space-y-10 animate-pageEnter">
-      <section className="space-y-2">
-        <h1 className="text-2xl font-semibold tracking-tight">Projects & Bookmarks</h1>
-        <p className="text-sm text-muted-foreground">
-          A collection of projects I&apos;ve worked on and resources I find valuable.
-        </p>
-      </section>
+    <div className="site-container space-y-8 py-10 sm:space-y-10 sm:py-14">
+      <PageIntro
+        label="Work & resources"
+        title="Projects & bookmarks"
+        description="Projects I’ve worked on and resources I’ve found useful along the way."
+      />
 
       <section>
         <Suspense fallback={<BookmarkSkeleton />}>

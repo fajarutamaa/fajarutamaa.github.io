@@ -10,9 +10,7 @@ export function ReadingProgressBar() {
       const scrollPx = document.documentElement.scrollTop;
       const winHeightPx =
         document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (scrollPx / winHeightPx) * 100;
-
-      setProgress(scrolled);
+      setProgress(winHeightPx > 0 ? Math.min(100, Math.max(0, (scrollPx / winHeightPx) * 100)) : 0);
     };
 
     window.addEventListener('scroll', updateProgress, { passive: true });
@@ -24,8 +22,8 @@ export function ReadingProgressBar() {
   return (
     <div className="fixed top-0 left-0 right-0 z-50 h-[2px] bg-transparent pointer-events-none">
       <div
-        className="h-full bg-foreground/20 transition-all duration-200 ease-out"
-        style={{ width: `${Math.min(progress, 100)}%` }}
+        className="h-full bg-primary"
+        style={{ width: `${progress}%` }}
         role="progressbar"
         aria-valuenow={Math.round(progress)}
         aria-valuemin={0}
